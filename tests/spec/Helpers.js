@@ -12,3 +12,7 @@ beforeEach(function() {
 		console.log(xhr.method, xhr.url, xhr.requestBody);
 	});
 });
+
+afterEach(function() {
+	this.server.restore();
+});
