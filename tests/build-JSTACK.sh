@@ -6,14 +6,16 @@ LIST+=" JSTACK.fixtures.js"
 LIST+=" JSTACK.Keystone.init.js"
 LIST+=" JSTACK.Keystone.js"
 LIST+=" RegionModel.js"
+LIST+=" ImageModel.js"
 
 
 HORIZON=" ../js/models/RegionModel.js"
+HORIZON+=" ../js/models/ImageModel.js"
 
 HEADER="/home/ubuntu/dev/horizon-js/tests/Header.html"
 FOOTER="/home/ubuntu/dev/horizon-js/tests/Footer.html"
 PREFOOTER="/home/ubuntu/dev/horizon-js/tests/PreFooter.html"
-OUT="/home/ubuntu/dev/horizon-js/tests/RunTests.html"
+OUT="/home/ubuntu/dev/horizon-js/tests/JSTACK.RunTests.html"
 
 
 
