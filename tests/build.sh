@@ -5,11 +5,15 @@ LIST="Helpers.js"
 LIST+=" JSTACK.fixtures.js"
 LIST+=" JSTACK.Keystone.init.js"
 LIST+=" JSTACK.Keystone.js"
-#LIST+=" RegionModel.js"
+LIST+=" RegionModel.js"
 
-HEADER=/home/ubuntu/dev/horizon-js/tests/Header.html
-FOOTER=/home/ubuntu/dev/horizon-js/tests/Footer.html
-OUT=/home/ubuntu/dev/horizon-js/tests/RunTests.html
+
+HORIZON=" ../js/models/RegionModel.js"
+
+HEADER="/home/ubuntu/dev/horizon-js/tests/Header.html"
+FOOTER="/home/ubuntu/dev/horizon-js/tests/Footer.html"
+PREFOOTER="/home/ubuntu/dev/horizon-js/tests/PreFooter.html"
+OUT="/home/ubuntu/dev/horizon-js/tests/RunTests.html"
 
 
 
@@ -18,6 +22,13 @@ OUT=/home/ubuntu/dev/horizon-js/tests/RunTests.html
 	for i in ${LIST} ; do
 		echo -n '<script type="text/javascript" src="'
 		echo -n "spec/${i}"
+		echo -n '"></script>'
+		echo
+	done
+	cat $PREFOOTER
+	for i in ${HORIZON} ; do
+		echo -n '<script type="text/javascript" src="'
+		echo -n "${i}"
 		echo -n '"></script>'
 		echo
 	done
