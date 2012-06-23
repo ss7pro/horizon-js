@@ -14,7 +14,7 @@ describe("JSTACK Keystone tests", function() {
 		var fixture = this.fixtures.respKeystonePostTokens;
 
 		JSTACK.Keystone.authenticate(username, password, undefined, undefined, _ok, _err);
-		this.server.respondWith([200, {}, fixture])
+		this.server.respondWith([200, {}, fixture]);
 		this.server.respond();
 		expect(JSTACK.Keystone.params.currentstate).toEqual(JSTACK.Keystone.STATES.AUTHENTICATED);
 		expect(JSTACK.Keystone.params.token).toEqual('146282a8cc8742298dd9b03ed3c3d616');
