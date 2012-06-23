@@ -1,4 +1,4 @@
-describe("JSTACK", function() {
+describe("JSTACK Keystone tests", function() {
 
 	
 	beforeEach(function() {
@@ -11,11 +11,11 @@ describe("JSTACK", function() {
 	});
 
 
-	it("should authenticate", function() {
-		var username = 'pfedkow';
-		var password = 'pass';
+	it("Should authenticate.", function() {
+		var username = 'stackuser';
+		var password = 'stackpassword';
 		var _fret = undefined
-		this.fixture = this.fixtures.respKeystonePostTokens;
+		var fixture = this.fixtures.respKeystonePostTokens;
 
 		var _ok = function (resp) {
 			console.log('_ok:', JSON.stringify(resp));
@@ -25,9 +25,10 @@ describe("JSTACK", function() {
 		}
 
 		JSTACK.Keystone.authenticate(username, password, undefined, undefined, _ok, _err);
-		this.server.respondWith([200, {}, this.fixture])
+		this.server.respondWith([200, {}, fixture])
 		this.server.respond();
 		expect(JSTACK.Keystone.params.currentstate).toEqual(JSTACK.Keystone.STATES.AUTHENTICATED);
 		expect(JSTACK.Keystone.params.token).toEqual('146282a8cc8742298dd9b03ed3c3d616');
+		expect(JSTACK.Keystone.params.access).toEqual(JSON.parse(fixture).access);
 	});
 });
