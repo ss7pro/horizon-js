@@ -1,10 +1,11 @@
 #!/bin/bash
 
 
-LIST="JSTACK.Keystone.init.js"
+LIST="Helpers.js"
+LIST+=" JSTACK.fixtures.js"
+LIST+=" JSTACK.Keystone.init.js"
 LIST+=" JSTACK.Keystone.js"
-LIST+=" RegionModel.js"
-SPECDIR=/home/ubuntu/dev/horizon-js/tests/spec
+#LIST+=" RegionModel.js"
 
 HEADER=/home/ubuntu/dev/horizon-js/tests/Header.html
 FOOTER=/home/ubuntu/dev/horizon-js/tests/Footer.html
@@ -15,7 +16,10 @@ OUT=/home/ubuntu/dev/horizon-js/tests/RunTests.html
 (
 	cat $HEADER
 	for i in ${LIST} ; do
-		cat $SPECDIR/$i
+		echo -n '<script type="text/javascript" src="'
+		echo -n "spec/${i}"
+		echo -n '"></script>'
+		echo
 	done
 	cat $FOOTER
 ) > $OUT
