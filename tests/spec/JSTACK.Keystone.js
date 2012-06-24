@@ -10,7 +10,6 @@ describe("JSTACK Keystone tests", function() {
 	it("Should authenticate.", function() {
 		var username = 'stackuser';
 		var password = 'stackpassword';
-		var _fret = undefined
 		var fixture = this.fixtures.respKeystonePostTokens;
 
 		JSTACK.Keystone.authenticate(username, password, undefined, undefined, _ok, _err);
