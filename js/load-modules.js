@@ -14,7 +14,7 @@ function custom_require(urls, callback) {
 var loadOS = function() {
     $(document).ready(function(){
 
-        UTILS.Auth.initialize("http://mcu5.dit.upm.es:5000/v2.0/");
+        UTILS.Auth.initialize("http://178.239.138.10:5000/v2.0/");
 
         var fiRouter = new OSRouter();
 
@@ -158,7 +158,7 @@ var loadTemplates = function() {
 }
 
 var loadModules = function() {
-    custom_require([   "http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js",
+    custom_require([   "http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js",
                 "lib/underscore.js"
             ], function(someModule) {
                 loadTemplates();
