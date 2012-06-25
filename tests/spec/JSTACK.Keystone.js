@@ -21,7 +21,7 @@ describe("JSTACK Keystone tests", function() {
 	});
 
 	it("Should provide region list", function() {
-		var fixture = this.fixtures.respKeystoneEndpoints;
+        var fixture = this.fixtures.respKeystoneEndpoints;
         JSTACK.Keystone.params.currentstate = JSTACK.Keystone.STATES.AUTHENTICATED;
         JSTACK.Keystone.params.access = JSON.parse(fixture).access;
         var regions = JSTACK.Keystone.getregionlist();
