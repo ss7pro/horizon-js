@@ -2,7 +2,7 @@ describe("JSTACK Keystone tests", function() {
 
 	
 	beforeEach(function() {
-		this.url = 'http://127.0.0.1/v2.0/'
+		this.url = 'http://127.0.0.99/v2.0/'
 		JSTACK.Keystone.init(this.url)
 	});
 
@@ -27,5 +27,26 @@ describe("JSTACK Keystone tests", function() {
         var regions = JSTACK.Keystone.getregionlist();
         expect(regions[0].name).toEqual("r4cz2");
         expect(regions[1].name).toEqual("r4cz1");
+	});
+
+	it("Should provide valid endpoint", function() {
+        var fixture = this.fixtures.respKeystoneEndpoints;
+        JSTACK.Keystone.params.currentstate = JSTACK.Keystone.STATES.AUTHENTICATED;
+        JSTACK.Keystone.params.access = JSON.parse(fixture).access;
+        var r;
+//test getserviceendpoint without providing region name
+        r = JSTACK.Keystone.getserviceendpoint("compute");
+        expect(r.adminURL).toEqual("http://127.0.0.2:8774/v2/b6d0176ee858411caef6fca6a63bdd31");
+        expect(r.region).toEqual("r4cz2");
+//provide regoion name: r4cz1
+        JSTACK.Keystone.params.region = "r4cz1";
+        r = JSTACK.Keystone.getserviceendpoint("compute");
+        expect(r.adminURL).toEqual("http://127.0.0.1:8774/v2/b6d0176ee858411caef6fca6a63bdd31");
+        expect(r.region).toEqual("r4cz1");
+//provide regoion name: r4cz2
+        JSTACK.Keystone.params.region = "r4cz2";
+        r = JSTACK.Keystone.getserviceendpoint("compute");
+        expect(r.adminURL).toEqual("http://127.0.0.2:8774/v2/b6d0176ee858411caef6fca6a63bdd31");
+        expect(r.region).toEqual("r4cz2");
 	});
 });
