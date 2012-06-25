@@ -38,15 +38,19 @@ describe("JSTACK Keystone tests", function() {
         r = JSTACK.Keystone.getserviceendpoint("compute");
         expect(r.adminURL).toEqual("http://127.0.0.2:8774/v2/b6d0176ee858411caef6fca6a63bdd31");
         expect(r.region).toEqual("r4cz2");
-//provide regoion name: r4cz1
+//provide region name: r4cz1
         JSTACK.Keystone.params.region = "r4cz1";
         r = JSTACK.Keystone.getserviceendpoint("compute");
         expect(r.adminURL).toEqual("http://127.0.0.1:8774/v2/b6d0176ee858411caef6fca6a63bdd31");
         expect(r.region).toEqual("r4cz1");
-//provide regoion name: r4cz2
+//provide region name: r4cz2
         JSTACK.Keystone.params.region = "r4cz2";
         r = JSTACK.Keystone.getserviceendpoint("compute");
         expect(r.adminURL).toEqual("http://127.0.0.2:8774/v2/b6d0176ee858411caef6fca6a63bdd31");
         expect(r.region).toEqual("r4cz2");
+//provide wron regoion name: wrong
+        JSTACK.Keystone.params.region = "wrong";
+        r = JSTACK.Keystone.getserviceendpoint("compute");
+        expect(r).toEqual(undefined);
 	});
 });
