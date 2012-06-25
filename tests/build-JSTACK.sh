@@ -10,6 +10,6 @@ LIST+=" JSTACK.Keystone.init.js"
 LIST+=" JSTACK.Keystone.js"
 LIST+=" RegionModel.js"
 
-SRC=" ../js/models/RegionModel.js"
+SRC="../js/models/RegionModel.js"
 
 build_run_test
