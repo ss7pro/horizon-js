@@ -85,12 +85,12 @@ var LoginStatus = Backbone.Model.extend({
         }
         UTILS.Auth.setCurrentRegion(this.get("region"));
         localStorage.setItem('region', this.get("region"));
-        self.trigger('switch-region');
+        this.trigger('switch-region');
     },
 
     onRegionsChange: function (context) { 
         self = context;
-        this.setRegion(self.get("region"));
+        self.setRegion(self.get("region"));
     },
 
     onTokenChange: function (context, token) {
