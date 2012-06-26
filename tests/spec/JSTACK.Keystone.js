@@ -53,4 +53,26 @@ describe("JSTACK Keystone tests", function() {
         r = JSTACK.Keystone.getserviceendpoint("compute");
         expect(r).toEqual(undefined);
 	});
+
+});
+
+describe("UTILS.auth tests", function() {
+	it("Should provide valid endpoint", function() {
+        var fixture = this.fixtures.respKeystoneEndpoints;
+        JSTACK.Keystone.params.currentstate = JSTACK.Keystone.STATES.AUTHENTICATED;
+        JSTACK.Keystone.params.access = JSON.parse(fixture).access;
+        var r;
+//test getserviceendpoint without providing region name
+       UTILS.Auth.setCurrentRegion("r4cz1");
+       expect("r4cz1").toEqual(UTILS.Auth.getCurrentRegion());
+       UTILS.Auth.setCurrentRegion("r4cz2");
+       expect("r4cz2").toEqual(UTILS.Auth.getCurrentRegion());
+       UTILS.Auth.setCurrentRegion(undefined);
+       expect(undefined).toEqual(UTILS.Auth.getCurrentRegion());
+       UTILS.Auth.setCurrentRegion("r4cz2");
+       expect("r4cz2").toEqual(UTILS.Auth.getCurrentRegion());
+        rl = UTILS.Auth.getRegionList();
+       expect("r4cz2").toEqual(rl[0].name);
+       expect("r4cz1").toEqual(rl[1].name);
+    });
 });

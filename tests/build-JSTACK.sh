@@ -11,5 +11,6 @@ LIST+=" JSTACK.Keystone.js"
 LIST+=" RegionModel.js"
 
 SRC="../js/models/RegionModel.js"
+SRC+=" ../js/os-utils.js"
 
 build_run_test
