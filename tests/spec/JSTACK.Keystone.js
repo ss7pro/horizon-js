@@ -76,3 +76,21 @@ describe("UTILS.auth tests", function() {
        expect("r4cz1").toEqual(rl[1].name);
     });
 });
+describe("LoginModel tests", function() {
+	it("Should change region name", function() {
+        var fixture = this.fixtures.respKeystoneEndpoints;
+        JSTACK.Keystone.params.currentstate = JSTACK.Keystone.STATES.AUTHENTICATED;
+        JSTACK.Keystone.params.access = JSON.parse(fixture).access;
+        var r;
+        var loginModel = new LoginStatus();
+        loginModel.set({regions: UTILS.Auth.getRegionList()});
+        expect("r4cz1").toEqual(loginModel.get("region"));
+        loginModel.setRegion("r4cz2");
+        expect("r4cz2").toEqual(loginModel.get("region"));
+        loginModel.setRegion("r4cz1");
+        expect("r4cz1").toEqual(loginModel.get("region"));
+//if we pass wrong region, defaut one will be set
+        loginModel.setRegion('wrong');
+        expect("r4cz1").toEqual(loginModel.get("region"));
+    });
+});
