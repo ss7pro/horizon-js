@@ -1,13 +1,16 @@
 var OSRouter = Backbone.Router.extend({
     
     rootView: undefined,
+/*
     
     tabs: new NavTabModels([{name: 'Project', active: false, url: '#nova'}, {name: 'Admin', active: true, url: '#syspanel'}]),
     top: new TopBarModel({title:'Overview:', subtitle: ''}),
     navs:  new NavTabModels([]),
     next: undefined,
+*/
     
     loginModel: undefined,
+/*
     instancesModel: undefined,
     volumesModel: undefined,
     volumeSnapshotsModel: undefined,
@@ -15,6 +18,7 @@ var OSRouter = Backbone.Router.extend({
     images: undefined,
     keypairsModel: undefined,
     projects: undefined,
+*/
     
     currentView: undefined,
     
@@ -22,12 +26,14 @@ var OSRouter = Backbone.Router.extend({
     
     routes: {
         'auth/login': 'login',
-        'auth/switch/:id/': 'switchTenant',
+        'auth/region/:name': 'switchRegion',
         'auth/logout': 'logout'
     },
 	
 	initialize: function() {
+        this.regionModel = new Regions();
 	    this.loginModel = new LoginStatus();
+/*
 	    this.instancesModel = new Instances();
 	    this.volumesModel = new Volumes();
 	    this.volumeSnapshotsModel = new VolumeSnapshots();
@@ -35,6 +41,7 @@ var OSRouter = Backbone.Router.extend({
 	    this.images = new Images();
 	    this.keypairsModel = new Keypairs();
 	    this.projects = new Projects();
+*/
 	    
 	    Backbone.View.prototype.close = function(){
           //this.remove();
@@ -47,6 +54,8 @@ var OSRouter = Backbone.Router.extend({
 	    this.rootView = new RootView({model:this.loginModel, auth_el: '#auth', root_el: '#root'});
 	    this.route('', 'init', this.wrap(this.init, this.checkAuth));
 	    this.route('#', 'init', this.wrap(this.init, this.checkAuth));
+	    this.route('debug', 'debug', this.wrap(this.debug, this.checkAuth));
+/*
 	    this.route('syspanel', 'syspanel', this.wrap(this.sys_overview, this.checkAuth));
 	    this.route('syspanel/', 'syspanel', this.wrap(this.sys_overview, this.checkAuth));
 	    
@@ -80,6 +89,7 @@ var OSRouter = Backbone.Router.extend({
 	    this.route('nova/instances_and_volumes/instances/:id/detail?view=:subview', 'consult_instance',  this.wrap(this.consult_instance, this.checkAuth));
 	    this.route('nova/instances_and_volumes/instances/:id/detail', 'consult_instance',  this.wrap(this.consult_instance, this.checkAuth));
 	    this.route('nova/instances_and_volumes/volumes/:id/detail', 'consult_volume',  this.wrap(this.consult_volume, this.checkAuth));
+*/
 	},
 	
 	wrap: function(func, wrapper, arguments) {
@@ -100,6 +110,7 @@ var OSRouter = Backbone.Router.extend({
             return;
         } else {
             if (this.timers.length == 0) {
+/*
                 this.add_fetch(this.instancesModel, 60);
                 this.add_fetch(this.volumesModel, 60);
                 this.add_fetch(this.images, 60);
@@ -108,6 +119,7 @@ var OSRouter = Backbone.Router.extend({
                 if (this.loginModel.isAdmin()) {
                     this.add_fetch(this.projects, 60);
                 }
+*/
             }
         }
         var args = [this].concat(Array.prototype.slice.call(arguments, 1));
@@ -125,11 +137,7 @@ var OSRouter = Backbone.Router.extend({
     },
 		
 	init: function(self) {
-	    if (self.loginModel.isAdmin()) {
-            window.location.href = "#syspanel";
-        } else {
-            window.location.href = "#nova";
-        }
+        window.location.href = "#debug";
 	},
 	
 	login: function() {
@@ -140,7 +148,26 @@ var OSRouter = Backbone.Router.extend({
         this.loginModel.clearAll();
         window.location.href = "#auth/login";
 	},
+
+	showRoot: function(self) {
+        self.rootView.renderRoot();
+	},
+
+	debug: function(self) {
+        self.showRoot(self);
+        view = new DebugView({loginModel: this.loginModel,
+                                regionModel: this.regionModel,
+                                el: "#content"});
+        view.render();
+        self.newContentView(self,view);
+    },
+
+	switchRegion: function(name) {
+	    this.loginModel.setRegion(name);
+	    this.navigate(this.rootView.options.next_view, {trigger: false, replace: true});
+	},
 	
+/*
 	switchTenant: function(id) {
 	    this.loginModel.switchTenant(id);
 	    this.navigate(this.rootView.options.next_view, {trigger: false, replace: true});
@@ -306,7 +333,7 @@ var OSRouter = Backbone.Router.extend({
         self.top.set({"title":option});
         self.navs = new NavTabModels([   {name: 'Overview', active: true, url: '#nova/'}, 
                             {name: 'Instances &amp; Volumes', active: false, url: '#nova/instances_and_volumes/'},
-                            /*{name: 'Access &amp; Security', active: false, url: '#nova/access_and_security/'},*/
+                            //{name: 'Access &amp; Security', active: false, url: '#nova/access_and_security/'},
                             {name: 'Images &amp; Snapshots', active: false, url: '#nova/images_and_snapshots/'}
                             ]);
         self.navs.setActive(option);
@@ -361,7 +388,7 @@ var OSRouter = Backbone.Router.extend({
         var view = new VolumeDetailView({model: volume, el: '#content'});
         self.newContentView(self,view);
     },
-	
+*/
 	clear_fetch: function() {
 	    var self = this;
 	    for (var index in this.timers) {
