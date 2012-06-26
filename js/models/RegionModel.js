@@ -11,26 +11,14 @@ var Regions = Backbone.Collection.extend({
     sync: function(method, model, options) {
         switch(method) {
             case "read":
-                var resp = JSTACK.Keystone.getservicelist();
+                var resp = JSTACK.Keystone.getregionlist();
                 options.success(resp);
                 break;
         }
     },
     
     parse: function(resp) {
-	var regions = {};
-	for (var rindex in resp) {
-		for (var eindex in resp[rindex].endpoints) {
-			var rname = resp[rindex].endpoints[eindex].region;
-			regions[rname] = true
-		}
-	}
-	var list = [];
-	for (var rindex in regions) {
-		var region = {"name" : rindex};
-		list.push(region);
-	}
-	return(list);
+        return(resp);
     }
     
 });
