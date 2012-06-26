@@ -35,12 +35,22 @@ var OSRouter = Backbone.Router.extend({
           }
         }
 	    
-	    this.rootView = new RootView({model:this.loginModel, auth_el: '#auth', root_el: '#root'});
+	    this.rootView = new RootView({model:this.loginModel, auth_el: '#auth',
+                                        root_el: '#root'});
+
 	    this.route('', 'init', this.wrap(this.init, this.checkAuth));
 	    this.route('#', 'init', this.wrap(this.init, this.checkAuth));
+	    this.route('server', 'server', this.wrap(this.navigateServer,
+                                                    this.checkAuth));
+	    this.route('drive', 'drive', this.wrap(this.navigateDrive,
+                                                this.checkAuth));
+	    this.route('snapshot', 'snapshot', this.wrap(this.navigateSnapshot,
+                                                        this.checkAuth));
+	    this.route('firewall', 'firewall', this.wrap(this.navigateFirewall,
+                                                        this.checkAuth));
 	    this.route('debug', 'debug', this.wrap(this.debug, this.checkAuth));
 	},
-	
+
 	wrap: function(func, wrapper, arguments) {
 	    var ArrayProto = Array.prototype;
         var slice = ArrayProto.slice;
@@ -120,6 +130,60 @@ var OSRouter = Backbone.Router.extend({
                                 el: "#content"});
         view.render();
         self.newContentView(self,view);
+    },
+
+    navigateServer: function(self) {
+        self.topBarModel.set({"title":"Servers"});
+        self.showRoot(self);
+        view = new ServerView({loginModel: this.loginModel,
+                                regionModel: this.regionModel,
+                                instanceModel: this.instanceModel,
+                                volumeModel: this.volumeModel,
+                                flavorModel: this.flavorModel,
+                                imageModel: this.imageModel,
+                                el: "#content"});
+        self.newContentView(self,view);
+        view.render();
+    },
+
+    navigateDrive: function(self) {
+        self.topBarModel.set({"title":"Drives"});
+        self.showRoot(self);
+        view = new DriveView({loginModel: this.loginModel,
+                                regionModel: this.regionModel,
+                                instanceModel: this.instanceModel,
+                                volumeModel: this.volumeModel,
+                                flavorModel: this.flavorModel,
+                                imageModel: this.imageModel,
+                                el: "#content"});
+        self.newContentView(self,view);
+        view.render();
+    },
+
+    navigateSnapshot: function(self) {
+        self.topBarModel.set({"title":"Snapshots"});
+        self.showRoot(self);
+        view = new SnapshotView({loginModel: this.loginModel,
+                                regionModel: this.regionModel,
+                                instanceModel: this.instanceModel,
+                                volumeModel: this.volumeModel,
+                                flavorModel: this.flavorModel,
+                                imageModel: this.imageModel,
+                                el: "#content"});
+        self.newContentView(self,view);
+        view.render();
+    },
+
+    navigateFirewall: function(self) {
+        self.topBarModel.set({"title":"Snapshots"});
+        self.showRoot(self);
+        view = new FirewallView({loginModel: this.loginModel,
+                                regionModel: this.regionModel,
+                                instanceModel: this.instanceModel,
+                                flavorModel: this.flavorModel,
+                                el: "#content"});
+        self.newContentView(self,view);
+        view.render();
     },
 
 	switchRegion: function(name) {
