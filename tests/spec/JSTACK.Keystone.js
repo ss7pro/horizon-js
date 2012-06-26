@@ -84,6 +84,7 @@ describe("LoginModel tests", function() {
         var r;
         var loginModel = new LoginStatus();
         loginModel.set({regions: UTILS.Auth.getRegionList()});
+        loginModel.setRegion("r4cz1");
         expect("r4cz1").toEqual(loginModel.get("region"));
         loginModel.setRegion("r4cz2");
         expect("r4cz2").toEqual(loginModel.get("region"));
