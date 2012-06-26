@@ -40,7 +40,8 @@ MODULES.Loader = (function(M, undefined) {
 
     loadViews = function() {
         M.Loader.custom_require([
-                                    "js/views/RootView.js"
+                                    "js/views/RootView.js",
+                                    "js/views/DebugView.js"
             ], function(someModule) {
                     M.Loader.loadRoutes();
             });
@@ -49,7 +50,8 @@ MODULES.Loader = (function(M, undefined) {
     loadModels = function() {
 
         M.Loader.custom_require([
-                                   "js/models/LoginModel.js"
+                                   "js/models/LoginModel.js",
+                                   "js/models/RegionModel.js"
             ], function(someModule) {
                     M.Loader.loadViews();
             });
@@ -80,8 +82,8 @@ MODULES.Loader = (function(M, undefined) {
             ], function(someModule) {
                 loadTemplates([
                                 "templates/notLoggedInTemplate.html",
-                                "templates/imagesTemplate.html",
                                 "templates/rootTemplate.html",
+                                "templates/debugTemplate.html"
 
                 ], function(){
                         M.Loader.loadLibraries();
