@@ -41,7 +41,9 @@ MODULES.Loader = (function(M, undefined) {
     loadViews = function() {
         M.Loader.custom_require([
                                     "js/views/RootView.js",
-                                    "js/views/DebugView.js"
+                                    "js/views/DebugView.js",
+                                    "js/views/TopBarView.js",
+                                    "js/views/LeftBarView.js"
             ], function(someModule) {
                     M.Loader.loadRoutes();
             });
@@ -51,7 +53,12 @@ MODULES.Loader = (function(M, undefined) {
 
         M.Loader.custom_require([
                                    "js/models/LoginModel.js",
-                                   "js/models/RegionModel.js"
+                                   "js/models/RegionModel.js",
+                                   "js/models/TopBarModel.js",
+                                   "js/models/InstanceModel.js",
+                                   "js/models/VolumeModel.js",
+                                   "js/models/FlavorModel.js",
+                                   "js/models/ImageModel.js"
             ], function(someModule) {
                     M.Loader.loadViews();
             });
@@ -83,7 +90,9 @@ MODULES.Loader = (function(M, undefined) {
                 loadTemplates([
                                 "templates/notLoggedInTemplate.html",
                                 "templates/rootTemplate.html",
-                                "templates/debugTemplate.html"
+                                "templates/debugTemplate.html",
+                                "templates/topBarTemplate.html",
+                                "templates/leftBarTemplate.html"
 
                 ], function(){
                         M.Loader.loadLibraries();
