@@ -43,7 +43,11 @@ MODULES.Loader = (function(M, undefined) {
                                     "js/views/RootView.js",
                                     "js/views/DebugView.js",
                                     "js/views/TopBarView.js",
-                                    "js/views/LeftBarView.js"
+                                    "js/views/LeftBarView.js",
+                                    "js/views/ServerView.js",
+                                    "js/views/DriveView.js",
+                                    "js/views/SnapshotView.js",
+                                    "js/views/FirewallView.js"
             ], function(someModule) {
                     M.Loader.loadRoutes();
             });
@@ -92,7 +96,11 @@ MODULES.Loader = (function(M, undefined) {
                                 "templates/rootTemplate.html",
                                 "templates/debugTemplate.html",
                                 "templates/topBarTemplate.html",
-                                "templates/leftBarTemplate.html"
+                                "templates/leftBarTemplate.html",
+                                "templates/serverTemplate.html",
+                                "templates/driveTemplate.html",
+                                "templates/snapshotTemplate.html",
+                                "templates/firewallTemplate.html"
 
                 ], function(){
                         M.Loader.loadLibraries();
