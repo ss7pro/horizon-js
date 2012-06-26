@@ -9,7 +9,9 @@ var RootView = Backbone.View.extend({
         $(this.options.root_el).empty().html(this._roottemplate()).css('display', 'None');
         this.model.bind('change:loggedIn', this.onLogin, this);
         this.model.bind('auth-error', this.renderAuthonerror, this);
+/*
         this.onLogin();
+*/
     },
     
     onCredentialsSubmit: function(e){
@@ -29,7 +31,7 @@ var RootView = Backbone.View.extend({
             if (this.options.next_view != undefined) {
                 window.location.href = "#" + this.options.next_view;
             } else {
-                window.location.href = "#syspanel";
+                window.location.href = "#debug";
             }
         }
     },
