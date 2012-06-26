@@ -75,13 +75,18 @@ html, #splash{
 }
 
 .topbar {
-	background-color: #a3ce62;
-	border-bottom: 1px solid #e5e5e5;
-  	padding: 10px 25px;
+	/*background-color: #a3ce62;*/
+	border-bottom: 1px solid #a3ce62;
+  	border-left: 1px solid #a3ce62;
+	border-right: 1px solid #a3ce62;
+	padding: 10px 25px;
   	margin-top: 0;
   	margin-left: -25px;
   	margin-bottom: 20px;
   	margin-right: -25px;
+	-webkit-border-radius:4px;
+	-moz-border-radius:4px;
+	border-radius:4px;
 }
 
 .topbar .switcher_bar {
@@ -116,28 +121,41 @@ html, #splash{
 
 .page-header {
   margin: 0;
-  padding: 0;
+  padding-left: 40px;
   border: 0;
   display: inline-block;
+	
+}
+
+.sidebar {
+	float: left;
+	width: 18%;
+	/*background-color: #a3ce62;*/
+	padding: 5px 30px 5px 5px;
+	
 }
 
 .leftbar {
 	float: left;
-	width: 20%;
-	background-color: #a3ce62;
-	padding-bottom: 10px;
+	width: 18%;
+	/*background-color: #a3ce62;*/
+	padding: 5px 30px 5px 5px;
+	
 }
 
 #main_content {
   padding-left: 25px;
   padding-right: 20px;
+	
 }
 
 
 .content {
 	padding: 10px 0;
-	width: 80%;
+	width: 70%;
 	float: left;
+	
+	
 }
 
 /* ~~ This grouped selector gives the lists in the .content area space ~~ */
@@ -172,6 +190,9 @@ ul.nav a:hover, ul.nav a:active, ul.nav a:focus { /* this changes the background
 	background-color: #a3ce62;
 	position: relative;/* this gives IE6 hasLayout to properly clear */
 	clear: both; /* this clear property forces the .container to understand where the columns end and contain them */
+	-webkit-border-radius:4px;
+	-moz-border-radius:4px;
+	border-radius:4px;
 }
 
 /* ~~ miscellaneous float/clear classes ~~ */
