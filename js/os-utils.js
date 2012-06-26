@@ -33,6 +33,19 @@ UTILS.Auth = (function(U, undefined) {
     var getCurrentTenant = function() {
         return JSTACK.Keystone.params.access.token.tenant;
     }
+
+    var getCurrentRegion = function() {
+        return JSTACK.Keystone.params.region;
+    }
+
+    function setCurrentRegion (region) {
+        JSTACK.Keystone.params.region = region;
+    }
+
+    var getRegionList = function(){
+        return JSTACK.Keystone.getregionlist();
+    }
+
     
     var isAuthenticated = function() {
         return JSTACK.Keystone.params.currentstate == JSTACK.Keystone.STATES.AUTHENTICATED;
@@ -48,22 +61,25 @@ UTILS.Auth = (function(U, undefined) {
         return false;
     }
     
+/* to be implemented in the future
     var switchTenant = function(tenant, callback, error) {
         JSTACK.Keystone.authenticate(undefined, undefined, JSTACK.Keystone.params.token, tenant, callback, error);
     }
+*/
 
     function authenticate(username, password, tenant, token, callback, error) {
-        
         var _authenticatedWithTenant = function (resp) {
-            console.log("Authenticated");
+            console.log("Authenticated with tenant");
             console.log(JSON.stringify(resp));
             callback();
         }
-        
+/*
         var _authenticatedWithToken = function (resp) {
-            console.log("Authenticated");
+            console.log("Authenticated with token");
             callback();
         }
+*/
+        var xxx = 'ziut';
 
         var _authenticatedWithoutTenant = function() {
             console.log("Ok");
@@ -107,12 +123,9 @@ UTILS.Auth = (function(U, undefined) {
         
         var success;
         
-        if (tenant != undefined) {
-            success = _authenticatedWithTenant;
-            console.log("Authenticating with tenant");
-        } else if (username != password) {
+        if (username != undefined && password != undefined) {
             success = _authenticatedWithoutTenant;
-            console.log("Authenticating without tenant");
+            console.log("Authenticating with credentials");
         } else if (token != undefined) {
             success = _authenticatedWithoutTenant;
             console.log("Authenticating with token");
@@ -128,8 +141,12 @@ UTILS.Auth = (function(U, undefined) {
         isAuthenticated: isAuthenticated,
         getCurrentTenant: getCurrentTenant,
         getTenants: getTenants,
-        switchTenant: switchTenant,
-        isAdmin: isAdmin
+// to be implemented in the future
+//        switchTenant: switchTenant,
+        isAdmin: isAdmin,
+        setCurrentRegion: setCurrentRegion,
+        getCurrentRegion: getCurrentRegion,
+        getRegionList: getRegionList
     }
 
 })(UTILS);
