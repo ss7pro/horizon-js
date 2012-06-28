@@ -7,7 +7,8 @@ var ServerView = BaseView.extend({
 
     checkModels: function () {
         if(UTILS.Events.isFetchDataValid(this.options.instanceModel) &&
-            UTILS.Events.isFetchDataValid(this.options.flavorModel)) {
+            UTILS.Events.isFetchDataValid(this.options.flavorModel) &&
+            UTILS.Events.isFetchDataValid(this.options.imageModel)) {
             return (true);
         }
         return (false);
@@ -22,6 +23,7 @@ var ServerView = BaseView.extend({
         var params = {
                         instanceModel: this.options.instanceModel,
                         flavorModel: this.options.flavorModel,
+                        imageModel: this.options.imageModel,
             };
         return (params);
     },

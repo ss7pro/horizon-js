@@ -5,8 +5,9 @@
 %>
 <%= UTILS.i18n.pluralise("ID") %> : <%= instanceModel.models[iidx].get("id") %>,
 <%= UTILS.i18n.pluralise("name") %> : <%= instanceModel.models[iidx].get("name") %>,
-RAM: <%= flavorModel.get(instanceModel.models[iidx].get("flavor").id).get("ram") %>
-CPU: <%= flavorModel.get(instanceModel.models[iidx].get("flavor").id).get("vcpus") %>
+<%= UTILS.i18n.pluralise("RAM") %> <%= flavorModel.get(instanceModel.models[iidx].get("flavor").id).get("ram") %>
+<%=  UTILS.i18n.pluralise("CPU") %> <%= flavorModel.get(instanceModel.models[iidx].get("flavor").id).get("vcpus") %>
+<%=  UTILS.i18n.pluralise("Image") %> <%= JSON.stringify(imageModel.get(instanceModel.models[iidx].get("image").id).get("name")) %>
 IPS: 
 <%
         for (var asidx in instanceModel.models[iidx].get("addresses")) {
@@ -24,5 +25,6 @@ IPS:
 %>
 <pre>Instances: <%= JSON.stringify(instanceModel) %></pre>
 <pre>Flavors: <%= JSON.stringify(flavorModel) %></pre>
+<pre>Images: <%= JSON.stringify(imageModel) %></pre>
 </div>
 </script>

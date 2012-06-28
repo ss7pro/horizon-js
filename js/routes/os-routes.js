@@ -118,7 +118,9 @@ var OSRouter = Backbone.Router.extend({
         window.location.href = "#auth/login";
 	},
 
-    //bind events on model to handler on views
+    //bind, unbind events on model to handler on views
+    // status: true -> bind
+    // status: fale -> unbind
     bindModelEvents: function (binds,status) {
         for(var bidx in binds) {
             for(var eidx in binds[bidx].events) {
@@ -133,7 +135,7 @@ var OSRouter = Backbone.Router.extend({
         }
     },
 
-    //hlper for showing root page template
+    //helper for showing root page template
 	showRoot: function(self) {
         self.rootView.renderRoot();
         var topBarView = new TopBarView({el: '#topbar', model: self.topBarModel,
@@ -293,6 +295,12 @@ var OSRouter = Backbone.Router.extend({
                     ]
                 },
                 {model: params.mods.flavorModel, context: view, events:
+                    [
+                        {event: "fetch-ready", handler: view.renderServer},
+                        {event: "empty-reset", handler: view.renderServerOnEmpty},
+                    ]
+                },
+                {model: params.mods.imageModel, context: view, events:
                     [
                         {event: "fetch-ready", handler: view.renderServer},
                         {event: "empty-reset", handler: view.renderServerOnEmpty},
