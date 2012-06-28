@@ -1,0 +1,28 @@
+<script id="serverListTemplate" type="text/html">
+<div>
+<%
+    for (var iidx in instanceModel.models) {
+%>
+<%= UTILS.i18n.pluralise("ID") %> : <%= instanceModel.models[iidx].get("id") %>,
+<%= UTILS.i18n.pluralise("name") %> : <%= instanceModel.models[iidx].get("name") %>,
+RAM: <%= flavorModel.get(instanceModel.models[iidx].get("flavor").id).get("ram") %>
+CPU: <%= flavorModel.get(instanceModel.models[iidx].get("flavor").id).get("vcpus") %>
+IPS: 
+<%
+        for (var asidx in instanceModel.models[iidx].get("addresses")) {
+            addr = instanceModel.models[iidx].get("addresses")[asidx];
+            for (var aidx in addr) {
+%>
+<%= addr[aidx].addr %>
+<%
+            }
+        }
+%>
+</br>
+<%
+    }
+%>
+<pre>Instances: <%= JSON.stringify(instanceModel) %></pre>
+<pre>Flavors: <%= JSON.stringify(flavorModel) %></pre>
+</div>
+</script>

@@ -1,0 +1,13 @@
+<script id="driveListTemplate" type="text/html">
+<div>
+<%
+    for (vindex in volumeModel.models) {
+%>
+        Name: <%= volumeModel.models[vindex].get("display_name") %>
+        <br>
+<%
+    }
+%>
+<pre>DEBUG:<br><%=JSON.stringify(volumeModel) %></pre>
+<div>
+</script>
