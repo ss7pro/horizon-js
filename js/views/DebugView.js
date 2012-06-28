@@ -1,42 +1,46 @@
-var DebugView = Backbone.View.extend({
+var DebugView = BaseView.extend({
 
-    _template: _.itemplate($('#debugTemplate').html()),
+    _template: _.itemplate($("#debugTemplate").html()),
+    toShow: undefined,
+
     
     initialize: function() {
-// name, variable, fetch ?, collection ?
-        toShow = [
-                    ["loginModel",this.options.loginModel,false,false],
-                    ["regionModel",this.options.regionModel,true,false],
+        //name, object, collection==true or model==false
+        this.toShow=  [
+                    ["regionModel",this.options.regionModel,false,true],
                     ["instanceModel",this.options.instanceModel,true,true],
                     ["volumeModel",this.options.volumeModel,true,true],
                     ["flavorModel",this.options.flavorModel,true,true],
                     ["imageModel",this.options.imageModel,true,true]
                 ];
-        for (var index in toShow) {
-            if (toShow[index][2]) {
-                toShow[index][1].fetch();
-                toShow[index][1].unbind("reset");
-                toShow[index][1].bind("reset", this.render, this);
+        // force models fetchs
+        for (var index in this.toShow) {
+            if (this.toShow[index][3]) {
+                UTILS.Events.wrapFetch(this.toShow[index][1]);
             }
-        }
-    },
-    
-    render: function () {
-        $(this.el).empty().html(this._template({}));
-        for (var index in toShow) {
-            var models;
-            if (toShow[index][3]) {
-                models = toShow[index][1].models;
-            } else {
-                models = toShow[index][1];
-            }
-            $("#" + toShow[index][0]).html(toShow[index][0] + "<pre>" + JSON.stringify(models) + "</pre>");
         }
     },
 
-    close: function() {
-        $(this.el).empty();
-    }
+    render: function () {
+        $(this.el).empty().html(this._template());
+        $("#debugLoading").fadeOut();
+        for (var index in this.toShow) {
+            var models;
+            if (this.toShow[index][2]) {
+                models = this.toShow[index][1].models;
+            } else {
+                models = this.toShow[index][1];
+            }
+            $("#" + this.toShow[index][0]).html(this.toShow[index][0] + "<pre>" + JSON.stringify(models) + "</pre>");
+        }
+        return (this);
+    },
+
+    renderOnEmpty: function  () {
+        $(this.el).empty().html(this._template());
+        $("#debugLoading").fadeIn();
+        return (this);
+    },
 
 });
 

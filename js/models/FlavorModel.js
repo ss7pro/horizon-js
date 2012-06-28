@@ -1,4 +1,5 @@
 var Flavor = Backbone.Model.extend({
+/*
    
     sync: function(method, model, options) {
            switch(method) {
@@ -25,6 +26,7 @@ var Flavor = Backbone.Model.extend({
             return resp;
         }
     }
+*/
 });
 
 var Flavors = Backbone.Collection.extend({

@@ -59,10 +59,12 @@ MODULES.Loader = (function(M, undefined) {
                                    "js/models/LoginModel.js",
                                    "js/models/RegionModel.js",
                                    "js/models/TopBarModel.js",
+                                   "js/models/LeftBarModel.js",
                                    "js/models/InstanceModel.js",
                                    "js/models/VolumeModel.js",
                                    "js/models/FlavorModel.js",
-                                   "js/models/ImageModel.js"
+                                   "js/models/ImageModel.js",
+                                   "js/views/BaseView.js",
             ], function(someModule) {
                     M.Loader.loadViews();
             });
@@ -98,7 +100,9 @@ MODULES.Loader = (function(M, undefined) {
                                 "templates/topBarTemplate.html",
                                 "templates/leftBarTemplate.html",
                                 "templates/serverTemplate.html",
+                                "templates/serverListTemplate.html",
                                 "templates/driveTemplate.html",
+                                "templates/driveListTemplate.html",
                                 "templates/snapshotTemplate.html",
                                 "templates/firewallTemplate.html"
 

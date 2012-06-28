@@ -7,6 +7,7 @@ var OSRouter = Backbone.Router.extend({
     topBarModel: undefined,
     
     currentView: undefined,
+    currentViewBinds: undefined,
     
     timers: [],
     
@@ -24,6 +25,7 @@ var OSRouter = Backbone.Router.extend({
 	    this.flavorModel = new Flavors();
 	    this.imageModel = new Images();
         this.topBarModel = new TopBarModel();
+        this.leftBarModel = new LeftBarModel();
 
         this.loginModel.bind('switch-region', this.onSwitchRegion, this);
 
@@ -48,7 +50,8 @@ var OSRouter = Backbone.Router.extend({
                                                         this.checkAuth));
 	    this.route('firewall', 'firewall', this.wrap(this.navigateFirewall,
                                                         this.checkAuth));
-	    this.route('debug', 'debug', this.wrap(this.debug, this.checkAuth));
+	    this.route('debug', 'debug', this.wrap(this.navigateDebug,
+                                                this.checkAuth));
 	},
 
 	wrap: function(func, wrapper, arguments) {
@@ -85,14 +88,21 @@ var OSRouter = Backbone.Router.extend({
 	    next.apply(this, args);
 	},
 	
-	newContentView: function (self, view) {
+	newContentView: function (self, view, binds) {
 
+        if (self.currentViewBinds != undefined) {
+            self.bindModelEvents(self.currentViewBinds, false);
+            self.currentViewBinds = undefined;
+        }
         if (self.currentView != undefined){
            self.currentView.close();
         }
-    
         self.currentView = view;
-    
+        if (binds != undefined) {
+            self.bindModelEvents(binds, true);
+            self.currentViewBinds = binds;
+        }
+        view.renderFirst();
     },
 		
 	init: function(self) {
@@ -108,60 +118,209 @@ var OSRouter = Backbone.Router.extend({
         window.location.href = "#auth/login";
 	},
 
+    //bind events on model to handler on views
+    bindModelEvents: function (binds,status) {
+        for(var bidx in binds) {
+            for(var eidx in binds[bidx].events) {
+                if (status) {
+                    binds[bidx].model.bind(binds[bidx].events[eidx].event,
+                                            binds[bidx].events[eidx].handler,
+                                            binds[bidx].context);
+                } else {
+                    binds[bidx].model.unbind();
+                }
+            }
+        }
+    },
+
     //hlper for showing root page template
 	showRoot: function(self) {
         self.rootView.renderRoot();
         var topBarView = new TopBarView({el: '#topbar', model: self.topBarModel,
                                             loginModel: self.loginModel});
-        var leftBarView = new LeftBarView({el: '#leftbar'});
+        var leftBarView = new LeftBarView({el: '#leftbar',
+                                            model: self.leftBarModel});
         topBarView.render();
         leftBarView.render();
 	},
 
-	debug: function(self) {
-        self.topBarModel.set({"title":"Debug"});
+//
+// navigate models links builder
+//
+    navigateDebugMods: function(self) {
+        var mods = {
+                        loginModel: self.loginModel,
+                        regionModel: self.regionModel,
+                        instanceModel: self.instanceModel,
+                        volumeModel: self.volumeModel,
+                        flavorModel: self.flavorModel,
+                        imageModel: self.imageModel
+                };
+        return (mods);
+    },
+
+    navigateServerMods: function(self) {
+        var mods = {
+                        loginModel: self.loginModel,
+                        regionModel: self.regionModel,
+                        instanceModel: self.instanceModel,
+                        volumeModel: self.volumeModel,
+                        flavorModel: self.flavorModel,
+                        imageModel: self.imageModel
+                };
+        return (mods);
+    },
+
+    navigateDriveMods: function(self) {
+        var mods = {
+                        loginModel: self.loginModel,
+                        regionModel: self.regionModel,
+                        instanceModel: self.instanceModel,
+                        volumeModel: self.volumeModel,
+                        flavorModel: self.flavorModel,
+                        imageModel: self.imageModel
+                };
+        return (mods);
+    },
+
+
+//
+// navigate args builders
+//
+    navigateDebugArgs: function(self) {
+        var args = {
+                        el: "#content"
+                };
+        return (args);
+    },
+
+    navigateServerArgs: function(self) {
+        var args = {
+                        el: "#content"
+                };
+        return (args);
+    },
+
+    navigateDriveArgs: function(self) {
+        var args = {
+                        el: "#content"
+                };
+        return (args);
+    },
+
+//
+// navigate params builders
+//
+    navigateDebugParams: function(self) { 
+        var mods = this.navigateDebugMods(self);
+        var args = this.navigateDebugArgs(self);
+        return({mods: mods, args: args});
+    },
+
+    navigateServerParams: function(self) { 
+        var mods = this.navigateServerMods(self);
+        var args = this.navigateServerArgs(self);
+        return({mods: mods, args: args});
+    },
+
+    navigateDriveParams: function(self) { 
+        var mods = this.navigateDriveMods(self);
+        var args = this.navigateDriveArgs(self);
+        return({mods: mods, args: args});
+    },
+
+    barDataSet: function(self,active) {
+        var navs = [
+                    {name: "server", url: "#server", desc: "Servers" },
+                    {name: "drive", url: "#drive", desc: "Drives" },
+                    {name: "firewall", url: "#firewall", desc: "Firewalls" },
+                    {name: "snapshot", url: "#snapshot", desc: "Snapshots" },
+                    {name: "debug", url: "#debug", desc: "Debug" },
+            ];
+        self.topBarModel.set({navs: navs, active: active });
+        self.leftBarModel.set({navs: navs, active: active });
+    },
+
+//
+// navigate functions
+//
+	navigateDebug: function(self) {
+        var params = this.navigateDebugParams(self);
+        self.barDataSet(self, "debug");
         self.showRoot(self);
-        view = new DebugView({loginModel: this.loginModel,
-                                regionModel: this.regionModel,
-                                instanceModel: this.instanceModel,
-                                volumeModel: this.volumeModel,
-                                flavorModel: this.flavorModel,
-                                imageModel: this.imageModel,
-                                el: "#content"});
-        view.render();
-        self.newContentView(self,view);
+        _.extend(params.args,params.mods);
+        view = new DebugView(params.args);
+        var binds = [
+                {model: params.mods.instanceModel, context: view, events:
+                    [
+                        {event: "fetch-ready", handler: view.render},
+                        {event: "empty-reset", handler: view.renderOnEmpty},
+                    ]
+                },
+                {model: params.mods.volumeModel, context: view, events:
+                    [
+                        {event: "fetch-ready", handler: view.render},
+                        {event: "empty-reset", handler: view.renderOnEmpty},
+                    ]
+                },
+                {model: params.mods.flavorModel, context: view, events:
+                    [
+                        {event: "fetch-ready", handler: view.render},
+                        {event: "empty-reset", handler: view.renderOnEmpty},
+                    ]
+                },
+                {model: params.mods.imageModel, context: view, events:
+                    [
+                        {event: "fetch-ready", handler: view.render},
+                        {event: "empty-reset", handler: view.renderOnEmpty},
+                    ]
+                },
+        ];
+        self.newContentView(self, view, binds);
     },
 
     navigateServer: function(self) {
-        self.topBarModel.set({"title":"Servers"});
+        var params = this.navigateServerParams(self);
+        self.barDataSet(self, "server");
         self.showRoot(self);
-        view = new ServerView({loginModel: this.loginModel,
-                                regionModel: this.regionModel,
-                                instanceModel: this.instanceModel,
-                                volumeModel: this.volumeModel,
-                                flavorModel: this.flavorModel,
-                                imageModel: this.imageModel,
-                                el: "#content"});
-        self.newContentView(self,view);
-        view.render();
+        _.extend(params.args,params.mods);
+        view = new ServerView(params.args);
+        var binds = [
+                {model: params.mods.instanceModel, context: view, events:
+                    [
+                        {event: "fetch-ready", handler: view.renderServer},
+                        {event: "empty-reset", handler: view.renderServerOnEmpty},
+                    ]
+                },
+                {model: params.mods.flavorModel, context: view, events:
+                    [
+                        {event: "fetch-ready", handler: view.renderServer},
+                        {event: "empty-reset", handler: view.renderServerOnEmpty},
+                    ]
+                },
+        ];
+        self.newContentView(self, view, binds);
     },
 
     navigateDrive: function(self) {
-        self.topBarModel.set({"title":"Drives"});
+        var params = this.navigateDriveParams(self);
+        self.barDataSet(self, "drive");
         self.showRoot(self);
-        view = new DriveView({loginModel: this.loginModel,
-                                regionModel: this.regionModel,
-                                instanceModel: this.instanceModel,
-                                volumeModel: this.volumeModel,
-                                flavorModel: this.flavorModel,
-                                imageModel: this.imageModel,
-                                el: "#content"});
-        self.newContentView(self,view);
-        view.render();
+        _.extend(params.args,params.mods);
+        view = new DriveView(params.args);
+        var binds = [
+                {model: params.mods.volumeModel, context: view, events:
+                    [
+                        {event: "fetch-ready", handler: view.renderDrive},
+                        {event: "empty-reset", handler: view.renderDriveOnEmpty},
+                    ]
+                },
+        ];
+        self.newContentView(self, view, binds);
     },
 
     navigateSnapshot: function(self) {
-        self.topBarModel.set({"title":"Snapshots"});
+        self.barDataSet(self, "snapshot");
         self.showRoot(self);
         view = new SnapshotView({loginModel: this.loginModel,
                                 regionModel: this.regionModel,
@@ -170,24 +329,24 @@ var OSRouter = Backbone.Router.extend({
                                 flavorModel: this.flavorModel,
                                 imageModel: this.imageModel,
                                 el: "#content"});
-        self.newContentView(self,view);
-        view.render();
+        self.newContentView(self, view, undefined);
     },
 
     navigateFirewall: function(self) {
-        self.topBarModel.set({"title":"Snapshots"});
+        self.barDataSet(self, "firewall");
         self.showRoot(self);
         view = new FirewallView({loginModel: this.loginModel,
                                 regionModel: this.regionModel,
                                 instanceModel: this.instanceModel,
                                 flavorModel: this.flavorModel,
                                 el: "#content"});
-        self.newContentView(self,view);
-        view.render();
+        self.newContentView(self, view, undefined);
     },
 
 	switchRegion: function(name) {
-	    this.loginModel.setRegion(name);
+        if (this.loginModel.get("region") != name) {
+	        this.loginModel.setRegion(name);
+        }
 	    this.navigate(this.rootView.options.next_view, {trigger: false, replace: true});
 	},
 
@@ -201,10 +360,12 @@ var OSRouter = Backbone.Router.extend({
             ];
         for (index in toReset) {
             if (toReset[index][1]) {
-                toReset[index][0].reset();
+                toReset[index][0].reset(undefined, {silent: true});
+                UTILS.Events.emptyFetchDate(toReset[index][0]);
+                toReset[index][0].trigger('empty-reset');
             }
             if (toReset[index][2]) {
-                toReset[index][0].fetch();
+                UTILS.Events.wrapFetch(toReset[index][0]);
             }
         }
     },

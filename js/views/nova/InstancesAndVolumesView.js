@@ -4,6 +4,14 @@ var InstancesAndVolumesView = Backbone.View.extend({
     
     instancesView: undefined,
     volumesView: undefined,
+
+    events: {
+        'click .btn-create-volume':'onCreate',
+    },
+
+    onCreate: function(evt) {
+        alert('zleXXX');
+    },
     
     initialize: function() {
         this.render();
@@ -21,8 +29,7 @@ var InstancesAndVolumesView = Backbone.View.extend({
     render: function() {
         var self = this;
         UTILS.Render.animateRender(this.el, this._template);
-        
-        
+        return(this);
     },
         
 });

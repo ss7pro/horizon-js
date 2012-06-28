@@ -252,10 +252,13 @@ UTILS.i18n = (function(U, undefined) {
         return html;
     }
     
-    function pluralise(s, p, n) {
+    function pluralise(s, n) {
         var text = U.i18n.get(s);
-        if (n != 1) text = U.i18n.get(p);
-        var out = sprintf(text, n);
+        if (n != 0) {
+            return (sprintf(text, n));
+        } else {
+            return (text);
+        }
         return out;
     }
     
@@ -291,4 +294,44 @@ UTILS.i18n = (function(U, undefined) {
         get         :     get,
         pluralise   :     pluralise,
     }
+})(UTILS);
+
+
+UTILS.Events = (function(U, undefined) {
+
+    //wrap fetch function to provide 
+    function wrapFetch(self) {
+        var options = {};
+        options.success = function() {
+                            self.fetchDate = new Date().getTime();
+                            self.fetchErrorDate = undefined;
+                            self.trigger('fetch-ready');
+                        };
+        options.error = function() {
+                            self.fetchErrorDate = new Date().getTime();
+                        };
+        self.fetch(options); 
+    }
+
+    function isFetchDataValid(self) {
+        if (self.fetchDate == undefined) {
+            return (false);
+        }
+        var curTime = new Date().getTime();
+        if ((self.fetchDate+(60*1000)) > curTime) {
+            return (true);
+        }
+        return (false);
+    }
+
+    function emptyFetchDate(self) {
+        self.fetchDate = undefined;
+    }
+
+    return {
+        wrapFetch               :   wrapFetch,
+        isFetchDataValid        :   isFetchDataValid,
+        emptyFetchDate          :   emptyFetchDate,
+    }
+    
 })(UTILS);

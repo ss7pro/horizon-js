@@ -77,49 +77,17 @@ var NovaVolumesView = Backbone.View.extend({
         }
         
     },
+
+    showVolumes: function(model) {
+        $(this.el).html(this._template({models:model.models}));
+    },
     
     renderFirst: function() {
-        this.undelegateEvents();
-        this.delegateEvents(this.events);
-        $(this.el).html(this._template({models:this.model.models, volumeSnapshotsModel:this.options.volumeSnapshotModel, instances: this.options.instancesModel}));
-        this.undelegateEvents();
-        this.delegateEvents(this.events);
+        this.showVolumes(this.model);
     },
         
     render: function () {
-        this.undelegateEvents();
-        this.delegateEvents(this.events);
-        if ($(this.el).html() != null) {
-            var new_template = this._template({models:this.model.models, volumeSnapshotsModel: this.options.volumeSnapshotModel, flavors:this.options.flavors});
-            var checkboxes = [];
-            var dropdowns = [];
-            for (var index in this.model.models) { 
-                var instanceId = this.model.models[index].id;
-                if ($("#checkbox_"+instanceId).is(':checked')) {
-                    checkboxes.push(instanceId);
-                }
-                if ($("#dropdown_"+instanceId).hasClass('open')) {
-                    dropdowns.push(instanceId);
-                }
-            }
-            $(this.el).html(new_template);
-            for (var index in checkboxes) { 
-                var instanceId = checkboxes[index];
-                var check = $("#checkbox_"+instanceId);
-                if (check.html() != null) {
-                    check.prop("checked", true);
-                }
-            }
-            
-            for (var index in dropdowns) { 
-                var instanceId = dropdowns[index];
-                var drop = $("#dropdown_"+instanceId);
-                if (drop.html() != null) {
-                    drop.addClass("open");
-                }
-            }
-            
-        }
+        this.showVolumes(this.model);
         this.enableDisableDeleteButton();
         return this;
     }

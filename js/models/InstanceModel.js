@@ -188,7 +188,7 @@ var Instance = Backbone.Model.extend({
 var Instances = Backbone.Collection.extend({
     
     model: Instance,
-    
+
     sync: function(method, model, options) {
         switch(method) {
             case "read":
@@ -196,7 +196,7 @@ var Instances = Backbone.Collection.extend({
                 break;
         }
     },
-    
+
     parse: function(resp) {
         return resp.servers;
     }

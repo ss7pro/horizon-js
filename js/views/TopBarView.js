@@ -9,9 +9,14 @@ var TopBarView = Backbone.View.extend({
     },
     
     render: function () {
-        var self = this;
         this.model.set({'username': this.options.loginModel.get('username')});
-        $(self.el).empty().html(self._template(self.model));
+        var navs = this.model.get("navs");
+        for (nidx in navs) {
+            if (navs[nidx].name == this.model.get("active")) {
+                this.model.set({'title': navs[nidx].desc});
+            }
+        }
+        $(this.el).empty().html(this._template({model: this.model}));
         return this;
     }
 });

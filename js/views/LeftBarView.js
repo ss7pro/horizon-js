@@ -6,7 +6,7 @@ var LeftBarView = Backbone.View.extend({
     },
     
     render: function () {
-        $(this.el).empty().html(this._template());
+        $(this.el).empty().html(this._template({model: this.model}));
         return this;
     }
     
