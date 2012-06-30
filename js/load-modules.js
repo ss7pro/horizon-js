@@ -46,8 +46,9 @@ MODULES.Loader = (function(M, undefined) {
                                     "js/views/LeftBarView.js",
                                     "js/views/ServerView.js",
                                     "js/views/DriveView.js",
+                                    "js/views/FirewallView.js",
                                     "js/views/SnapshotView.js",
-                                    "js/views/FirewallView.js"
+                                    "js/views/VncView.js"
             ], function(someModule) {
                     M.Loader.loadRoutes();
             });
@@ -104,7 +105,9 @@ MODULES.Loader = (function(M, undefined) {
                                 "templates/driveTemplate.html",
                                 "templates/driveListTemplate.html",
                                 "templates/snapshotTemplate.html",
-                                "templates/firewallTemplate.html"
+                                "templates/firewallTemplate.html",
+                                "templates/vncTemplate.html",
+                                "templates/vncIframeTemplate.html"
 
                 ], function(){
                         M.Loader.loadLibraries();
@@ -114,7 +117,7 @@ MODULES.Loader = (function(M, undefined) {
 
     loadModules = function() {
         M.Loader.custom_require([
-                                    "http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js",
+                                    "lib/jquery.js",
                                     "lib/underscore.js"
             ], function(someModule) {
                 M.Loader.getTemplates();

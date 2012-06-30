@@ -104,7 +104,7 @@ var OSRouter = Backbone.Router.extend({
         }
         view.renderFirst();
     },
-		
+
 	init: function(self) {
         window.location.href = "#debug";
 	},
@@ -136,7 +136,7 @@ var OSRouter = Backbone.Router.extend({
     },
 
     //helper for showing root page template
-	showRoot: function(self) {
+    showRoot: function(self) {
         self.rootView.renderRoot();
         var topBarView = new TopBarView({el: '#topbar', model: self.topBarModel,
                                             loginModel: self.loginModel});
@@ -184,7 +184,6 @@ var OSRouter = Backbone.Router.extend({
                 };
         return (mods);
     },
-
 
 //
 // navigate args builders

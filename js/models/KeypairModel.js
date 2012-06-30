@@ -1,19 +1,23 @@
 var Keypair = Backbone.Model.extend({
-    
-    initialize: function() {
-        this.id = this.get("name");
-    },
-    
+
     sync: function(method, model, options) {
-           switch(method) {
-               case "create":
-                   JSTACK.Nova.createkeypair(model.get("name"), model.get("public_key"), options.success);
+            switch(method) {
+                case "create":
+                    JSTACK.Nova.createkeypair(model.get("name"),
+                                                model.get("public_key"),
+                                                options.success);
+                    break;
+                case "delete":
+                    JSTACK.Nova.deletekeypair(model.get("name"),
+                                                options.success);
                    break;
-               case "delete":
-                   JSTACK.Nova.deletekeypair(model.get("name"), options.success);
-                   break;
-           }
-   }
+            }
+    },
+
+    parse: function(resp) {
+        resp.keypair.id = resp.keypair.name;
+        return (resp.keypair);
+    }
    
 });
 
@@ -29,12 +33,7 @@ var Keypairs = Backbone.Collection.extend({
     },
     
     parse: function(resp) {
-        var list = [];
-        for (var index in resp.keypairs) {
-            var keypair = resp.keypairs[index];
-            list.push(keypair.keypair);
-        }
-        return list;
+        return (resp.keypairs);
     }
     
 });

@@ -8,6 +8,7 @@ LIST="Helpers.js"
 LIST+=" JSTACK.fixtures.js"
 LIST+=" NOVA.fixtures.js"
 LIST+=" ImageModel.js"
+LIST+=" JSTACK.Secgroup.js"
 
 SRC=" ../js/models/ImageModel.js"
 

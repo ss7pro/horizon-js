@@ -29,7 +29,7 @@ var LoginView = Backbone.View.extend({
             if (this.options.next_view != undefined) {
                 window.location.href = "#" + this.options.next_view;
             } else {
-                window.location.href = "#syspanel";
+                window.location.href = "#debug";
             }
         }
     },

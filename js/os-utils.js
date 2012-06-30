@@ -79,7 +79,6 @@ UTILS.Auth = (function(U, undefined) {
             callback();
         }
 */
-        var xxx = 'ziut';
 
         var _authenticatedWithoutTenant = function() {
             console.log("Ok");
@@ -292,7 +291,7 @@ UTILS.i18n = (function(U, undefined) {
         setlang     :     setlang,
         translate   :     translate,
         get         :     get,
-        pluralise   :     pluralise,
+        pluralise   :     pluralise
     }
 })(UTILS);
 
@@ -331,7 +330,7 @@ UTILS.Events = (function(U, undefined) {
     return {
         wrapFetch               :   wrapFetch,
         isFetchDataValid        :   isFetchDataValid,
-        emptyFetchDate          :   emptyFetchDate,
+        emptyFetchDate          :   emptyFetchDate
     }
     
 })(UTILS);

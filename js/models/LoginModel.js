@@ -13,15 +13,15 @@ var LoginStatus = Backbone.Model.extend({
     },
 
     initialize: function () {
-        this.bind('credentials', this.onCredentialsChange, this);
+        if (localStorage.getItem('region') !== undefined) {
+            this.set({'region': localStorage.getItem('region')});
+        }
         this.bind('change:token', this.onTokenChange, this);
         this.bind('change:regions', this.onRegionsChange, this);
+        this.bind('credentials', this.onCredentialsChange, this);
         this.bind('error', this.onValidateError, this);
         if (localStorage.getItem('token') !== undefined) {
             this.set({'token': localStorage.getItem('token')});
-        }
-        if (localStorage.getItem('region') !== undefined) {
-            this.set({'region': localStorage.getItem('region')});
         }
 /* tenant switch, to be implemented in the future
         if (localStorage.getItem('tenant') !== undefined) {
@@ -97,12 +97,6 @@ var LoginStatus = Backbone.Model.extend({
         var self = context;
         console.log(token);
         if (!UTILS.Auth.isAuthenticated() && token != '') {
-/* tenant switch, to be implemented in the future
-            var preferedTenant;
-            if (self.get("tenant") != undefined) {
-                preferedTenant = JSON.parse(self.get("tenant")).id;
-            }
-*/
             UTILS.Auth.authenticate(undefined, undefined, undefined, token, function() {
                 console.log("Authenticated with token");
                 self.set({username: UTILS.Auth.getName(), tenant: UTILS.Auth.getCurrentTenant()});
@@ -121,7 +115,7 @@ var LoginStatus = Backbone.Model.extend({
                 self.trigger('auth-error', msg);
             });
         } else if (UTILS.Auth.isAuthenticated() && token != '') {
-            //hanlder for trigger fired after sucesfull login with credentials
+            console.log("Token change after login (switch to tenant token)");
         } else {
             self.set({'loggedIn': false});
         }
