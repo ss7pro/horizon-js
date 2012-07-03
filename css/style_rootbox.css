@@ -34,13 +34,11 @@ a img {
 }
 
 a:link {
-	font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
 	font-size: 13px;
 	color: #000000;
 	text-decoration: none;
 }
 a:visited {
-	font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
 	font-size: 13px;
 	color: #006600;
 	text-decoration: underline;
