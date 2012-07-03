@@ -164,6 +164,9 @@ var ServerView = BaseView.extend({
 
     issueActionOnServer: function (action, model, id) {
         var serverModel = model.get(id);
+        if (serverModel == undefined) {
+            return;
+        }
         var serverName = serverModel.get("name");
         var reqId = UTILS.Events.genRequestId();
         var modelsToReset = ["instanceModel", "volumeModel"];
