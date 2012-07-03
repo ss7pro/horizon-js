@@ -167,16 +167,14 @@ var ServerView = BaseView.extend({
         var serverName = serverModel.get("name");
         var reqId = UTILS.Events.genRequestId();
         alert(reqId);
-        serverModel._action(action, {reqId: reqId, success: function(response,status, xhr, reqData) {
-                                            alert("Action: " + action + " on Server: " + serverName + " succseed.");
-                                            alert(JSON.stringify(reqData));
-                                            UTILS.Events.resetModelByName("instanceModel");
-                                            UTILS.Events.resetModelByName("volumeModel");
-                                            if(action == "snapshot") {
-                                                UTILS.Events.resetModelByName("imageModel");
-                                            }
-                                        }
-                                    });
+        var modelsToReset = ["instanceModel", "volumeModel"];
+        if (action == "snapshot") {
+            modelsToRest.push("imageModel");
+        }
+        UTILS.Events.setRequestProperty(reqId, "modelsToReset", modelsToReset);
+        UTILS.Events.setRequestProperty(reqId, "description", "Request for: "  +
+                                        action + " on " + serverName);
+        serverModel._action(action, UTILS.Events.requestHandlerDict(reqId));
     }
     
 });

@@ -377,6 +377,62 @@ UTILS.Events = (function(U, undefined) {
         }
     }
 
+    function setRequestProperty (reqId, key, data) {
+        U.Events.requestRegistry[reqId][key] = data;
+    }
+
+    function getRequestProperty (reqId, key) {
+        if (!U.Events.requestRegistry[reqId].hasOwnProperty(key)) {
+            return;
+        }
+        return (U.Events.requestRegistry[reqId][key]);
+    }
+
+    function successRequestHandler (resp, status, xhr, reqData) {
+        if (!reqData.hasOwnProperty("reqId")) {
+            return;
+        }
+        var reqId = reqData.reqId;
+        var modelsToReset = U.Events.getRequestProperty(reqId,
+                                                            "modelsToReset");
+        if (modelsToReset != undefined) {
+            for (var midx in modelsToReset) {
+                UTILS.Events.resetModelByName(modelsToReset[midx]);
+            }
+        }
+        issueRequestHandlerMessage(reqId, resp, xhr, true);
+    }
+
+    function errorRequestHandler (resp, status, xhr, reqData) {
+        if (!reqData.hasOwnProperty("reqId")) {
+            return;
+        }
+        var reqId = reqData.reqId;
+        issueRequestHandlerMessage(reqId, resp, xhr, false);
+    }
+
+    function issueRequestHandlerMessage (reqId, resp, xhr, success) {
+        var descMsg = U.Events.getRequestProperty(reqId, "description");
+        if (descMsg != undefined && descMsg.length) {
+            var alertMsg = descMsg;
+            if (success)
+                alertMsg += " succeed.";
+            else
+                alertMsg += " failed.";
+            if (resp != undefined && resp.length)
+                alertMsg += JSON.stringify(resp);
+            alert(alertMsg);
+        }
+    }
+
+    function requestHandlerDict (reqId) {
+        var ret = {
+                    success: UTILS.Events.successRequestHandler,
+                    error: errorRequestHandler,
+                    reqId: reqId
+        };
+        return (ret);
+    }
 
     return {
         wrapFetch               :   wrapFetch,
@@ -389,7 +445,12 @@ UTILS.Events = (function(U, undefined) {
         resetModel              :   resetModel,
         resetModelByName        :   resetModelByName,
         resetAllModels          :   resetAllModels,
-        genRequestId            :   genRequestId
+        genRequestId            :   genRequestId,
+        setRequestProperty      :   setRequestProperty,
+        getRequestProperty      :   getRequestProperty,
+        successRequestHandler   :   successRequestHandler,
+        errorRequestHandler     :   errorRequestHandler,
+        requestHandlerDict      :   requestHandlerDict
     }
     
 })(UTILS);
