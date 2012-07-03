@@ -172,7 +172,7 @@ var ServerView = BaseView.extend({
         }
         UTILS.Events.setRequestProperty(reqId, "modelsToReset", modelsToReset);
         UTILS.Events.setRequestProperty(reqId, "description", "Request for: "  +
-                                        action + " on " + serverName);
+                                        action + " on server: " + serverName);
         serverModel._action(action, UTILS.Events.requestHandlerDict(reqId));
     }
     
