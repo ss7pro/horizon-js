@@ -5,7 +5,7 @@ var VncView = BaseView.extend({
     initialize: function () {
         var self = this;
         var options = {};
-        options.callback = function(resp) {
+        options.success = function(resp) {
             self.vncUrl = resp.console.url;
             self.renderVnc();
         }
