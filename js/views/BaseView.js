@@ -5,6 +5,7 @@ var BaseView = Backbone.View.extend({
     },
 
     close: function() {
+        this.undelegateEvents()
         $(this.el).empty();
     }
 

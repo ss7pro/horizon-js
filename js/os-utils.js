@@ -298,39 +298,98 @@ UTILS.i18n = (function(U, undefined) {
 
 UTILS.Events = (function(U, undefined) {
 
+    var fetchSets = {};
+    var requestRegistry = {};
+
     //wrap fetch function to provide 
-    function wrapFetch(self) {
+    function wrapFetch(model) {
         var options = {};
         options.success = function() {
-                            self.fetchDate = new Date().getTime();
-                            self.fetchErrorDate = undefined;
-                            self.trigger('fetch-ready');
+                            model.fetchDate = new Date().getTime();
+                            model.fetchErrorDate = undefined;
+                            model.trigger('fetch-ready');
                         };
         options.error = function() {
-                            self.fetchErrorDate = new Date().getTime();
+                            model.fetchErrorDate = new Date().getTime();
                         };
-        self.fetch(options); 
+        model.fetch(options); 
     }
 
-    function isFetchDataValid(self) {
-        if (self.fetchDate == undefined) {
+    function isFetchDataValid(model) {
+        if (model.fetchDate == undefined) {
             return (false);
         }
         var curTime = new Date().getTime();
-        if ((self.fetchDate+(60*1000)) > curTime) {
+        if ((model.fetchDate+(60*1000)) > curTime) {
             return (true);
         }
         return (false);
     }
 
-    function emptyFetchDate(self) {
-        self.fetchDate = undefined;
+    function fetchSetsAdd(modelName,model) {
+        U.Events.fetchSets[modelName] =  {model: model};
     }
+
+    function fetchWorker () {
+        for (var fidx in U.Events.fetchSets) {
+            if(!U.Events.isFetchDataValid(U.Events.fetchSets[fidx].model)) {
+                U.Events.resetModel(U.Events.fetchSets[fidx].model);
+            } else {
+                U.Events.wrapFetch(U.Events.fetchSets[fidx].model);
+            }
+        }
+    }
+
+    function resetModel (model) {
+        model.reset(undefined, {silent: true});
+        U.Events.emptyFetchDate(model);
+        model.trigger('empty-reset');
+        U.Events.wrapFetch(model);
+    }
+
+    function resetModelByName (modelName) {
+        if (U.Events.fetchSets.hasOwnProperty(modelName)) {
+            U.Events.resetModel(U.Events.fetchSets[modelName].model);
+        }
+    }
+
+    function resetAllModels () {
+        for (var fidx in U.Events.fetchSets) {
+            U.Events.resetModel(U.Events.fetchSets[fidx].model);
+        }
+    }
+
+    function emptyFetchDate(model) {
+        model.fetchDate = undefined;
+    }
+
+    function genRequestId () {
+        var curDate = new Date();
+        var reqTime = curDate.getTime().toString();
+
+        while (true) {
+            var reqSeq = Math.floor(Math.random()*10000);
+            var reqId = reqTime + "-" + reqSeq.toString();
+            if (!U.Events.requestRegistry.hasOwnProperty(reqId)) {
+                U.Events.requestRegistry[reqId] = {};
+                return (reqId);
+            }
+        }
+    }
+
 
     return {
         wrapFetch               :   wrapFetch,
         isFetchDataValid        :   isFetchDataValid,
-        emptyFetchDate          :   emptyFetchDate
+        emptyFetchDate          :   emptyFetchDate,
+        fetchSets               :   fetchSets,
+        requestRegistry         :   requestRegistry,
+        fetchSetsAdd            :   fetchSetsAdd,
+        fetchWorker             :   fetchWorker,
+        resetModel              :   resetModel,
+        resetModelByName        :   resetModelByName,
+        resetAllModels          :   resetAllModels,
+        genRequestId            :   genRequestId
     }
     
 })(UTILS);

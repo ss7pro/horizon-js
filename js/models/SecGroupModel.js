@@ -7,10 +7,10 @@ var SecGroupRule = Backbone.Model.extend({
                                             model.get("ip_protocol"),
                                             model.get("parent_group_id"),
                                             model.get("cidr"),
-                                            options.success);
+                                            options);
                 break;
             case "delete":
-                JSTACK.Nova.delsecgrouprule(model.get("id"), options.success);
+                JSTACK.Nova.delsecgrouprule(model.get("id"), options);
                 break;
            }
    }
@@ -27,10 +27,10 @@ var SecGroup = Backbone.Model.extend({
             case "create":
                 JSTACK.Nova.createsecgroup(model.get("name"),
                                             model.get("description"),
-                                            options.success);
+                                            options);
                 break;
             case "delete":
-                JSTACK.Nova.delsecgroup(model.get("id"), options.success);
+                JSTACK.Nova.delsecgroup(model.get("id"), options);
                 break;
            }
    },
@@ -47,7 +47,7 @@ var SecGroups = Backbone.Collection.extend({
     sync: function(method, model, options) {
         switch(method) {
             case "read":
-                JSTACK.Nova.getsecgrouplist(options.success);
+                JSTACK.Nova.getsecgrouplist(options);
                 break;
         }
     },

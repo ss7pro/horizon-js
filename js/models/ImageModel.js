@@ -1,15 +1,15 @@
-var Image = Backbone.Model.extend({
+var Image = BaseNovaModel.extend({
 	sync: function(method, model, options) {
 	switch(method) {
 		case "read":
-			JSTACK.Nova.getimagedetail(model.get("id"), options.success);
+			JSTACK.Nova.getimagedetail(model.get("id"), options);
 		break;
 	case "delete":
-		JSTACK.Nova.deleteimage(model.get("id"), options.success);
+		JSTACK.Nova.deleteimage(model.get("id"), options);
 		break;
 	case "update":
 		console.log("Updating Image: " + model.get("name"));
-		JSTACK.Nova.updateimage(model.get("id"), model.get("name"), options.success);
+		JSTACK.Nova.updateimage(model.get("id"), model.get("name"), options);
 		break;
 	}
    },
@@ -29,7 +29,7 @@ var Images = Backbone.Collection.extend({
 	sync: function(method, model, options) {
 		switch(method) {
 			case "read":
-	                JSTACK.Nova.getimagelist(true, options.success);
+	                JSTACK.Nova.getimagelist(true, options);
 	                break;
 	        }
 	},

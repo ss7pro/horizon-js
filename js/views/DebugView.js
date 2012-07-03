@@ -7,11 +7,13 @@ var DebugView = BaseView.extend({
     initialize: function() {
         //name, object, collection==true or model==false
         this.toShow=  [
-                    ["regionModel",this.options.regionModel,false,true],
-                    ["instanceModel",this.options.instanceModel,true,true],
-                    ["volumeModel",this.options.volumeModel,true,true],
-                    ["flavorModel",this.options.flavorModel,true,true],
-                    ["imageModel",this.options.imageModel,true,true]
+                    ["regionModel", this.options.regionModel, false, true],
+                    ["instanceModel", this.options.instanceModel, true, true],
+                    ["volumeModel", this.options.volumeModel, true, true],
+                    ["flavorModel", this.options.flavorModel, true, true],
+                    ["imageModel", this.options.imageModel, true, true],
+                    ["keyPairModel", this.options.keyPairModel, true, true],
+                    ["secGroupModel", this.options.secGroupModel, true, true]
                 ];
         // force models fetchs
         for (var index in this.toShow) {

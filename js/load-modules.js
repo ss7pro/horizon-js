@@ -48,7 +48,12 @@ MODULES.Loader = (function(M, undefined) {
                                     "js/views/DriveView.js",
                                     "js/views/FirewallView.js",
                                     "js/views/SnapshotView.js",
-                                    "js/views/VncView.js"
+                                    "js/views/VncView.js",
+                                    "js/views/CreateServerView.js",
+                                    "js/views/EditServerView.js",
+                                    "js/views/ConfirmModalView.js",
+                                    "js/views/CreateDriveView.js",
+                                    "js/views/ServerDetailsView.js"
             ], function(someModule) {
                     M.Loader.loadRoutes();
             });
@@ -65,7 +70,10 @@ MODULES.Loader = (function(M, undefined) {
                                    "js/models/VolumeModel.js",
                                    "js/models/FlavorModel.js",
                                    "js/models/ImageModel.js",
+                                   "js/models/KeyPairModel.js",
+                                   "js/models/SecGroupModel.js",
                                    "js/views/BaseView.js",
+                                   "js/views/CreateModal.js"
             ], function(someModule) {
                     M.Loader.loadViews();
             });
@@ -73,7 +81,8 @@ MODULES.Loader = (function(M, undefined) {
 
     loadUtils = function() {
         M.Loader.custom_require([
-                                   "js/os-utils.js"
+                                   "js/os-utils.js",
+                                    "js/models/BaseNovaModel.js"
             ], function(someModule) {
                     UTILS.i18n.init();
                     M.Loader.loadModels();
@@ -84,7 +93,9 @@ MODULES.Loader = (function(M, undefined) {
         M.Loader.custom_require([
                                     "lib/backbone.js",
                                     "lib/jstack.js",
-                                    "lib/bootstrap.min.js"
+                                    "lib/bootstrap.min.js",
+									"lib/jquery-ui-1.8.21.custom.min.js",
+									"lib/jquery.dataTables.min.js",
             ], function(someModule) {
                     M.Loader.loadUtils();
             });
@@ -107,7 +118,13 @@ MODULES.Loader = (function(M, undefined) {
                                 "templates/snapshotTemplate.html",
                                 "templates/firewallTemplate.html",
                                 "templates/vncTemplate.html",
-                                "templates/vncIframeTemplate.html"
+                                "templates/vncIframeTemplate.html",
+                                "templates/createServerFormTemplate.html",
+                                "templates/editServerFormTemplate.html",
+                                "templates/confirmTemplate.html",
+                                "templates/createDriveFormTemplate.html",
+                                "templates/serverDetailsTemplate.html",
+                                "templates/serverDetailsDataTemplate.html"
 
                 ], function(){
                         M.Loader.loadLibraries();
@@ -118,7 +135,7 @@ MODULES.Loader = (function(M, undefined) {
     loadModules = function() {
         M.Loader.custom_require([
                                     "lib/jquery.js",
-                                    "lib/underscore.js"
+									"lib/underscore.js"
             ], function(someModule) {
                 M.Loader.getTemplates();
             });

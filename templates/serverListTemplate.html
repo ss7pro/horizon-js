@@ -1,64 +1,64 @@
 <script id="serverListTemplate" type="text/html">
+<div id="servers-operation">
+<button id="server__action_create" class="ajax-modal btn btn-create btn-small btn-create-server" name="action" type="submit" data-i18n="Create Server"></button>
+</div>
 <div>
 <table class="table table-striped table-bordered table-condensed">
- <thead>
-  <tr>
-   <th colspan="6"><%= UTILS.i18n.pluralise("Servers") %></th>
-   </tr>
-  <tr>
-   <th>#</th>
-   <th><%= UTILS.i18n.pluralise("Name") %></th>
-   <th><%= UTILS.i18n.pluralise("IP address") %></th>
-   <th><%= UTILS.i18n.pluralise("Image") %></th>
-   <th><%= UTILS.i18n.pluralise("CPU") %></th>
-   <th><%= UTILS.i18n.pluralise("RAM") %></th>
-   <th><%= UTILS.i18n.pluralise("Staus") %></th>
-   <th><%= UTILS.i18n.pluralise("Actions") %></th>
-   <th>VNC</th>
-  </tr>
- </thead>
- <tbody> 
+<thead>
+<tr>
+<th colspan="6"><%= UTILS.i18n.pluralise("Servers") %></th>
+</tr>
+<tr>
+<th>#</th>
+<th><%= UTILS.i18n.pluralise("Name") %></th>
+<th><%= UTILS.i18n.pluralise("IP address") %></th>
+<th><%= UTILS.i18n.pluralise("Description") %></th>
+<th><%= UTILS.i18n.pluralise("CPU") %></th>
+<th><%= UTILS.i18n.pluralise("RAM") %></th>
+<th><%= UTILS.i18n.pluralise("Staus") %></th>
+<th><%= UTILS.i18n.pluralise("Actions") %></th>
+<th>VNC</th>
+</tr>
+</thead>
+<tbody> 
 <%
-  for (var iidx in instanceModel.models) {
-%>
-  <tr>
-   <td><label class="checkbox"><input type="checkbox" id="optionsCheckbox" value="<%= instanceModel.models[iidx].get("id") %>"></label></td>
-   <td><%= instanceModel.models[iidx].get("name") %></td>
-   <td>
-<%
-    for (var asidx in instanceModel.models[iidx].get("addresses")) {
+for (var iidx in instanceModel.models) {
+	%>
+	<tr>
+	<td><label class="checkbox"><input type="checkbox" id="optionsCheckbox" value="<%= instanceModel.models[iidx].get("id") %>"></label></td>
+	<td><%= instanceModel.models[iidx].get("name") %></td>
+	<td>
+	<%
+	for (var asidx in instanceModel.models[iidx].get("addresses")) {
 		addr = instanceModel.models[iidx].get("addresses")[asidx];
-            for (var aidx in addr) {
-%>
-<%= addr[aidx].addr %>
-<%
-            }
-        }
-%>
-   </td>
-   <td>
-<%
-	 if (imageModel.get( instanceModel.models[iidx].get("image").id) == undefined) {
-%>
-<%= UTILS.i18n.pluralise("Image no longer exist") %>
-<%
-        } else {
-%>
-<%= JSON.stringify(imageModel.get(instanceModel.models[iidx].get("image").id).get("name")) %>
-<%
-        }
-%>
-   </td>
-   <td><%= flavorModel.get(instanceModel.models[iidx].get("flavor").id).get("vcpus") %></td>
-   <td><%= flavorModel.get(instanceModel.models[iidx].get("flavor").id).get("ram") %></td>
-   <td>
+		for (var aidx in addr) {
+			%>
+			<%= addr[aidx].addr %>
+			<%
+		}
+	}
+	%>
+	</td>
+	<td>
+	<% for (var midx in instanceModel.models[iidx].get("metadata")) {
+		var desc = instanceModel.models[iidx].get("metadata");
+		%>
+	<%= desc.description %>
+	
+	<%
+	}
+	%>
+	</td>
+	<td><%= flavorModel.get(instanceModel.models[iidx].get("flavor").id).get("vcpus") %></td>
+	<td><%= flavorModel.get(instanceModel.models[iidx].get("flavor").id).get("ram") %></td>
+	<td>
 
-<%
-var powerstate=instanceModel.models[iidx].get("OS-EXT-STS:power_state");
-var powerStates = [
+	<%
+	var powerstate=instanceModel.models[iidx].get("OS-EXT-STS:power_state");
+	var powerStates = [
 	"NOSTATE",
 	"RUNNING",
-      "BLOCKED",
+	"BLOCKED",
 	"PAUSED",
 	"SHUTDOWN",	
 	"SHUTOFF",
@@ -66,63 +66,113 @@ var powerStates = [
 	"SUSPENDED",
 	"FAILED",
 	"BUILDING",
-];
+	];
+	%>
+
+	<%	
+	if (instanceModel.models[iidx].get("status") == "ACTIVE"|"RESCUED") {				
+		%>
+		<%= UTILS.i18n.pluralise(powerStates[instanceModel.models[iidx].get("OS-EXT-STS:power_state")]) %>
+		<%	
+	} else { 	
+		%>
+		<%= UTILS.i18n.pluralise(instanceModel.models[iidx].get("status")) %> 
+		<%	
+	} 		
+	%>
+	<%    	
+	if (instanceModel.models[iidx].get("OS-EXT-STS:task_state") != undefined) { 	
+		%>
+		(<%= instanceModel.models[iidx].get("OS-EXT-STS:task_state")  %>)
+		<%    	
+	}	
+	%> 
+
+	</td>
+	<td class="actions_column">
+	<div id="dropdown_<%= instanceModel.models[iidx].get("id") %>" class="btn-group">
+	<button class="btn btn-small"><a href="#server/details/<%= instanceModel.models[iidx].get("id") %>">Details</a></button>
+	<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+	<ul class="dropdown-menu row_actions clearfix">    
+	<%	
+	if (powerStates[instanceModel.models[iidx].get("OS-EXT-STS:power_state")] == "RUNNING" & instanceModel.models[iidx].get("status") != "STOPPED") {				
+		%>
+		<li class="clearfix">
+		<button id="instances__action_snapshot__" class="btn btn-small btn-snapshot" name="action" value="<%= instanceModel.models[iidx].get("id") %>" type="submit" data-i18n="Snapshot">Snapshot</button>
+		</li>
+		<%
+	}
+	%>
+
+	<li class="clearfix">
+	<%	
+	if (instanceModel.models[iidx].get("status") == "STOPPED") {				
+		%>
+		<button id="instances__action_start__" class="btn btn-small btn-start" name="action" value="<%= instanceModel.models[iidx].get("id") %>" type="submit" data-i18n="Start Instance">Start Instance</button>
+		
+		<%	
+	} else if (instanceModel.models[iidx].get("status") != "PAUSED") {
+		%>
+		<button id="instances__action_stop__" class="btn btn-small btn-stop" name="action" value="<%= instanceModel.models[iidx].get("id") %>" type="submit" data-i18n="Stop Instance">Stop Instance</button>
+		<%	  
+	}
+	%>
+	</li>
+	<li class="clearfix">
+	<%	
+	if (powerStates[instanceModel.models[iidx].get("OS-EXT-STS:power_state")] == "PAUSED") {				
+		%>
+		<button id="instances__action_unpause__" class="btn btn-small btn-unpause" name="action" value="<%= instanceModel.models[iidx].get("id") %>" type="submit" data-i18n="Unpause Instance">Unpause Instance</button>
+		<%	  
+	}
+	%>
+	</li>
+	<li class="clearfix">
+	<%	
+	if (instanceModel.models[iidx].get("status") == "SUSPENDED") {				
+		%>
+		<button id="instances__action_resume__" class="btn btn-small btn-resume" name="action" value="<%= instanceModel.models[iidx].get("id") %>" type="submit" data-i18n="Resume Instance">Resume Instance</button>
+		<%	  
+	}
+	%>
+	</li>
+	</li>
+	<li class="clearfix">	
+		<button id="instances__action_e__" class="btn btn-small btn-edit-server" name="action" value="<%= instanceModel.models[iidx].get("id") %>" type="submit" data-i18n="Edit Instance">Edit Instance</button>
+	</li>	
+	<%	
+	if (powerStates[instanceModel.models[iidx].get("OS-EXT-STS:power_state")] == "RUNNING" & instanceModel.models[iidx].get("status") != "STOPPED") {				
+		%>
+		<li class="clearfix">
+		<button id="instances__action_reboot__" class="btn btn-small btn-danger btn-reboot" name="action" value="<%= instanceModel.models[iidx].get("id") %>" type="submit" data-i18n="Reboot Instance">Reboot Instance</button>
+		</li>
+		<%	  
+	}
+	%>
+	<%	
+	if (powerStates[instanceModel.models[iidx].get("OS-EXT-STS:power_state")] == "RUNNING" | instanceModel.models[iidx].get("status") == "STOPPED") {				
+		%>
+		<li class="clearfix">
+		<button id="instances__action_terminate__" class="btn btn-small btn-danger btn-terminate" name="action" value="<%= instanceModel.models[iidx].get("id") %>" type="submit" data-i18n="Terminate Instance">Terminate Instance</button>
+		</li>
+		<%	  
+	}
+	%>
+	</ul>  
+	</div>	
+	</td>
+	<td>VNC</a></td>
+	</tr> 
+	<%
+}
 %>
-<%= UTILS.i18n.pluralise(powerStates[instanceModel.models[iidx].get("OS-EXT-STS:power_state")]) %>
-
-
-
-
-   </td>
-   <td>
-
-
-<div id="dropdown_<%= instanceModel.models[iidx].get("id") %>" class="btn-group">
-<button id="instances__action_e__" class="btn btn-small btn-edit" name="action" value="<%= instanceModel.models[iidx].get("id") %>" type="submit" data-i18n="Edit Instance">Edit Instance</button>
-<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span>
-</a>
-<ul class="dropdown-menu row_actions clearfix">    
-<li class="clearfix">
-<a href="#nova/instances_and_volumes/instances/<%= instanceModel.models[iidx].get("id") %>/detail?view=vnc" id="instances__action_vnc__" class="btn btn-small btn-vnc" name="action" value="<%= instanceModel.models[iidx].get("id") %>" data-i18n="VNC Console">VNC Console</a>
-</li>
-<li class="clearfix">
-<a href="#nova/instances_and_volumes/instances/<%= instanceModel.models[iidx].get("id") %>/detail?view=log" id="instances__action_log__" class="btn btn-small btn-log" name="action" value="<%= instanceModel.models[iidx].get("id") %>" type="submit" data-i18n="View Log">View Log</a>
-</li>
-<li class="clearfix">
-<button id="instances__action_snapshot__" class="btn btn-small btn-snapshot" name="action" value="<%= instanceModel.models[iidx].get("id") %>" type="submit" data-i18n="Snapshot">Snapshot</button>
-</li>
-<li class="clearfix">
-<button id="instances__action_pause__" class="btn btn-small btn-pause" name="action" value="<%= instanceModel.models[iidx].get("id") %>" type="submit" data-i18n="Pause Instance">Pause Instance</button>
-</li>
-<li class="clearfix">
-<button id="instances__action_suspend__" class="btn btn-small btn-suspend" name="action" value="<%= instanceModel.models[iidx].get("id") %>" type="submit" data-i18n="Suspend Instance">Suspend Instance</button>
-</li>
-<li class="clearfix">
-<button id="instances__action_password__" class="btn btn-small btn-danger btn-password" name="action" value="<%= instanceModel.models[iidx].get("id") %>" type="submit" data-i18n="Change Password">Change Password</button>
-</li>
-<li class="clearfix">
-<button id="instances__action_reboot__" class="btn btn-small btn-danger btn-reboot" name="action" value="<%= instanceModel.models[iidx].get("id") %>" type="submit" data-i18n="Reboot Instance">Reboot Instance</button>
-</li>
-<li class="clearfix">
-<button id="instances__action_terminate__" class="btn btn-small btn-danger btn-terminate" name="action" value="<%= instanceModel.models[iidx].get("id") %>" type="submit" data-i18n="Terminate Instance">Terminate Instance</button>
-</li>
-</ul>  
-</div>	
-
-
-
-
-   </td>
-   <td>VNC</a></td>
-  </tr> 
-<%
-    }
-%>
- </tbody>
+</tbody>
 </table>
 <pre>Instances: <%= JSON.stringify(instanceModel) %></pre>
 <pre>Flavors: <%= JSON.stringify(flavorModel) %></pre>
 <pre>Images: <%= JSON.stringify(imageModel) %></pre>
+<pre>Keypairs: <%= JSON.stringify(keyPairModel) %></pre>
+<pre>SecGroups: <%= JSON.stringify(secGroupModel) %></pre>
 </div>
 </script>
 

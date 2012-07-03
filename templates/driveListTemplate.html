@@ -1,13 +1,75 @@
 <script id="driveListTemplate" type="text/html">
-<div>
+<div id="drives-operation">
+<button id="drive__action_create" class="ajax-modal btn-create btn btn-small btn-create-drive" name="action" type="submit" data-i18n="Create drive">Create drive</button>
+</div>
+<table class="table table-striped table-bordered table-condensed">
+ <thead>
+  <tr>
+   <th colspan="6"><%= UTILS.i18n.pluralise("Drives") %></th>
+   </tr>
+  <tr>
+   <th>#</th>
+   <th><%= UTILS.i18n.pluralise("Name") %></th>
+   <th><%= UTILS.i18n.pluralise("Size") %></th>
+   <th><%= UTILS.i18n.pluralise("Attachments") %></th>
+   <th><%= UTILS.i18n.pluralise("Actions") %></th>
+  </tr>
+ </thead>
+ <tbody>
+
 <%
-    for (vindex in volumeModel.models) {
+    for (var vindex in volumeModel.models) {
+%> 
+	<tr>
+     <td><label class="checkbox"><input type="checkbox" id="optionsCheckbox" value="<%= volumeModel.models[vindex].get("id") %>"></label></td>
+	 <td><%= volumeModel.models[vindex].get("display_name") %></td>
+     <td><%= volumeModel.models[vindex].get("size") %> GB</td>
+	 <td>
+<%
+    for (var vaindex in volumeModel.models[vindex].get("attachments")) {
+        var serverid = volumeModel.models[vindex].get("attachments")[vaindex];
+		
 %>
-        Name: <%= volumeModel.models[vindex].get("display_name") %>
-        <br>
+<%
+        var ids = serverid.server_id;
+        var instance = instanceModel.get(ids);
+        if (instance != undefined) {
+%>
+Server Name: <%=  instance.get("name") %>
+
+<%
+        }
+
+
+    }
+%>	
+	 </td>
+	 <td class="actions_column">
+	  <div class="btn-group">
+          <a id="volumes__row_<%= volumeModel.models[vindex].get("id") %>__action_attachments" value="<%= volumeModel.models[vindex].get("id") %>" class="btn btn-small ajax-modal btn-edit btn-edit-volumes">Edit Attachments</a>
+          <a class="btn dropdown-toggle ajax-modal btn-edit" data-toggle="dropdown" href="#">
+          <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu row_actions clearfix">
+           <li class="clearfix">
+           <button value="<%= volumeModel.models[vindex].get("id") %>" id="volumes__row_<%= volumeModel.models[vindex].get("id") %>__action_snapshots" class="btn btn-small ajax-modal btn-snapshot">Create Snapshot</button>
+           </li>
+           <li class="clearfix">
+            <button id="volumes__row_<%= volumeModel.models[vindex].get("id") %>__action_delete" class="btn btn-small btn-danger btn-delete" name="action" value="<%= volumeModel.models[vindex].get("id") %>" type="submit">Delete Volume</button>
+           </li>
+          </ul>
+         </div>
+	 </td>
+	</tr>
+
+
 <%
     }
 %>
-<pre>DEBUG:<br><%=JSON.stringify(volumeModel) %></pre>
-<div>
+
+ </tbody>
+</table>
+
+<pre>Volume:<br><%=JSON.stringify(volumeModel) %></pre>
+<pre>Instance:<br><%=JSON.stringify(instanceModel) %></pre>
 </script>

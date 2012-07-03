@@ -2,10 +2,14 @@
 <a href="#"><img src="./images/logo.png" alt="RootBoox" /></a>
 <div id="user_info" class="pull-right">
 <!-- region start  -->
+
+
 <div id="tenant_switcher" class="dropdown switcher_bar" tabindex="1">
 <a class="dropdown-toggle" data-toggle="dropdown" href="#tenant_switcher">
-  <h4>Zone</h4>
-  <h3>r4cz1</h3>
+
+  <h4>Region</h4>
+  <h3><%= loginModel.get("region") %></h3>
+
   </a>
   <ul id="tenant_list" class="dropdown-menu">
   <li class="divider"></li>
@@ -14,9 +18,8 @@
   </ul>
   </div>
 <!-- region end  -->
-  <a href="#vnc/region/r4cz1/server/101">VNC 101</a> Region: <a href="#auth/region/r4cz1">r4cz1</a> | <a href="#auth/region/r4cz2">r4cz2</a>
+  
   <span data-i18n="Logged in as">Logged in as</span>: <%= model.get('username') %>
-  <a href="#settings/" data-i18n="Settings">Settings</a>
   <a href="#auth/logout" data-i18n="Sign Out">Sign Out</a>
 </div>
   <div class='page-header'>

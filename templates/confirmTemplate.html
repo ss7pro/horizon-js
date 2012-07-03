@@ -2,13 +2,13 @@
 <div id="confirm" class="modal hide ">
     <div class="modal-header">
         <a class="close" id= "close" data-dismiss="modal">&times;</a>
-        <h3><%= title %></h3>
+        <h3><%= UTILS.i18n.pluralise(title,0) %></h3>
     </div>
     <div class="modal-body">
-        Please confirm your selection. This action cannot be undone.
+        <%= UTILS.i18n.pluralise(body,0) %>
     </div>
     <div class="modal-footer">
-        <a id="confirm_btn" class="btn btn-primary pull-right" data-dismiss="modal"><%= btn_message %></a>
+        <button class="btn btn-primary pull-right btn-confirm" name="action" type="submit"><%= UTILS.i18n.pluralise(btn,0) %></button>
         <a id="cancelBtn" class="btn cancel" data-dismiss="modal">Cancel</a>
     </div>
 </div>

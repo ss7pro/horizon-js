@@ -3,6 +3,9 @@
 <%
     var navs = model.get("navs");
     for (var nidx in navs) {
+        if (!navs[nidx].hasOwnProperty("url") || !navs[nidx].url.length) {
+            continue;
+        }
         if (navs[nidx].name == model.get("active")) {
 %>
             <li class="active">

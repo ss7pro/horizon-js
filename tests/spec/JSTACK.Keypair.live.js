@@ -18,7 +18,7 @@ describe("JSTACK Keypair", function() {
 
 
 	it("Should create and delete keypair", function() {
-        var keypair = new Keypair ();
+        var keypair = new KeyPair ();
         var destroyed = false;
 //keypair creation
         runs( function() {

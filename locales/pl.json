@@ -10,6 +10,7 @@
     
     "Select Language": "Wybierz język",
     "Description": "Opis",
+	"Details": "Szczegóły",
     "Dashboard User Interface Language": "Ustawienia języka Panelu",
     "Language Settings": "Ustawienia Języka",
     "From here you can modify different settings for your dashboard.": "Z tego miejsca możesz modyfikować rózne ustawienia panelu",
@@ -60,12 +61,14 @@
 	"Task": "Zadanie",
 	"Power State": "Stan Uruchomienia",
 	"Actions": "Akcje",
-	"Edit Instance": "Edytuj Maszynę Wirtualną",
+	"Edit Instance": "Zmień nazwę",
 	"Terminate Instance": "Usuń Maszynę Wirtualną",
 	"Reboot Instance": "Restart Wirtualki",
 	"Launch Instance": "Uruchom Wirtualke",
 	"Change Password": "Zmień Hasło",
 	"Create Snapshot": "Stwórz Snapshot",
+	"Create Server": "Stwórz Serwer",
+	"Servers": "Serwery",
 	
 	"Image Name": "Nazwa Obrazu",
 	"Type": "Typ",
@@ -80,7 +83,7 @@
 	"Name": "Nazwa",
 	"Enabled": "Włączony",
 	"Disabled": "Wyłaczony",
-
+	"Cancel": "Anuluj",
     "Displaying %s item": "Pokazuje %s pozycje",
     "Displaying %s items": "Pokazuje %s pozycji",
     

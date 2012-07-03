@@ -26,7 +26,10 @@ var OSRouter = Backbone.Router.extend({
 	    this.imageModel = new Images();
         this.topBarModel = new TopBarModel();
         this.leftBarModel = new LeftBarModel();
+        this.keyPairModel = new KeyPairs();
+        this.secGroupModel = new SecGroups();
 
+        this.setupModelsFetch(this);
         this.loginModel.bind('switch-region', this.onSwitchRegion, this);
 
 	    Backbone.View.prototype.close = function(){
@@ -52,6 +55,8 @@ var OSRouter = Backbone.Router.extend({
                                                         this.checkAuth));
 	    this.route('debug', 'debug', this.wrap(this.navigateDebug,
                                                 this.checkAuth));
+	    this.route('server/details/:id', 'serverDetails',
+                    this.wrap(this.navigateServerDetails, this.checkAuth));
 	},
 
 	wrap: function(func, wrapper, arguments) {
@@ -156,7 +161,9 @@ var OSRouter = Backbone.Router.extend({
                         instanceModel: self.instanceModel,
                         volumeModel: self.volumeModel,
                         flavorModel: self.flavorModel,
-                        imageModel: self.imageModel
+                        imageModel: self.imageModel,
+                        keyPairModel: self.keyPairModel,
+                        secGroupModel: self.secGroupModel
                 };
         return (mods);
     },
@@ -168,7 +175,9 @@ var OSRouter = Backbone.Router.extend({
                         instanceModel: self.instanceModel,
                         volumeModel: self.volumeModel,
                         flavorModel: self.flavorModel,
-                        imageModel: self.imageModel
+                        imageModel: self.imageModel,
+                        keyPairModel: self.keyPairModel,
+                        secGroupModel: self.secGroupModel
                 };
         return (mods);
     },
@@ -178,9 +187,7 @@ var OSRouter = Backbone.Router.extend({
                         loginModel: self.loginModel,
                         regionModel: self.regionModel,
                         instanceModel: self.instanceModel,
-                        volumeModel: self.volumeModel,
-                        flavorModel: self.flavorModel,
-                        imageModel: self.imageModel
+                        volumeModel: self.volumeModel
                 };
         return (mods);
     },
@@ -237,6 +244,7 @@ var OSRouter = Backbone.Router.extend({
                     {name: "firewall", url: "#firewall", desc: "Firewalls" },
                     {name: "snapshot", url: "#snapshot", desc: "Snapshots" },
                     {name: "debug", url: "#debug", desc: "Debug" },
+                    {name: "serverDetails", url: "", desc: "Server details" },
             ];
         self.topBarModel.set({navs: navs, active: active });
         self.leftBarModel.set({navs: navs, active: active });
@@ -255,27 +263,39 @@ var OSRouter = Backbone.Router.extend({
                 {model: params.mods.instanceModel, context: view, events:
                     [
                         {event: "fetch-ready", handler: view.render},
-                        {event: "empty-reset", handler: view.renderOnEmpty},
+                        {event: "empty-reset", handler: view.renderOnEmpty}
                     ]
                 },
                 {model: params.mods.volumeModel, context: view, events:
                     [
                         {event: "fetch-ready", handler: view.render},
-                        {event: "empty-reset", handler: view.renderOnEmpty},
+                        {event: "empty-reset", handler: view.renderOnEmpty}
                     ]
                 },
                 {model: params.mods.flavorModel, context: view, events:
                     [
                         {event: "fetch-ready", handler: view.render},
-                        {event: "empty-reset", handler: view.renderOnEmpty},
+                        {event: "empty-reset", handler: view.renderOnEmpty}
                     ]
                 },
                 {model: params.mods.imageModel, context: view, events:
                     [
                         {event: "fetch-ready", handler: view.render},
-                        {event: "empty-reset", handler: view.renderOnEmpty},
+                        {event: "empty-reset", handler: view.renderOnEmpty}
                     ]
                 },
+                {model: params.mods.keyPairModel, context: view, events:
+                    [
+                        {event: "fetch-ready", handler: view.render},
+                        {event: "empty-reset", handler: view.renderOnEmpty}
+                    ]
+                },
+                {model: params.mods.secGroupModel, context: view, events:
+                    [
+                        {event: "fetch-ready", handler: view.render},
+                        {event: "empty-reset", handler: view.renderOnEmpty}
+                    ]
+                }
         ];
         self.newContentView(self, view, binds);
     },
@@ -290,21 +310,45 @@ var OSRouter = Backbone.Router.extend({
                 {model: params.mods.instanceModel, context: view, events:
                     [
                         {event: "fetch-ready", handler: view.renderServer},
-                        {event: "empty-reset", handler: view.renderServerOnEmpty},
+                        {event: "empty-reset",
+                            handler: view.renderServerOnEmpty}
+                    ]
+                },
+                {model: params.mods.volumeModel, context: view, events:
+                    [
+                        {event: "fetch-ready", handler: view.renderServer},
+                        {event: "empty-reset",
+                            handler: view.renderServerOnEmpty}
                     ]
                 },
                 {model: params.mods.flavorModel, context: view, events:
                     [
                         {event: "fetch-ready", handler: view.renderServer},
-                        {event: "empty-reset", handler: view.renderServerOnEmpty},
+                        {event: "empty-reset",
+                            handler: view.renderServerOnEmpty}
                     ]
                 },
                 {model: params.mods.imageModel, context: view, events:
                     [
                         {event: "fetch-ready", handler: view.renderServer},
-                        {event: "empty-reset", handler: view.renderServerOnEmpty},
+                        {event: "empty-reset",
+                            handler: view.renderServerOnEmpty}
                     ]
                 },
+                {model: params.mods.keyPairModel, context: view, events:
+                    [
+                        {event: "fetch-ready", handler: view.renderServer},
+                        {event: "empty-reset",
+                            handler: view.renderServerOnEmpty}
+                    ]
+                },
+                {model: params.mods.secGroupModel, context: view, events:
+                    [
+                        {event: "fetch-ready", handler: view.renderServer},
+                        {event: "empty-reset",
+                            handler: view.renderServerOnEmpty}
+                    ]
+                }
         ];
         self.newContentView(self, view, binds);
     },
@@ -319,9 +363,17 @@ var OSRouter = Backbone.Router.extend({
                 {model: params.mods.volumeModel, context: view, events:
                     [
                         {event: "fetch-ready", handler: view.renderDrive},
-                        {event: "empty-reset", handler: view.renderDriveOnEmpty},
+                        {event: "empty-reset",
+                            handler: view.renderDriveOnEmpty}
                     ]
                 },
+                {model: params.mods.instanceModel, context: view, events:
+                    [
+                        {event: "fetch-ready", handler: view.renderDrive},
+                        {event: "empty-reset",
+                            handler: view.renderDriveOnEmpty}
+                    ]
+                }
         ];
         self.newContentView(self, view, binds);
     },
@@ -350,6 +402,60 @@ var OSRouter = Backbone.Router.extend({
         self.newContentView(self, view, undefined);
     },
 
+    navigateServerDetails: function(self, id) {
+        var params = this.navigateServerParams(self);
+        self.barDataSet(self, "serverDetails");
+        self.showRoot(self);
+        _.extend(params.args,params.mods);
+        _.extend(params.args,{serverId: id});
+        view = new ServerDetailsView(params.args);
+        var binds = [
+                {model: params.mods.instanceModel, context: view, events:
+                    [
+                        {event: "fetch-ready", handler: view.renderServer},
+                        {event: "empty-reset",
+                            handler: view.renderServerOnEmpty}
+                    ]
+                },
+                {model: params.mods.volumeModel, context: view, events:
+                    [
+                        {event: "fetch-ready", handler: view.renderServer},
+                        {event: "empty-reset",
+                            handler: view.renderServerOnEmpty}
+                    ]
+                },
+                {model: params.mods.flavorModel, context: view, events:
+                    [
+                        {event: "fetch-ready", handler: view.renderServer},
+                        {event: "empty-reset",
+                            handler: view.renderServerOnEmpty}
+                    ]
+                },
+                {model: params.mods.imageModel, context: view, events:
+                    [
+                        {event: "fetch-ready", handler: view.renderServer},
+                        {event: "empty-reset",
+                            handler: view.renderServerOnEmpty}
+                    ]
+                },
+                {model: params.mods.keyPairModel, context: view, events:
+                    [
+                        {event: "fetch-ready", handler: view.renderServer},
+                        {event: "empty-reset",
+                            handler: view.renderServerOnEmpty}
+                    ]
+                },
+                {model: params.mods.secGroupModel, context: view, events:
+                    [
+                        {event: "fetch-ready", handler: view.renderServer},
+                        {event: "empty-reset",
+                            handler: view.renderServerOnEmpty}
+                    ]
+                }
+        ];
+        self.newContentView(self, view, binds);
+    },
+
 	switchRegion: function(name) {
         if (this.loginModel.get("region") != name) {
 	        this.loginModel.setRegion(name);
@@ -358,40 +464,16 @@ var OSRouter = Backbone.Router.extend({
 	},
 
     onSwitchRegion: function () {
-        //collection, reset ?, fetch ?
-        var toReset  = [
-                [this.instanceModel,true,true],
-                [this.volumeModel,true,true],
-                [this.flavorModel,true,true],
-                [this.imageModel,true,true]
-            ];
-        for (index in toReset) {
-            if (toReset[index][1]) {
-                toReset[index][0].reset(undefined, {silent: true});
-                UTILS.Events.emptyFetchDate(toReset[index][0]);
-                toReset[index][0].trigger('empty-reset');
-            }
-            if (toReset[index][2]) {
-                UTILS.Events.wrapFetch(toReset[index][0]);
-            }
-        }
+        UTILS.Events.resetAllModels();
     },
 
-	clear_fetch: function() {
-	    var self = this;
-	    for (var index in this.timers) {
-	        var timer_id = this.timers[index];
-	        clearInterval(timer_id);
-	    }
-	    this.timers = [];
-	},
-	
-	add_fetch: function(model, seconds) {
-	    model.fetch();
-        var id = setInterval(function() {
-            model.fetch();
-        }, seconds*1000);
-        
-        this.timers.push(id);
-	}
+    setupModelsFetch: function (self) {
+        UTILS.Events.fetchSetsAdd("instanceModel", self.instanceModel);
+        UTILS.Events.fetchSetsAdd("volumeModel", self.volumeModel);
+        UTILS.Events.fetchSetsAdd("flavorModel", self.flavorModel);
+        UTILS.Events.fetchSetsAdd("imageModel", self.imageModel);
+        UTILS.Events.fetchSetsAdd("keyPairModel", self.keyPairModel);
+        UTILS.Events.fetchSetsAdd("secGrupModel", self.secGroupModel);
+    }
+
 });
