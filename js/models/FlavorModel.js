@@ -18,6 +18,28 @@ var Flavors = Backbone.Collection.extend({
     
     parse: function(resp) {
         return resp.flavors;
+    },
+
+    findFirstByRam: function(ram) {
+      var tmp = this.filter(function(flav) {
+        return flav.get('ram') == ram;
+      });
+      if(!tmp.length) return null;
+      return tmp[0];
+    },
+
+    findFirstByCpu: function(vcpus) {
+      var tmp = this.filter(function(flav) {
+        return flav.get('vcpus') == vcpus;
+      });
+      if(!tmp.length) return null;
+      return tmp[0];
+    },
+
+    findByRamAndCpu: function(ram, vcpus) {
+      return this.filter(function(flav) {
+        return flav.get('vcpus') == vcpus && flav.get('ram') == ram;
+      });
     }
     
 });
