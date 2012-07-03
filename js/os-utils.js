@@ -419,10 +419,13 @@ UTILS.Events = (function(U, undefined) {
                 alertMsg += " succeed.";
             else
                 alertMsg += " failed.";
-            if (resp != undefined && resp.length)
+            if (resp != undefined) {
+                alertMsg += " \r\nResponse:\r\n";
                 alertMsg += JSON.stringify(resp);
+            }
             alert(alertMsg);
         }
+        alert(JSON.stringify(resp));
     }
 
     function requestHandlerDict (reqId) {
