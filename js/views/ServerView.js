@@ -168,7 +168,7 @@ var ServerView = BaseView.extend({
         var reqId = UTILS.Events.genRequestId();
         var modelsToReset = ["instanceModel", "volumeModel"];
         if (action == "snapshot") {
-            modelsToRest.push("imageModel");
+            modelsToReset.push("imageModel");
         }
         UTILS.Events.setRequestProperty(reqId, "modelsToReset", modelsToReset);
         UTILS.Events.setRequestProperty(reqId, "description", "Request for: "  +
