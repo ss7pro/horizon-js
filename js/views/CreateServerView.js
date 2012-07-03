@@ -42,8 +42,8 @@ var CreateServerView = CreateModalView.extend({
     },
 
     createServer: function (inputs) {
-        var server = new Instance ();
-        server.set({
+        var serverModel = new Instance ();
+        serverModel.set({
                     name: inputs.serverName,
                     imageReg: inputs.imageId,
                     flavorReg: inputs.flavorId,
@@ -51,11 +51,13 @@ var CreateServerView = CreateModalView.extend({
                     min_count: 1,
                     max_count: 1
             });
-        server.save(undefined, {success: function(model,response) {
-                                            UTILS.Events.resetModelByName("instanceModel");
-                                            alert(JSON.stringify(response));
-                                        }
-                                });
+        var reqId = UTILS.Events.genRequestId();
+        var modelsToReset = ["instanceModel"];
+        UTILS.Events.setRequestProperty(reqId, "modelsToReset", modelsToReset);
+        UTILS.Events.setRequestProperty(reqId, "description", "Server " +
+                                        "creation request for: "  +
+                                        inputs.serverName);
+        serverModel._action('create', UTILS.Events.requestHandlerDict(reqId));
     }
 
 });
