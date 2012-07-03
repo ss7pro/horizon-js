@@ -41,7 +41,13 @@ var CreateDriveView = CreateModalView.extend({
                 description: inputs.driveDescription,
                 size: inputs.driveSize
             });
-//        volume._action("create", {success: this.onSuccess});
+        var reqId = UTILS.Events.genRequestId();
+        var modelsToReset = ["instanceModel", "volumeModel"];
+        UTILS.Events.setRequestProperty(reqId, "modelsToReset", modelsToReset);
+        UTILS.Events.setRequestProperty(reqId, "description", "Drive " +
+                                        "creation request for: "  +
+                                        inputs.driveName);
+        volume._action('create', UTILS.Events.requestHandlerDict(reqId));
     }
 
 });

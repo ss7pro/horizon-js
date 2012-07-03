@@ -17,7 +17,7 @@ var Instance = BaseNovaModel.extend({
                 JSTACK.Nova.getserverdetail(model.get("id"), options);
                 break;
             case "reboot":
-                if (options.soft != undefined && options.soft) {
+                if (options.hasOwnProperty("soft") && options.soft) {
                     JSTACK.Nova.rebootserversoft(model.get("id"), options);
                 } else {
                     JSTACK.Nova.rebootserverhard(model.get("id"), options);
