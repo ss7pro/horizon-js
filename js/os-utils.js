@@ -425,7 +425,6 @@ UTILS.Events = (function(U, undefined) {
             }
             alert(alertMsg);
         }
-        alert(JSON.stringify(resp));
     }
 
     function requestHandlerDict (reqId) {
