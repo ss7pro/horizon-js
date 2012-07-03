@@ -68,7 +68,7 @@ var DriveView = BaseView.extend({
                     "name": "btn-delete",
                     action: "delete",
                     handler: this.issueActionOnDrive,
-                    model: this.options.instanceModel,
+                    model: this.options.volumeModel,
                     title: "Delete volume ?",
                     btn: "Yes, I confirm",
                     body: "Please confirm. This action cannot be undone"
@@ -77,7 +77,7 @@ var DriveView = BaseView.extend({
                     "name": "btn-snapshot",
                     action: "snapshot",
                     handler: this.issueActionOnDrive,
-                    model: this.options.instanceModel,
+                    model: this.options.volumeModel,
                     title: "Snapshot volume ?",
                     btn: "Yes, I confirm",
                     body: "Please confirm."
@@ -93,13 +93,16 @@ var DriveView = BaseView.extend({
 
     issueActionOnDrive: function (action, model, id) {
         var volumeModel = model.get(id);
-        var volumeName = serverModel.get("display_name");
-        serverModel._action(action, {success: function(reqId, response) {
-                                            alert("Action: " + action + " on Volume: " + volumeName + " succseed.");
-                                            UTILS.Events.resetModelByName("instanceModel");
-                                            UTILS.Events.resetModelByName("volumeModel");
-                                        }
-                                    });
+        if (volumeModel == undefined) {
+            return;
+        }
+        var reqId = UTILS.Events.genRequestId();
+        var volumeName = volumeModel.get("display_name");
+        var modelsToReset = ["instanceModel", "volumeModel"];
+        UTILS.Events.setRequestProperty(reqId, "modelsToReset", modelsToReset);
+        UTILS.Events.setRequestProperty(reqId, "description", "Request for: "  +
+                                        action + " on volume: " + volumeName);
+        volumeModel._action(action, UTILS.Events.requestHandlerDict(reqId));
     }
     
 });
