@@ -1,0 +1,31 @@
+<script id="editServerFormTemplate" type="text/html">
+<div id="edit_server_modal" class="modal hide in" style="display: block; ">
+ <div class="modal-header">
+  <a href="" class="close" data-dismiss="modal">×</a>
+  <h3 data-i18n="Edit server">Edit server</h3>
+  <div>
+   <div class="control-group form-field clearfix">
+    <label for="server_name">Server Name</label>
+    <span class="help-block" style="display: none; "></span>
+    <div class="input">
+      <input type="hidden" name="instance_id" value="<%= evt.target.value %>" id="instance_id" />
+		<%
+		var serverName;
+		if (evt.target.value != undefined) {
+		var instance = instanceModel.get(evt.target.value);
+		var serverName = instance.get("name");
+		} else {
+		serverName = "";
+		}
+		%>
+      <input id="server_name" type="text" name="server_name" maxlength="80" value="<%= serverName %>">
+    </div>
+   </div>
+  </div>
+ </div>
+ <div class="modal-footer">
+  <button class="btn btn-primary pull-right btn-edit" name="action" type="submit" data-i18n="Save changes">Save changes</button>
+  <a id="cancelBtn" class="close btn seconday cancel close" data-dismiss="modal" data-i18n="Cancel">Cancel</a>
+ </div>
+</div>
+</script>

@@ -1,0 +1,43 @@
+<script id="createDriveFormTemplate" type="text/html">
+<div id="create_drive_modal" class="modal hide in" style="display: block; ">
+  <div class="modal-header">
+    <a href="" class="close" data-dismiss="modal">×</a>
+    <h3 data-i18n="Create drive">Create drive</h3>
+  </div>
+ <div>
+
+  <div class="control-group form-field clearfix">
+    <label for="drive_name">Drive name</label>
+    
+    <span class="help-block" style="display: none; "></span>
+    <div class="input">
+      <input id="drive_name" type="text" name="drive_name" maxlength="80">
+    </div>
+  </div>
+
+  <div class="control-group form-field clearfix">
+    <label for="drive_name">Drive description</label>
+    
+    <span class="help-block" style="display: none; "></span>
+    <div class="input">
+      <input id="drive_description" type="text" name="drive_description" maxlength="80">
+    </div>
+  </div>
+
+  <div class="control-group form-field clearfix">
+    <label for="drive_size">Drive size (GB)</label>
+    
+    <span class="help-block" style="display: none; "></span>
+    <div class="input">
+      <input id="drive_size" type="text" name="drive_size" maxlength="3">
+    </div>
+  </div>
+
+
+  <div class="modal-footer">
+   <button class="btn btn-primary pull-right btn-create" name="action" type="submit" data-i18n="Create drive">Create drive</button>
+    <a id="cancelBtn" class="close btn seconday cancel close" data-dismiss="modal" data-i18n="Cancel">Cancel</a>
+  </div>
+</div>
+
+</script>

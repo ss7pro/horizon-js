@@ -1,0 +1,100 @@
+<script id="createServerFormTemplate" type="text/html">
+
+<div id="create_server_modal" class="modal hide in" >
+  <div class="modal-header">
+    <a href="" class="close" data-dismiss="modal"></a>
+    <h3 data-i18n="Create server">Create server</h3>
+  </div>
+  <div class="modal-body">
+   <div class="control-group form-field clearfix">
+    <label for="server_name">Server Name</label>
+    <span></span>
+    <div class="input">
+      <input id="server_name" type="text" name="server_name" maxlength="80">
+   </div>
+   
+   <div class="control-group form-field clearfix">
+    <label for="id_flavor">Flavor</label>
+    <span class="help-block" style="display: none; ">Server type.</span>
+    <div class="input">
+     <select name="flavor" id="id_flavor">
+     <% 
+     for (var fidx in flavorModel.models) {
+        var flavor = flavorModel.models[fidx];
+     %>
+     <option value="<%=flavor.id%>"><%=flavor.get("name") + " (" + flavor.get("vcpus") + " VCPU / " +  flavor.get("ram") + " MB Ram )" %></option>
+     <%}%>
+     </select>
+    </div>
+   </div
+   <div class="control-group form-field clearfix">
+    <label for="id_image">image</label>
+    <span class="help-block" style="display: none; ">Image to launch.</span>
+    <div class="input">
+     <select name="image" id="id_image">
+     <% 
+     for (var iidx in imageModel.models) {
+        var image = imageModel.models[iidx];
+		 if (image.get("server") == null ) {
+     %>
+     <option value="<%=image.id%>"><%= image.get("name") %></option>
+     <%
+		}
+	 }%>
+     </select>
+	
+	<label for="id_image">Snapshots</label>
+    <span class="help-block" style="display: none; ">Snapshot to launch.</span>
+    <div class="input">
+     <select name="image" id="id_image">
+     <% 
+     for (var iidx in imageModel.models) {
+        var image = imageModel.models[iidx];
+		 if (image.get("server") != null ) {
+     %>
+     <option value="<%=image.id%>"><%= image.get("name") %></option>
+     <%
+		}
+	 }%>
+     </select>
+	 
+	 
+	
+    </div>
+   </div>
+   <div class="control-group form-field clearfix">
+    <label for="name_keypair">Keypair</label>
+    <span >SSH Key to login.</span>
+    <div class="input">
+     <select name="keypair" id="name_keypair">
+	 <option></option>
+     <% 
+     for (var kidx in keyPairModel.models) {
+         var keypair = keyPairModel.models[kidx];
+     %>
+     <option value="<%= keypair.get("name") %>"><%= keypair.get("name") %></option>
+     <%}%>
+     </select>
+    </div>
+   </div>
+   <div class="control-group form-field clearfix">
+    <label for="id_secgroup">Firewall</label>
+    <span class="help-block" style="display: none; ">Firewall to use.</span>
+    <div class="input">
+     <select name="secgroup" id="id_secgroup">
+     <% 
+     for (var sidx in secGroupModel.models) {
+        var secgroup = secGroupModel.models[sidx];
+     %>
+     <option value="<%= secgroup.id %>"><%= secgroup.get("name") %></option>
+     <%}%>
+     </select>
+    </div>
+   </div>
+  <div class="modal-footer">
+   <button class="btn btn-primary pull-right btn-create" name="action" type="submit" data-i18n="Create Server">Create Server</button>
+    <a id="cancelBtn" class="close btn seconday cancel close" data-dismiss="modal" data-i18n="Cancel">Cancel</a>
+  </div>
+ </div>
+</div>
+</script>
