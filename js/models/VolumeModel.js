@@ -13,6 +13,9 @@ var Volume = BaseNovaModel.extend({
             case "read":
                 JSTACK.Nova.Volume.getvolume(model.get("id"), options);
                 break;
+            case "snapshot":
+                JSTACK.Nova.Volume.createsnapshot(model.get("id"), model.get("display_name"), model.get("display_name"), options);
+                break;
         }
     },
     
@@ -37,7 +40,7 @@ var Volumes = Backbone.Collection.extend({
         }
     },
     
-    parse: function(resp,resp2) {
+    parse: function(resp) {
         return resp.volumes;
     }
     
