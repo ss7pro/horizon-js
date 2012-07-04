@@ -320,7 +320,8 @@ UTILS.Events = (function(U, undefined) {
             return (false);
         }
         var curTime = new Date().getTime();
-        if ((model.fetchDate+(60*1000)) > curTime) {
+        //data is valid for 5 minutes
+        if ((model.fetchDate+(60*5*1000)) > curTime) {
             return (true);
         }
         return (false);
