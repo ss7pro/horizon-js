@@ -11,7 +11,12 @@ var Instance = BaseNovaModel.extend({
                 JSTACK.Nova.deleteserver(model.get("id"), options);
                 break;
             case "update":
-                JSTACK.Nova.updateserver(model.get("id"), model.get("name"), options);
+                JSTACK.Nova.updateserver(model.get("id"), model.get("name"),
+                                            options);
+                break;
+            case "updatemeta":
+                JSTACK.Nova.updatemetadata(model.get("id"), model.get("meta"),
+                                            options);
                 break;
             case "read":
                 JSTACK.Nova.getserverdetail(model.get("id"), options);
