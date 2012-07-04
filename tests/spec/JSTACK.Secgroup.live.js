@@ -20,7 +20,7 @@ describe("JSTACK Security Group", function() {
 	it("Should return security group list.", function() {
         var secGroupList = undefined;
         runs( function() {
-                JSTACK.Nova.getsecgrouplist(function(result) { secGroupList = result;});
+                JSTACK.Nova.getsecgrouplist({success:function(result) { secGroupList = result;}});
             });
         waitsFor(function() { if(secGroupList != undefined && secGroupList.security_groups != undefined) return true; return false; }, "Keystone authetication never completed", 2000);
 	});
