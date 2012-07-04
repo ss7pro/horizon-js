@@ -51,12 +51,6 @@ var CreateModalView = Backbone.View.extend({
     onShow: function() {
     },
 
-    onSuccess: function (response) {
-    },
-
-    onErr: function (response) {
-    },
-    
     close: function(evt) {
         $('.modal:last').remove();
         $('.modal-backdrop').remove();
