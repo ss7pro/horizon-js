@@ -61,6 +61,33 @@ var CreateServerView = CreateModalView.extend({
           $('#id_flavor').val(flavs[0].get('id'));
         }
       });
+
+      var sizes = [1, 2, 5, 10, 20, 50, 100, 200, 500];
+
+      $('#drive-slider').slider({
+        min: 0,
+        max: sizes.length - 1,
+        animate: 'medium',
+        disabled: true,
+        slide: function(e, ui) {
+          $('#drive-value').text(sizes[ui.value]);
+          $('#drive_size').val(sizes[ui.value]);
+        }
+      });
+
+      $('#drive_enabled').change(function(e) {
+        if(this.checked) {
+          $('#drive-slider').slider('option', 'disabled', false);
+          var val = $('#drive-slider').slider('option', 'value');
+          $('#drive-value').text(sizes[val]);
+          $('#drive_size').val(sizes[val]);
+        } else {
+          $('#drive-slider').slider('option', 'disabled', true);
+          $('#drive-value').text('-');
+          $('#drive_size').val('');
+        }
+      });
+
     },
 
     create: function () {

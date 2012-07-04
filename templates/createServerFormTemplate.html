@@ -42,43 +42,41 @@
    </div>
 
    <div class="control-group form-field clearfix">
-    <label for="id_image">image</label>
+    <label for="id_image">Image</label>
     <span class="help-block" style="display: none; ">Image to launch.</span>
     <div class="input">
-     <select name="image" id="id_image" class="input-medium">
-     <% 
-     for (var iidx in imageModel.models) {
-        var image = imageModel.models[iidx];
-		 if (image.get("server") == null ) {
-     %>
-     <option value="<%=image.id%>"><%= image.get("name") %></option>
-     <%
-		}
-	 }%>
-     </select>
+      <% var images = [], snapshots = [];
+        imageModel.each(function(image) {
+          if (image.get("server") == null) images.push(image);
+          else snapshots.push(image);
+      }); %>
+      <select name="image" id="id_image" class="input-medium">
+        <optgroup label="Images">
+        <% _.each(images, function(image) { %>
+          <option value="<%= image.get("id") %>"><%= image.get("name") %></option>
+        <% }); %>
+        </optgroup>
+        <optgroup label="Snapshots">
+        <% _.each(snapshots, function(image) { %>
+          <option value="<%= image.get("id") %>"><%= image.get("name") %></option>
+        <% }); %>
+        </optgroup>
+       </select>
+     </div>
    </div>
 
-	<label for="id_image">Snapshots</label>
-    <span class="help-block" style="display: none; ">Snapshot to launch.</span>
-    <div class="input">
-     <select name="image" id="id_image" class="input-medium">
-     <% 
-     for (var iidx in imageModel.models) {
-        var image = imageModel.models[iidx];
-		 if (image.get("server") != null ) {
-     %>
-     <option value="<%=image.id%>"><%= image.get("name") %></option>
-     <%
-		}
-	 }%>
-     </select>
-	
-    </div>
-    </div>
+   <div class="control-group form-field clearfix">
+     <label>Drive: <span id="drive-value">-</span> GB</label>
+     <div class="input">
+       <label for="drive_enabled" class="checkbox">
+         <input type="checkbox" id="drive_enabled"/>Enable drive
+       </label>
+       <div id="drive-slider"><input type="hidden" id="drive_size"></div>
+     </div>
+   </div>
 
    <div class="control-group form-field clearfix">
     <label for="name_keypair">Keypair</label>
-    <span >SSH Key to login.</span>
     <div class="input">
      <select name="keypair" id="name_keypair" class="input-medium">
 	     <option></option>
@@ -89,6 +87,7 @@
      <option value="<%= keypair.get("name") %>"><%= keypair.get("name") %></option>
      <%}%>
      </select>
+     <span class="help-inline">SSH Key to login.</span>
     </div>
     </div>
 
