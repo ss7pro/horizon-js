@@ -1,27 +1,51 @@
 <script id="editServerFormTemplate" type="text/html">
+<%
+var serverName;
+var serverDescription;
+var serverMetaData;
+if (evt.target.value != undefined) {
+	var instance = instanceModel.get(evt.target.value);
+	serverName = instance.get("name");
+    if (serverName == undefined) 
+        serverName = "";
+    serverMetaData = instance.get("metadata");
+    if (serverMetaData != undefined) {
+        if (serverMetaData.hasOwnProperty("description")) 
+            serverDescription = serverMetaData.description;
+        else
+            serverDescription = "";
+    }
+} else {
+	serverName = "";
+    serverDescription = "";
+}
+%>
 <div id="edit_server_modal" class="modal hide in" style="display: block; ">
+<input type="hidden" name="instance_id" value="<%= evt.target.value %>" id="instance_id" />
  <div class="modal-header">
   <a href="" class="close" data-dismiss="modal">×</a>
   <h3 data-i18n="Edit server">Edit server</h3>
   <div>
+
+<!-- server_name -->
    <div class="control-group form-field clearfix">
-    <label for="server_name">Server Name</label>
+    <label for="server_name" data-i18n="Server name">Server name</label>
     <span class="help-block" style="display: none; "></span>
     <div class="input">
-      <input type="hidden" name="instance_id" value="<%= evt.target.value %>" id="instance_id" />
-		<%
-		var serverName;
-		if (evt.target.value != undefined) {
-		var instance = instanceModel.get(evt.target.value);
-		var serverName = instance.get("name");
-		} else {
-		serverName = "";
-		}
-		%>
       <input id="server_name" type="text" name="server_name" maxlength="80" value="<%= serverName %>">
     </div>
    </div>
+<!-- server_name -->
+   <div class="control-group form-field clearfix">
+    <label for="server_description" data-i18n="Server description">Server description</label>
+    <span class="help-block" style="display: none; "></span>
+    <div class="input">
+      <input id="server_description" type="text" name="server_description" maxlength="80" value="<%= serverDescription %>">
+    </div>
+   </div>
+
   </div>
+
  </div>
  <div class="modal-footer">
   <button class="btn btn-primary pull-right btn-edit" name="action" type="submit" data-i18n="Save changes">Save changes</button>
