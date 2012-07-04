@@ -36,6 +36,7 @@ var CreateModalView = Backbone.View.extend({
         }
         $(this.el).append(this._template(this.options.params));
         $('.modal:last').modal();
+        this.onShow();
         return this;
     },
 
@@ -45,6 +46,9 @@ var CreateModalView = Backbone.View.extend({
 
     getInputVal: function (name) {
         return ($("input[name=" + name + "]").val());
+    },
+
+    onShow: function() {
     },
 
     onSuccess: function (response) {
