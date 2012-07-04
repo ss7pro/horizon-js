@@ -11,7 +11,8 @@ var ServerView = BaseView.extend({
         "click .btn-start"              :   "handleServerActions",
         "click .btn-stop"               :   "handleServerActions",
         "click .btn-resume"             :   "handleServerActions",
-        "click .btn-unpause"            :   "handleServerActions"
+        "click .btn-unpause"            :   "handleServerActions",
+        "click  .vnc-link"              :   "renderVncServer"
     },
 
     initialize: function () {
@@ -76,6 +77,7 @@ var ServerView = BaseView.extend({
 
     renderEditServer: function (evt) {
         var params = this.buildServerParams(this);
+        params["evt"] = evt;
         var subview = new EditServerView({
                                 htmlTemplate: "#editServerFormTemplate",
                                 modalName: "edit_server_modal",
@@ -83,10 +85,22 @@ var ServerView = BaseView.extend({
                                 action: "edit",
                                 el: "body"
                     });
-        params["evt"] = evt;
         subview.render();
         return (this);
     },
+
+    renderVncServer: function (evt) {
+        evt.preventDefault();
+        var params = this.buildServerParams(this);
+        params["evt"] = evt;
+        var subview = new VncView({
+                                params: params,
+                                el: "body"
+                    });
+        subview.render();
+        return (this);
+    },
+
 
     handleServerActions: function (evt) {
         var confirmActions = [
