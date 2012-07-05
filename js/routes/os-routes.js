@@ -456,7 +456,7 @@ var OSRouter = Backbone.Router.extend({
         self.newContentView(self, view, binds);
     },
 
-	switchRegion: function(name) {
+    switchRegion: function(name) {
         if (this.loginModel.get("region") != name) {
 	        this.loginModel.setRegion(name);
         }
