@@ -479,6 +479,6 @@ var OSRouter = Backbone.Router.extend({
 
     register: function() {
         console.log('register page');
-        new RegisterView({el: '#root'}).render();
+        new RegisterView({loginModel: this.loginModel, el: '#register'}).render();
     }
 });

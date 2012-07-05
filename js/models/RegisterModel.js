@@ -12,7 +12,6 @@ var Register = Backbone.Model.extend({
             var resp = JSON.parse(xhr.responseText);
             model.trigger('error', model, resp, options);
           } catch(err) {
-            console.log(err);
             model.trigger('error', model, err, options);
           }
         });
@@ -23,5 +22,11 @@ var Register = Backbone.Model.extend({
   },
   parse: function(resp) {
     return resp;
+  },
+  getUsername: function() {
+    return this.get('registration[profile][username]')
+  },
+  getPassword: function() {
+    return this.get('registration[profile][password]')
   }
 });
