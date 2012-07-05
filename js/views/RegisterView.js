@@ -12,20 +12,14 @@ var RegisterView = Backbone.View.extend({
   },
   
   events: {
-    'change input.company_type': 'toggleCompany',
-    'click a#register-btn': 'doRegister',
-    'click a#clear-btn': 'clearErrors'
+    'change input.company_type' : 'toggleCompany',
+    'click a#register-btn'      : 'register',
   },
 
   render: function () {
     var self = this;
-    
-    $('#auth').css('display','none');
-    self.$el.fadeOut('slow', function() {
-      self.$el.css('display','none');
-      self.$el.html(self._template({}));
-      self.$el.fadeIn('slow');
-    });
+    this.$el.hide();
+    this.$el.html(self._template());
     this.toggleCompany();
     return this;
   },
@@ -35,7 +29,7 @@ var RegisterView = Backbone.View.extend({
     this.$('.company').attr('disabled', !isCompany);
   },
   
-  doRegister: function(e) {
+  register: function(e) {
     e.preventDefault();
     var data = {};
     this.$('input[type="email"], input[type="text"], input[type="password"], select, input[type="radio"]:checked').each(function(i,v) {
@@ -65,13 +59,15 @@ var RegisterView = Backbone.View.extend({
   },
 
   authError: function(msg) {
+    //TODO: handle auth error
     console.log(msg);
   },
 
   redirectIfAuthenticated: function() {
     if(this.options.loginModel.get('loggedIn') == true) {
-      this.$el.css('display','none');
-      window.location.hash = '#debug';
+      this.hide(function(){
+        window.location.hash = '#debug';
+      });
     }
   },
 
@@ -93,5 +89,12 @@ var RegisterView = Backbone.View.extend({
     return str.replace(/([ #;&,.+*~\':"!^$[\]()=>|\/@])/g,'\\$1');
   },
 
+  show: function(callback) {
+    this.$el.fadeIn(callback || function(){});
+  },
+
+  hide: function(callback) {
+    this.$el.fadeOut(callback || function(){});
+  }
 });
 

@@ -9,6 +9,7 @@ var RootView = Backbone.View.extend({
         $(this.options.root_el).empty().html(this._roottemplate()).css('display', 'None');
         this.model.bind('change:loggedIn', this.onLogin, this);
         this.model.bind('auth-error', this.renderAuthonerror, this);
+        this.options.registerView = new RegisterView({loginModel: this.model, el: '#register'}).render();
 /*
         this.onLogin();
 */
@@ -40,7 +41,7 @@ var RootView = Backbone.View.extend({
         var self = this;
         console.log("Token: " + self.model.get("token"));
         
-        
+        self.options.registerView.hide();
         self.$el = $(self.options.auth_el);
         self.delegateEvents({
             'click #home_loginbtn': 'onCredentialsSubmit',
@@ -58,9 +59,10 @@ var RootView = Backbone.View.extend({
     
     renderRoot: function () {
         var self = this;
+        self.options.registerView.hide();
         self.$el = $(self.options.auth_el);
         self.delegateEvents({});
-        console.log("Rendering auth");
+        console.log("Rendering root");
         if ($(self.options.auth_el).css('display') != 'None')
             $(self.options.auth_el).fadeOut();
         $(self.options.auth_el).fadeOut();
@@ -76,6 +78,12 @@ var RootView = Backbone.View.extend({
         $(this.options.auth_el).empty().html(this._authtemplate(this.model));
         $('body').attr("id", "splash");
         return this;
-    }
+    },
     
+    renderRegister: function() {
+        var self = this;
+        $(self.options.root_el).fadeOut();
+        $(self.options.auth_el).fadeOut();
+        self.options.registerView.show();
+    }
 });
