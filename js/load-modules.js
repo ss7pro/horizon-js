@@ -41,6 +41,7 @@ MODULES.Loader = (function(M, undefined) {
     loadViews = function() {
         M.Loader.custom_require([
                                     "js/views/RootView.js",
+                                    "js/views/RegisterView.js",
                                     "js/views/DebugView.js",
                                     "js/views/TopBarView.js",
                                     "js/views/LeftBarView.js",
@@ -62,6 +63,7 @@ MODULES.Loader = (function(M, undefined) {
     loadModels = function() {
 
         M.Loader.custom_require([
+                                   "js/models/RegisterModel.js",
                                    "js/models/LoginModel.js",
                                    "js/models/RegionModel.js",
                                    "js/models/TopBarModel.js",
@@ -106,6 +108,7 @@ MODULES.Loader = (function(M, undefined) {
                                     "js/load-templates.js"
             ], function(someModule) {
                 loadTemplates([
+                                "templates/registerTemplate.html",
                                 "templates/notLoggedInTemplate.html",
                                 "templates/rootTemplate.html",
                                 "templates/debugTemplate.html",

@@ -12,6 +12,7 @@ var OSRouter = Backbone.Router.extend({
     timers: [],
     
     routes: {
+        'register': 'register',
         'auth/login': 'login',
         'auth/region/:name': 'switchRegion',
         'auth/logout': 'logout'
@@ -461,7 +462,7 @@ var OSRouter = Backbone.Router.extend({
 	        this.loginModel.setRegion(name);
         }
 	    this.navigate(this.rootView.options.next_view, {trigger: false, replace: true});
-	},
+    },
 
     onSwitchRegion: function () {
         UTILS.Events.resetAllModels();
@@ -474,6 +475,10 @@ var OSRouter = Backbone.Router.extend({
         UTILS.Events.fetchSetsAdd("imageModel", self.imageModel);
         UTILS.Events.fetchSetsAdd("keyPairModel", self.keyPairModel);
         UTILS.Events.fetchSetsAdd("secGrupModel", self.secGroupModel);
-    }
+    },
 
+    register: function() {
+        console.log('register page');
+        new RegisterView({el: '#root'}).render();
+    }
 });

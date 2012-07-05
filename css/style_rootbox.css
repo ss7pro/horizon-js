@@ -368,3 +368,11 @@ td.actions_column .dropdown-menu button:hover {
 .ui-slider-vertical .ui-slider-range-min { bottom: 0; }
 .ui-slider-vertical .ui-slider-range-max { top: 0; }
 
+#register-form { width: 680px; margin-left: -340px; }
+#register-form .radio.inline { padding: 5px; }
+#register-form .control-group { padding: 0 0 0 4px; }
+#register-form .control-group span.help { display: block; }
+#register-form input,  #register-form textarea, 
+#register-form select, #register-form .uneditable-input { margin-bottom: 2px; }
+#register-form form .error { background: transparent; border: 0 none; }
+
