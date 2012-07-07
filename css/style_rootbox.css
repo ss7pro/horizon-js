@@ -54,6 +54,10 @@ td, th {
 	vertical-align: inherit;
 }
 
+.hidden { 
+  display: none;
+}
+
 #user_info {
     /*color: #888;*/
 	
@@ -376,4 +380,5 @@ td.actions_column .dropdown-menu button:hover {
 #register-form input,  #register-form textarea, 
 #register-form select, #register-form .uneditable-input { margin-bottom: 2px; }
 #register-form form .error { background: transparent; border: 0 none; }
+#register-form #copy-address { float: right; }
 

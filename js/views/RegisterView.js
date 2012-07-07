@@ -12,30 +12,94 @@ var RegisterView = Backbone.View.extend({
   },
   
   events: {
-    'change input.company_type' : 'toggleCompany',
-    'click a#register-btn'      : 'register',
+    'click  a#register-btn'      : 'register',
+    'click  a#register-back-btn' : 'confirmBack',
+    'click  a#confirm-btn'       : 'confirm',
+    'click  a#copy-address'      : 'copyAddress',
+    'change select'              : 'updateModel',
+    'change input'               : 'updateModel',
+    'keyup  input[type=text]'    : 'updateModel',
+    'keyup  input[type=password]': 'updateModel',
+    'change input.company_type'  : 'updateView'
   },
 
   render: function () {
     var self = this;
     this.$el.hide();
     this.$el.html(self._template());
-    this.toggleCompany();
+    this.updateView();
     return this;
   },
 
-  toggleCompany: function() {
-    var isCompany = this.$('input.company_type:checked').val() == '1';
-    this.$('.company').attr('disabled', !isCompany);
+  updateModel: function(e) {
+    this.model.set(e.target.name, e.target.value);
+    if(!this.model.isCompany()) {
+      _.each(['street', 'post_code', 'city', 'phone'], function(key) {
+        this.model.set('registration[invoice_address][' + key + ']', '');
+      }, this);
+      _.each(['name', 'nip', 'www'], function(key) {
+        this.model.set('registration[tenant][' + key + ']', '');
+      }, this);
+    }
   },
-  
+
+  updateView: function() {
+    _.each(this.model.attributes, function(value, name) {
+      name = this._jqEscape(name);
+      var $el = this.$('form [name="' + name + '"]');
+      if($el.attr('type') == 'radio') {
+        value = this._jqEscape(value);
+        $el.filter('[value="' + value + '"]').attr('checked', true);
+      } else {
+        $el.val(value);
+      }
+    }, this);
+    this.$('.company').attr('disabled', !this.model.isCompany());
+  },
+
+  updateConfirmView: function() {
+    this.$('#confirm_email').text(this.model.get('registration[profile][username]'));
+    this.$('#confirm_name').text(
+      this.model.get('registration[profile][title]') + ' ' +
+      this.model.get('registration[profile][first_name]') + ' ' +
+      this.model.get('registration[profile][last_name]')
+    );
+    this.$('#confirm_address').text(
+      this.model.get('registration[account_address][street]') + ', ' +
+      this.model.get('registration[account_address][post_code]') + ' ' +
+      this.model.get('registration[account_address][city]') + ', ' +
+      this.model.get('registration[account_address][phone]')
+    );
+    this.$('#confirm_company_name').text(this.model.get('registration[tenant][company_name]'));
+    this.$('#confirm_company_address').text(
+      this.model.get('registration[invoice_address][street]') + ', ' +
+      this.model.get('registration[invoice_address][post_code]') + ' ' +
+      this.model.get('registration[invoice_address][city]') + ', ' +
+      this.model.get('registration[invoice_address][phone]')
+    );
+    this.$('#confirm_company_nip').text(this.model.get('registration[tenant][nip]'));
+    this.$('#confirm_company_www').text(this.model.get('registration[tenant][www]'));
+  },
+
+  copyAddress: function(e) {
+    e.preventDefault();
+    this.model.copyAddress();
+    this.updateView();
+  },
+
+  confirm: function(e) {
+    e.preventDefault();
+    this.updateConfirmView();
+    this.showPage('#page_confirm');
+  },
+
+  confirmBack: function(e) {
+    e.preventDefault();
+    this.showPage('#page_form');
+  },
+
   register: function(e) {
     e.preventDefault();
-    var data = {};
-    this.$('input[type="email"], input[type="text"], input[type="password"], select, input[type="radio"]:checked').each(function(i,v) {
-      data[v.name] = v.value;
-    });
-    this.model.set(data);
     this.model.save();
   },
 
@@ -49,6 +113,7 @@ var RegisterView = Backbone.View.extend({
       _.each(resp.errors.fields, function(msg, name){
         this.setError(name, msg);
       }, this);
+      this.showPage('#page_form');
       return;
     }
     console.log(resp);
@@ -59,7 +124,6 @@ var RegisterView = Backbone.View.extend({
   },
 
   authError: function(msg) {
-    //TODO: handle auth error
     console.log(msg);
   },
 
@@ -87,6 +151,13 @@ var RegisterView = Backbone.View.extend({
 
   _jqEscape: function(str) {
     return str.replace(/([ #;&,.+*~\':"!^$[\]()=>|\/@])/g,'\\$1');
+  },
+
+  showPage: function(id) {
+    var self = this;
+    self.$('.page').fadeOut(function() {
+      self.$(id).fadeIn();
+    });
   },
 
   show: function(callback) {
