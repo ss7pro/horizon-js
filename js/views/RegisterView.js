@@ -3,12 +3,9 @@ var RegisterView = Backbone.View.extend({
   _template: _.itemplate($('#registerTemplate').html()),
   
   initialize: function() {
-    this.redirectIfAuthenticated();
     this.model = new Register();
-    this.model.bind('sync' , this.saveSuccess, this);
-    this.model.bind('error', this.saveError,   this);
-    this.options.loginModel.bind('change:loggedIn', this.authSuccess, this);
-    this.options.loginModel.bind('auth-error',      this.authError,   this);
+    this.model.on('sync' , this.saveSuccess, this);
+    this.model.on('error', this.saveError,   this);
   },
   
   events: {
@@ -37,7 +34,7 @@ var RegisterView = Backbone.View.extend({
       _.each(['street', 'post_code', 'city', 'phone'], function(key) {
         this.model.set('registration[invoice_address][' + key + ']', '');
       }, this);
-      _.each(['name', 'nip', 'www'], function(key) {
+      _.each(['company_name', 'nip', 'www'], function(key) {
         this.model.set('registration[tenant][' + key + ']', '');
       }, this);
     }
@@ -161,10 +158,17 @@ var RegisterView = Backbone.View.extend({
   },
 
   show: function(callback) {
+    this.redirectIfAuthenticated();
+    this.delegateEvents();
+    this.options.loginModel.on('change:loggedIn', this.authSuccess, this);
+    this.options.loginModel.on('auth-error',      this.authError,   this);
     this.$el.fadeIn(callback || function(){});
   },
 
   hide: function(callback) {
+    this.undelegateEvents();
+    this.options.loginModel.off('change:loggedIn', this.authSuccess, this);
+    this.options.loginModel.off('auth-error',      this.authError,   this);
     this.$el.fadeOut(callback || function(){});
   }
 });
