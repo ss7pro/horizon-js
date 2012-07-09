@@ -22,9 +22,17 @@ var RegisterView = Backbone.View.extend({
 
   render: function () {
     var self = this;
+    var model = this.model;
     this.$el.hide();
     this.$el.html(self._template());
     this.updateView();
+    Recaptcha.create("6LffzNMSAAAAAGDlUb8oV2G4QceRErUZfXNwGc9A", 'registration_captcha', {
+      theme: 'clean',
+      callback: function() {
+        model.set('recaptcha_challenge_field', Recaptcha.get_challenge());
+        model.set('recaptcha_response_field', Recaptcha.get_response());
+      }
+    });
     return this;
   },
 
@@ -43,7 +51,7 @@ var RegisterView = Backbone.View.extend({
   updateView: function() {
     _.each(this.model.attributes, function(value, name) {
       name = this._jqEscape(name);
-      var $el = this.$('form [name="' + name + '"]');
+      var $el = this.$('[name="' + name + '"]');
       if($el.attr('type') == 'radio') {
         value = this._jqEscape(value);
         $el.filter('[value="' + value + '"]').attr('checked', true);
@@ -107,6 +115,7 @@ var RegisterView = Backbone.View.extend({
 
   saveError: function(model, resp) {
     if(resp.errors && resp.errors.fields) {
+      this.clearErrors();
       _.each(resp.errors.fields, function(msg, name){
         this.setError(name, msg);
       }, this);
@@ -132,14 +141,14 @@ var RegisterView = Backbone.View.extend({
     }
   },
 
-  clearErrors: function(e) {
-    this.$('form .error').removeClass('error');
-    this.$('form span.help').text('');
+  clearErrors: function() {
+    this.$('.error').removeClass('error');
+    this.$('span.help').text('');
   },
 
   setError: function(name, msg) {
     name = this._jqEscape(name);
-    this.$('form [name="' + name + '"]')
+    this.$('[name="' + name + '"]')
       .parents('.control-group')
       .addClass('error')
       .find('span.help')

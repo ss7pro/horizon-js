@@ -17,7 +17,9 @@ var Register = Backbone.Model.extend({
     'registration[invoice_address][street]': '',
     'registration[invoice_address][post_code]': '',
     'registration[invoice_address][city]': '',
-    'registration[invoice_address][phone]': ''
+    'registration[invoice_address][phone]': '',
+    'recaptcha_challenge_field': '',
+    'recaptcha_response_field': ''
   },
   sync: function(method, model, options) {
     switch(method) {
