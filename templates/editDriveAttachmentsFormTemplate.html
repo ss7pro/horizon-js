@@ -1,0 +1,16 @@
+<script id="editDriveAttachmentsFormTemplate" type="text/html">
+<div id="edit_drive_attachments_modal" class="modal hide in" style="display: block; ">
+<input type="hidden" name="drive_id" value="<%= evt.target.value %>" id="drive_id" />
+ <div class="modal-header">
+  <a href="" class="close" data-dismiss="modal">×</a>
+  <h3 data-i18n="Edit drive attachments">Edit drive attachments</h3>
+  <div>
+<!-- inputs here -->
+  </div>
+ </div>
+ <div class="modal-footer">
+  <button class="btn btn-primary pull-right btn-edit" name="action" type="submit" data-i18n="Save changes">Save changes</button>
+  <a id="cancelBtn" class="close btn seconday cancel close" data-dismiss="modal" data-i18n="Cancel">Cancel</a>
+ </div>
+</div>
+</script>

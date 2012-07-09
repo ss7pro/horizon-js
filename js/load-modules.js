@@ -54,7 +54,8 @@ MODULES.Loader = (function(M, undefined) {
                                     "js/views/EditServerView.js",
                                     "js/views/ConfirmModalView.js",
                                     "js/views/CreateDriveView.js",
-                                    "js/views/ServerDetailsView.js"
+                                    "js/views/ServerDetailsView.js",
+                                    "js/views/EditDriveAttachmentsView.js"
             ], function(someModule) {
                     M.Loader.loadRoutes();
             });
@@ -127,8 +128,8 @@ MODULES.Loader = (function(M, undefined) {
                                 "templates/confirmTemplate.html",
                                 "templates/createDriveFormTemplate.html",
                                 "templates/serverDetailsTemplate.html",
-                                "templates/serverDetailsDataTemplate.html"
-
+                                "templates/serverDetailsDataTemplate.html",
+                                "templates/editDriveAttachmentsFormTemplate.html"
                 ], function(){
                         M.Loader.loadLibraries();
                 });

@@ -5,7 +5,8 @@ var DriveView = BaseView.extend({
     events: {
         "click .btn-create-drive"       :   "renderCreateDrive",
         "click .btn-delete"             :   "handleDriveActions",
-        "click .btn-snapshot"           :   "handleDriveActions"
+        "click .btn-snapshot"           :   "handleDriveActions",
+        "click .btn-edit-attachments"   :   "renderEditDriveAttachments"
     },
 
     
@@ -103,6 +104,20 @@ var DriveView = BaseView.extend({
         UTILS.Events.setRequestProperty(reqId, "description", "Request for: "  +
                                         action + " on volume: " + volumeName);
         volumeModel._action(action, UTILS.Events.requestHandlerDict(reqId));
+    },
+
+    renderEditDriveAttachments: function (evt) {
+        var params = this.buildDriveParams(this);
+        params["evt"] = evt;
+        var subview = new EditDriveAttachmentsView({
+                                htmlTemplate: "#editDriveAttachmentsFormTemplate",
+                                modalName: "edit_drive_attachments_modal",
+                                params: params,
+                                action: "edit",
+                                el: "body"
+                    });
+        subview.render();
+        return (this);
     }
     
 });

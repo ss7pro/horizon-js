@@ -46,7 +46,7 @@ Server Name: <%=  instance.get("name") %>
 	 </td>
 	 <td class="actions_column">
 	  <div class="btn-group">
-          <a id="volumes__row_<%= volumeModel.models[vindex].get("id") %>__action_attachments" value="<%= volumeModel.models[vindex].get("id") %>" class="btn btn-small ajax-modal btn-edit btn-edit-volumes">Edit Attachments</a>
+          <button id="volumes__row_<%= volumeModel.models[vindex].get("id") %>__action_attachments" value="<%= volumeModel.models[vindex].get("id") %>" class="btn btn-small ajax-modal btn-edit-attachments">Edit Attachments</button>
           <a class="btn dropdown-toggle ajax-modal btn-edit" data-toggle="dropdown" href="#">
           <span class="caret"></span>
           </a>
