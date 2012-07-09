@@ -139,6 +139,7 @@ MODULES.Loader = (function(M, undefined) {
     loadModules = function() {
         M.Loader.custom_require([
                                     "lib/jquery.js",
+                  "http://www.google.com/recaptcha/api/js/recaptcha_ajax.js",
 									"lib/underscore.js"
             ], function(someModule) {
                 M.Loader.getTemplates();

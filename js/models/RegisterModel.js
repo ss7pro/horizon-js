@@ -1,4 +1,26 @@
 var Register = Backbone.Model.extend({
+  defaults: {
+    'registration[profile][username]': '',
+    'registration[profile][password]': '',
+    'registration[profile][password_again]': '',
+    'registration[profile][title]': '',
+    'registration[profile][first_name]': '',
+    'registration[profile][last_name]': '',
+    'registration[tenant][type]': '1',
+    'registration[tenant][company_name]': '',
+    'registration[tenant][nip]': '',
+    'registration[tenant][www]': '',
+    'registration[account_address][street]': '',
+    'registration[account_address][post_code]': '',
+    'registration[account_address][city]': '',
+    'registration[account_address][phone]': '',
+    'registration[invoice_address][street]': '',
+    'registration[invoice_address][post_code]': '',
+    'registration[invoice_address][city]': '',
+    'registration[invoice_address][phone]': '',
+    'recaptcha_challenge_field': '',
+    'recaptcha_response_field': ''
+  },
   sync: function(method, model, options) {
     switch(method) {
       case 'create':
@@ -28,5 +50,15 @@ var Register = Backbone.Model.extend({
   },
   getPassword: function() {
     return this.get('registration[profile][password]')
+  },
+  isCompany: function() {
+    return this.get('registration[tenant][type]') == '1';
+  },
+  copyAddress: function() {
+    _.each(['street', 'post_code', 'city', 'phone'], function(key) {
+      var src = 'registration[account_address][' + key + ']';
+      var dst = 'registration[invoice_address][' + key + ']';
+      this.set(dst, this.get(src));
+    }, this);
   }
 });

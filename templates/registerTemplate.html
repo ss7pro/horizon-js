@@ -1,5 +1,7 @@
 <script id="registerTemplate" type="text/html">
 <div id="register-form" class="modal">
+<div id="page_form" class="page">
+
   <div class="modal-header">
     <h3 data-i18n="Registration">Registration</h3>
   </div>
@@ -8,6 +10,7 @@
 
     <div class="row">
     <div class="span4">
+
       <h3 data-i18n="Account">Account</h3>
 
       <div class="control-group">
@@ -111,8 +114,8 @@
       <div class="control-group">
         <label for="registration_tenant_type">Typ konta</label>
         <div class="controls">
-          <input name="registration[tenant][type]" type="radio" value="0" id="registration_tenant_type_0" checked="checked" class="company_type"/><label for="registration_tenant_type_0" class="radio inline">Osoba fizyczna</label>
-          <input name="registration[tenant][type]" type="radio" value="1" id="registration_tenant_type_1"  class="company_type"/><label for="registration_tenant_type_1" class="radio inline">Firma</label>
+          <input name="registration[tenant][type]" type="radio" value="0" id="registration_tenant_type_0" class="company_type"/><label for="registration_tenant_type_0" class="radio inline">Osoba fizyczna</label>
+          <input name="registration[tenant][type]" type="radio" value="1" id="registration_tenant_type_1" class="company_type"/><label for="registration_tenant_type_1" class="radio inline">Firma</label>
           <span class="help"></span>
         </div>
       </div>
@@ -145,7 +148,7 @@
     <div class="span4">
       
       <div class="control-group">
-        <label for="registration_invoice_address_street">Ulica</label>
+        <label for="registration_invoice_address_street"><span>Ulica</span> <a href="#" id="copy-address" data-i18n="Copy address">Copy address</a></label>
         <div class="controls">
           <input type="text" name="registration[invoice_address][street]" id="registration_invoice_address_street" class="company"/>
           <span class="help"></span>
@@ -180,13 +183,48 @@
         
     </div>
     </div>
+
   </form>
 
   <div class="clearfix"></div>
  
   <div class="modal-footer">
-    <a id="register-btn" class="btn btn-primary" data-i18n="Register" href="#register">Register</a>
+    <a id="confirm-btn" class="btn btn-primary" data-i18n="Confirm" href="#">Confirm</a>
     <a id="back-btn" class="btn" data-i18n="Back to login" href="#auth/login">Back to login</a>
   </div>
+
+</div>
+<div id="page_confirm" class="hidden page">
+
+  <div class="modal-header">
+    <h3 data-i18n="Confirm registration data">Confirm registration data</h3>
+  </div>
+
+  <div class="modal-body">
+    <table class="table table-striped">
+      <body>
+        <tr><th data-i18n="Email"></th><td><span id="confirm_email"></td></tr>
+        <tr><th data-i18n="Name"></th><td><span id="confirm_name"></span></td></tr>
+        <tr><th data-i18n="Address"></th><td><span id="confirm_address"></span></td></tr>
+        <tr><th data-i18n="Company Name"></th><td><span id="confirm_company_name"></span></td></tr>
+        <tr><th data-i18n="Company Arress"></th><td><span id="confirm_company_address"></span></td></tr>
+        <tr><th data-i18n="NIP"></th><td><span id="confirm_company_nip"></span></td></tr>
+        <tr><th data-i18n="Web page"></th><td><span id="confirm_company_www"></span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="control-group">
+      <div id="registration_captcha" name="registration[captcha]"></div>
+      <span class="help"></span>
+    </div>
+
+  </div>
+
+  <div class="modal-footer">
+    <a id="register-btn" class="btn btn-primary" data-i18n="Register" href="#">Register</a>
+    <a id="register-back-btn" class="btn" data-i18n="Back to form" href="#">Back to form</a>
+  </div>
+
+</div>
 </div>
 </script>
