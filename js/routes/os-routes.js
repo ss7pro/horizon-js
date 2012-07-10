@@ -56,7 +56,7 @@ var OSRouter = Backbone.Router.extend({
                                                         this.checkAuth));
 	    this.route('debug', 'debug', this.wrap(this.navigateDebug,
                                                 this.checkAuth));
-	    this.route('payment', 'payment', this.wrap(this.navigatePayment, 
+	    this.route('payments', 'payments', this.wrap(this.navigatePayment, 
                                                 this.checkAuth));
 	    this.route('server/details/:id', 'serverDetails',
                     this.wrap(this.navigateServerDetails, this.checkAuth));

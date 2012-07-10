@@ -1,14 +1,31 @@
 <script id="paymentTemplate" type="text/html">
 <div id="paymentTemplate">
   <div id="payments">
-    <h4 data-i18n="Payments">Payments</h4>
+    <h3 data-i18n="Payments">Payments</h3>
+    <form class="form-horizontal">
+      <fieldset class="control-group">
+        <legend data-i18n="Promotion code">Promotion code</legend>
+        <label for="promo_code_code" data-i18n="Enter code" class="control-label">Enter code</label>
+        <div class="controls">
+          <input id="promo_code_code" name="promo_code[code]" class="span3"/>
+          <button class="btn btn-primary" data-i18n="Charge Account">Charge Account</button>
+          <span class="help"></span>
+        </div>
+      </fieldset>
 
-    <div class="control-group">
-      <label for="promo_code_code" data-i18n="Promo code">Promo code</label>
-      <input id="promo_code_code" name="promo_code[code]"/>
-      <button class="btn btn-primary" data-i18n="Charge">Charge</button>
-      <span class="help"></span>
-    </div>
+      <fieldset class="control-group">
+        <legend data-i18n="Purchase service">Buy</legend>
+        <label for="payment_preset" data-i18n="Choose plan" class="control-label">Choose plan</label>
+        <div class="controls">
+          <select id="payment_preset" name="payment[preset]" class="span3">
+            <option value=""></option>
+            <option value="10">$10</option>
+          </select>
+          <button class="btn btn-primary" data-i18n="Go to payment">Go to payment</button>
+          <span class="help"></span>
+        </div>
+      </fieldset>
+    </form>
 
   </div>
 </div>
