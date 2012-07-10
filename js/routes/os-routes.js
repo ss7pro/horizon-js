@@ -56,6 +56,8 @@ var OSRouter = Backbone.Router.extend({
                                                         this.checkAuth));
 	    this.route('debug', 'debug', this.wrap(this.navigateDebug,
                                                 this.checkAuth));
+	    this.route('payment', 'payment', this.wrap(this.navigatePayment, 
+                                                this.checkAuth));
 	    this.route('server/details/:id', 'serverDetails',
                     this.wrap(this.navigateServerDetails, this.checkAuth));
 	},
@@ -245,6 +247,7 @@ var OSRouter = Backbone.Router.extend({
                     {name: "firewall", url: "#firewall", desc: "Firewalls" },
                     {name: "snapshot", url: "#snapshot", desc: "Snapshots" },
                     {name: "debug", url: "#debug", desc: "Debug" },
+                    {name: "payments", url: "#payments", desc: "Payments" },
                     {name: "serverDetails", url: "", desc: "Server details" },
             ];
         self.topBarModel.set({navs: navs, active: active });
@@ -399,6 +402,14 @@ var OSRouter = Backbone.Router.extend({
                                 regionModel: this.regionModel,
                                 instanceModel: this.instanceModel,
                                 flavorModel: this.flavorModel,
+                                el: "#content"});
+        self.newContentView(self, view, undefined);
+    },
+
+    navigatePayment: function(self) {
+        self.barDataSet(self, "payments");
+        self.showRoot(self);
+        view = new PaymentView({loginModel: this.loginModel,
                                 el: "#content"});
         self.newContentView(self, view, undefined);
     },

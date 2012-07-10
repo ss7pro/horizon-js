@@ -50,6 +50,7 @@ MODULES.Loader = (function(M, undefined) {
                                     "js/views/FirewallView.js",
                                     "js/views/SnapshotView.js",
                                     "js/views/VncView.js",
+                                    "js/views/PaymentView.js",
                                     "js/views/CreateServerView.js",
                                     "js/views/EditServerView.js",
                                     "js/views/ConfirmModalView.js",
@@ -75,6 +76,7 @@ MODULES.Loader = (function(M, undefined) {
                                    "js/models/ImageModel.js",
                                    "js/models/KeyPairModel.js",
                                    "js/models/SecGroupModel.js",
+                                   "js/models/PaymentModel.js",
                                    "js/views/BaseView.js",
                                    "js/views/CreateModal.js"
             ], function(someModule) {
@@ -126,6 +128,7 @@ MODULES.Loader = (function(M, undefined) {
                                 "templates/createServerFormTemplate.html",
                                 "templates/editServerFormTemplate.html",
                                 "templates/confirmTemplate.html",
+                                "templates/paymentTemplate.html",
                                 "templates/createDriveFormTemplate.html",
                                 "templates/serverDetailsTemplate.html",
                                 "templates/serverDetailsDataTemplate.html",
