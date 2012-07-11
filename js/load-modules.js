@@ -1,6 +1,23 @@
 
 var MODULES = MODULES || {};
 
+MODULES.Config = (function(M, undefined) {
+  var _settings = {};
+  var _add = function(options) {
+    _.each(options, function(opt, key) {
+      _settings[key] = opt;
+    });
+  }
+  var _get = function(name) {
+    if(name === undefined) return _settings;
+    return _settings[name];
+  }
+  return {
+    add: _add,
+    get: _get
+  }
+})(MODULES);
+
 MODULES.Loader = (function(M, undefined) {
     "use strict";
 
@@ -25,6 +42,10 @@ MODULES.Loader = (function(M, undefined) {
     loadOS = function() {
         $(document).ready(function(){
             UTILS.Auth.initialize("http://178.239.138.10:5000/v2.0/");
+            M.Config.add({
+              registrationEndpoint: 'http://178.239.138.10:8081/main_dev.php/registration/register',
+              promoCodeEndpoint:    'http://178.239.138.10:8081/main_dev.php/billing/promo_code'
+            });
             M.Loader.fiRouter = new OSRouter();
             Backbone.history.start();
         });
@@ -77,6 +98,7 @@ MODULES.Loader = (function(M, undefined) {
                                    "js/models/KeyPairModel.js",
                                    "js/models/SecGroupModel.js",
                                    "js/models/PaymentModel.js",
+                                   "js/models/PromoCodeModel.js",
                                    "js/views/BaseView.js",
                                    "js/views/CreateModal.js"
             ], function(someModule) {
