@@ -1,7 +1,7 @@
 <script id="driveListTemplate" type="text/html">
-<div id="drives-operation">
+<!--<div id="drives-operation">
 <button id="drive__action_create" class="ajax-modal btn-create btn btn-small btn-create-drive" name="action" type="submit" data-i18n="Create drive">Create drive</button>
-</div>
+</div>-->
 <table class="table table-striped table-bordered table-condensed">
  <thead>
   <tr>
@@ -52,10 +52,12 @@ Server Name: <%=  instance.get("name") %>
           </a>
           <ul class="dropdown-menu row_actions clearfix">
            <li class="clearfix">
-           <button value="<%= volumeModel.models[vindex].get("id") %>" id="volumes__row_<%= volumeModel.models[vindex].get("id") %>__action_snapshots" class="btn btn-small ajax-modal btn-snapshot">Create Snapshot</button>
+<i class="icon-eye-open">
+           <button value="<%= volumeModel.models[vindex].get("id") %>" id="volumes__row_<%= volumeModel.models[vindex].get("id") %>__action_snapshots" class="btn btn-small ajax-modal btn-snapshot s-dropdown-fixed">Create Snapshot</button></i>
            </li>
            <li class="clearfix">
-            <button id="volumes__row_<%= volumeModel.models[vindex].get("id") %>__action_delete" class="btn btn-small btn-danger btn-delete" name="action" value="<%= volumeModel.models[vindex].get("id") %>" type="submit">Delete Volume</button>
+<i class="icon-remove">
+            <button id="volumes__row_<%= volumeModel.models[vindex].get("id") %>__action_delete" class="btn btn-small btn-danger btn-delete s-dropdown-fixed" name="action" value="<%= volumeModel.models[vindex].get("id") %>" type="submit">Delete Volume</button></i>
            </li>
           </ul>
          </div>

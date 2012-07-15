@@ -16,6 +16,13 @@ var ServerView = BaseView.extend({
     },
 
     initialize: function () {
+      $('.btn-create-server:first')
+        .click(this.renderCreateServer.bind(this))
+        .show();
+      
+    },
+
+    checkModels: function () {
     },
 
     checkModels: function () {
@@ -103,69 +110,70 @@ var ServerView = BaseView.extend({
 
 
     handleServerActions: function (evt) {
+        var confirmIcon = '<img src="images/question-mark.png" class="confirm-icon">';
         var confirmActions = [
                 {
                     "name": "btn-terminate",
                     action: "delete",
                     handler: this.issueActionOnServer,
                     model: this.options.instanceModel,
-                    title: "Terminate server ?",
-                    btn: "Yes, I confirm",
-                    body: "Please confirm. This action cannot be undone"
+                    title: "Terminate server?",
+                    btn: "Yes, I confirm.",
+                    body: confirmIcon + "Please confirm. This action cannot be undone."
                  },
                 {
                     "name": "btn-reboot",
                     action: "reboot",
                     handler: this.issueActionOnServer,
                     model: this.options.instanceModel,
-                    title: "Reboot server ?",
-                    btn: "Yes, I confirm",
-                    body: "Please confirm."
+                    title: "Reboot server?",
+                    btn: "Yes, I confirm.",
+                    body: confirmIcon + "Please confirm."
                 },
                 {
                     "name": "btn-start",
                     action: "start",
                     handler: this.issueActionOnServer,
                     model: this.options.instanceModel,
-                    title: "Start server ?",
-                    btn: "Yes, I confirm",
-                    body: "Please confirm."
+                    title: "Start server?",
+                    btn: "Yes, I confirm.",
+                    body: confirmIcon + "Please confirm."
                 },
                 {
                     "name": "btn-stop",
                     action: "stop",
                     handler: this.issueActionOnServer,
                     model: this.options.instanceModel,
-                    title: "Stop server ?",
-                    btn: "Yes, I confirm",
-                    body: "Please confirm."
+                    title: "Stop server?",
+                    btn: "Yes, I confirm.",
+                    body: confirmIcon + "Please confirm."
                 },
                 {
                     "name": "btn-resume",
                     action: "resume",
                     handler: this.issueActionOnServer,
                     model: this.options.instanceModel,
-                    title: "Resume server ?",
-                    btn: "Yes, I confirm",
-                    body: "Please confirm."
+                    title: "Resume server?",
+                    btn: "Yes, I confirm.",
+                    body: confirmIcon + "Please confirm."
                 },
                 {
                     "name": "btn-unpause",
                     action: "unpause",
                     handler: this.issueActionOnServer,
                     model: this.options.instanceModel,
-                    title: "Unpause server ?",
-                    btn: "Yes, I confirm",
-                    body: "Please confirm."
+                    title: "Unpause server?",
+                    btn: "Yes, I confirm.",
+                    body: confirmIcon + "Please confirm."
                 },
                 {
                     "name": "btn-snapshot",
                     action: "snapshot",
                     handler: this.issueActionOnServer,
                     model: this.options.instanceModel,
-                    title: "Snapshot server ?",
-                    btn: "Yes, I confirm",
-                    body: "Please confirm."
+                    title: "Snapshot server?",
+                    btn: "Yes, I confirm.",
+                    body: confirmIcon + "Please confirm."
                 }
             ];
         var subview= new ConfirmModalView({ confirmActions: confirmActions,

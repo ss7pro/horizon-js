@@ -1,10 +1,24 @@
 <script id="topBarTemplate" type="text/html">
-<a href="#"><img src="./images/logo.png" alt="RootBoox" /></a>
-<div id="user_info" class="pull-right">
+
+<div id="stripe" class="stripe-soli">
+<!--<div  id="tenant_switcher" class="btn-group">
+  <button class="btn">Region</buton>
+  <button class="btn dropdown-toggle" data-toggle="dropdown"  href="#tenant_switcher"><%= loginModel.get("region") %>
+  <span class="caret"></span>
+</button>
+  <ul id="tenant_list" class="dropdown-menu">
+    <li class="divider"></li>
+    <li><a href="#auth/region/r4cz1">r4cz1</a></li>
+    <li><a href="#auth/region/r4cz2">r4cz2</a></li>
+  </ul>
+</div>
+<a href="#auth/region/r4cz2">r4cz2</a>
+-->
+
 <!-- region start  -->
 
-
 <div id="tenant_switcher" class="dropdown switcher_bar" tabindex="1">
+
 <a class="dropdown-toggle" data-toggle="dropdown" href="#tenant_switcher">
 
   <h4>Region</h4>
@@ -18,11 +32,27 @@
   </ul>
   </div>
 <!-- region end  -->
+  <div id="s-logging-info" class="s-login-info">
+    <span data-i18n="Logged in as">Logged in as</span>: <%= model.get('username') %>
+    <a href="#auth/logout" data-i18n="Sign Out" class="white-text">Sign Out</a>
+  </div>
+
+</div>
+<div id="logo_container" class="logo-container">
+<a href="#"><img src="./images/logo.png" alt="RootBoox" /></a>
+</div>
+<div id="user_info" class="pull-right">
   
-  <span data-i18n="Logged in as">Logged in as</span>: <%= model.get('username') %>
-  <a href="#auth/logout" data-i18n="Sign Out">Sign Out</a>
 </div>
   <div class='page-header'>
     <h2 ><%= UTILS.i18n.pluralise(model.get("title")) %></h2>
+  </div>
+  <div id="servers-operation">
+    <button id="server__action_create" style="display: none;" class="ajax-modal btn btn-primary btn-large  btn-create-server btn-create-soli" name="action" type="submit" data-i18n="Create Server"></button>
+    
+  </div>
+  <div id="drives-operation">
+     <img src="images/server-icon.png">
+     <button id="drive__action_create" style="display: none;" class="ajax-modal btn btn-primary btn-large  btn-create-drive btn-create-soli" name="action" type="submit" data-i18n="Create Drive"></button>
   </div>
 </script>

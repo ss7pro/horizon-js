@@ -2,6 +2,8 @@
 <div id="confirm" class="modal hide ">
     <div class="modal-header">
         <a class="close" id= "close" data-dismiss="modal">&times;</a>
+<!--        <div id="s-question-mark" class="s-question-mark"><img src="images/question-mark-icon.png"></div>-->
+<!--<i class="icon-question-sign"></i>-->
         <h3><%= UTILS.i18n.pluralise(title,0) %></h3>
     </div>
     <div class="modal-body">
@@ -9,7 +11,7 @@
     </div>
     <div class="modal-footer">
         <button class="btn btn-primary pull-right btn-confirm" name="action" type="submit"><%= UTILS.i18n.pluralise(btn,0) %></button>
-        <a id="cancelBtn" class="btn cancel" data-dismiss="modal">Cancel</a>
+        <a id="cancelBtn" class="btn cancel s-cancel" data-dismiss="modal">Cancel</a>
     </div>
 </div>
 </script>           
