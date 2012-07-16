@@ -5,6 +5,8 @@ var PromoCodeModel = Backbone.Model.extend({
   defaults: {
     code: '',
     tenant_id: '',
-    token: ''
+    token: '',
+    value: '',
+    used_at: ''
   }
 });
