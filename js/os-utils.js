@@ -12,8 +12,8 @@ UTILS.Auth = (function(U, undefined) {
 
     var tenants = [];
     
-    function initialize(url) {
-        JSTACK.Keystone.init(url);
+    function initialize(origin, url) {
+        JSTACK.Keystone.init(origin, url);
     }
     
     function getToken() {
