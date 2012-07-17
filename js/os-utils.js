@@ -69,8 +69,8 @@ UTILS.Auth = (function(U, undefined) {
 
     function authenticate(username, password, tenant, token, callback, error) {
         var _authenticatedWithTenant = function (resp) {
-            console.log("Authenticated with tenant");
-            console.log(JSON.stringify(resp));
+            //console.log("Authenticated with tenant");
+            //console.log(JSON.stringify(resp));
             callback();
         }
 /*
@@ -81,8 +81,8 @@ UTILS.Auth = (function(U, undefined) {
 */
 
         var _authenticatedWithoutTenant = function() {
-            console.log("Ok");
-            console.log("Retrieving tenants...");
+            //console.log("Ok");
+            //console.log("Retrieving tenants...");
 
             var ok = function (resp) {
                 tenants = resp.tenants;
@@ -95,10 +95,10 @@ UTILS.Auth = (function(U, undefined) {
         var _tryTenant = function(tenant) {
             if (tenants.length > 0) {
                 tenant = tenant || tenants.pop();
-                console.log("Authenticating for tenant " + JSON.stringify(tenant.id));
+                //console.log("Authenticating for tenant " + JSON.stringify(tenant.id));
                 JSTACK.Keystone.authenticate(undefined, undefined, JSTACK.Keystone.params.token, tenant.id, _authenticatedWithTenant, _error);
             } else {
-                console.log("Error authenticating");
+                //console.log("Error authenticating");
                 error("No tenant")
             }
         }
@@ -124,10 +124,10 @@ UTILS.Auth = (function(U, undefined) {
         
         if (username != undefined && password != undefined) {
             success = _authenticatedWithoutTenant;
-            console.log("Authenticating with credentials");
+            //console.log("Authenticating with credentials");
         } else if (token != undefined) {
             success = _authenticatedWithoutTenant;
-            console.log("Authenticating with token");
+            //console.log("Authenticating with token");
         }
         JSTACK.Keystone.authenticate(username, password, token, tenant, success, _credError);
     };
@@ -175,7 +175,7 @@ UTILS.i18n = (function(U, undefined) {
 	        localStorage.i18nlang = 'en';
 	    }
 	    UTILS.i18n.setlang(localStorage.i18nlang);
-        console.log("Language: " + localStorage.i18nlang);
+        //console.log("Language: " + localStorage.i18nlang);
     };
     
     function setlang(lang, callback) {
@@ -183,15 +183,15 @@ UTILS.i18n = (function(U, undefined) {
         $.ajax({
             url: url,
             success: function(data, status, xhr) {
-                console.log('loaded: ' + url);
+                //console.log('loaded: ' + url);
                 U.i18n.params.dict = data;
                 localStorage.i18nlang = lang;
                 if (callback != undefined)
                     callback();
             },
             error : function(xhr, status, error) {
-                console.log('failed loading: ' + url);
-                console.log(status);
+                //console.log('failed loading: ' + url);
+                //console.log(status);
                 if (callback != undefined)
                     callback();
             },
@@ -361,7 +361,7 @@ UTILS.Events = (function(U, undefined) {
     }
 
     function successRequestHandler (resp, status, xhr, reqData) {
-        console.log(arguments);
+        //console.log(arguments);
         if (!reqData.hasOwnProperty("reqId")) {
             return;
         }

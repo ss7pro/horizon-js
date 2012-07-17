@@ -95,12 +95,12 @@ var LoginStatus = Backbone.Model.extend({
 
     onTokenChange: function (context, token) {
         var self = context;
-        console.log(token);
+        //console.log(token);
         if (!UTILS.Auth.isAuthenticated() && token != '') {
             UTILS.Auth.authenticate(undefined, undefined, undefined, token, function() {
-                console.log("Authenticated with token");
+          //      console.log("Authenticated with token");
                 self.set({username: UTILS.Auth.getName(), tenant: UTILS.Auth.getCurrentTenant()});
-                console.log("New tenant: " + self.get("name"));
+            //    console.log("New tenant: " + self.get("name"));
                 UTILS.Auth.getTenants(function(tenants) {
                     self.set({regions: UTILS.Auth.getRegionList()});
                     self.set({tenants: tenants});
@@ -110,12 +110,12 @@ var LoginStatus = Backbone.Model.extend({
                 });
                 
             }, function(msg) {
-                console.log("Error authenticating with token");
+              //  console.log("Error authenticating with token");
                 self.set({'error_msg': msg});
                 self.trigger('auth-error', msg);
             });
         } else if (UTILS.Auth.isAuthenticated() && token != '') {
-            console.log("Token change after login (switch to tenant token)");
+           // console.log("Token change after login (switch to tenant token)");
         } else {
             self.set({'loggedIn': false});
         }

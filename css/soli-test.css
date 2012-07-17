@@ -1,6 +1,35 @@
 .cycki {
   height: 900px;
 }
+ 
+.s-iframe {
+  position: relative;
+  top: -8px;
+  left: -10px;
+}
+
+.s-drive-view {
+  height: 29px;
+}
+
+.s-btn-group {
+  margin: auto;
+  width: 130px;
+}
+
+.s-ff-fixed {
+  position: relative;
+  width: 85px;
+  margin: auto;
+}
+
+td {
+  vertical-align: center !important;
+}
+
+.s-ff-fixed-li {
+  top: 35px;
+}
 
 .s-white {
   background-color: #fff;
