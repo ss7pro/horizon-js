@@ -52,6 +52,6 @@ var ServerDetailsView = BaseView.extend({
         $("#serverDetails").empty()
         $("#serverDetailsLoading").fadeIn();
         return (this);
-    },
+    }
 
 });

@@ -41,7 +41,8 @@ MODULES.Loader = (function(M, undefined) {
 
     loadOS = function() {
         $(document).ready(function(){
-            UTILS.Auth.initialize("http://178.239.138.10:5000/v2.0/");
+            var origin = window.location.origin;
+            UTILS.Auth.initialize(origin, "/api/keystone/v2.0/");
             M.Config.add({
               registrationEndpoint: 'http://178.239.138.10:8081/main_dev.php/registration/register',
               promoCodeEndpoint:    'http://178.239.138.10:8081/main_dev.php/billing/promo_code'
@@ -108,8 +109,8 @@ MODULES.Loader = (function(M, undefined) {
 
     loadUtils = function() {
         M.Loader.custom_require([
-                                   "js/os-utils.js",
-                                    "js/models/BaseNovaModel.js"
+                                    "js/models/BaseNovaModel.js",
+                                    "js/os-utils.js"
             ], function(someModule) {
                     UTILS.i18n.init();
                     M.Loader.loadModels();
@@ -122,7 +123,7 @@ MODULES.Loader = (function(M, undefined) {
                                     "lib/jstack.js",
                                     "lib/bootstrap.min.js",
 									"lib/jquery-ui-1.8.21.custom.min.js",
-									"lib/jquery.dataTables.min.js",
+									"lib/jquery.dataTables.min.js"
             ], function(someModule) {
                     M.Loader.loadUtils();
             });
@@ -163,10 +164,11 @@ MODULES.Loader = (function(M, undefined) {
 
     loadModules = function() {
         M.Loader.custom_require([
-                                    "lib/jquery.js",
-                  "http://www.google.com/recaptcha/api/js/recaptcha_ajax.js",
-									"lib/underscore.js"
+            "lib/jquery.js",
+            "http://www.google.com/recaptcha/api/js/recaptcha_ajax.js",
+			"lib/underscore.js"
             ], function(someModule) {
+                M.Loader.custom_require(["lib/jquery.noty.js"]);
                 M.Loader.getTemplates();
             });
 

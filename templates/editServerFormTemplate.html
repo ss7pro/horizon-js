@@ -20,12 +20,12 @@ if (evt.target.value != undefined) {
     serverDescription = "";
 }
 %>
-<div id="edit_server_modal" class="modal hide in" style="display: block; ">
+<div id="edit_server_modal" class="modal hide in s-edit" style="display: block; ">
 <input type="hidden" name="instance_id" value="<%= evt.target.value %>" id="instance_id" />
  <div class="modal-header">
   <a href="" class="close" data-dismiss="modal">×</a>
   <h3 data-i18n="Edit server">Edit server</h3>
-  <div>
+  <div class="modal-body">
 
 <!-- server_name -->
    <div class="control-group form-field clearfix">
@@ -47,7 +47,7 @@ if (evt.target.value != undefined) {
   </div>
 
  </div>
- <div class="modal-footer">
+ <div class="modal-footer s-edit-fixed">
   <button class="btn btn-primary pull-right btn-edit" name="action" type="submit" data-i18n="Save changes">Save changes</button>
   <a id="cancelBtn" class="close btn seconday cancel close" data-dismiss="modal" data-i18n="Cancel">Cancel</a>
  </div>
