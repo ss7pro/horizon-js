@@ -24,7 +24,8 @@ MODULES.Loader = (function(M, undefined) {
 
     loadOS = function() {
         $(document).ready(function(){
-            var origin = window.location.origin;
+            var origin = window.location.protocol + "//"  +
+                            window.location.host;
             UTILS.Auth.initialize(origin, "/api/keystone/v2.0/");
             M.Loader.fiRouter = new OSRouter();
             Backbone.history.start();
