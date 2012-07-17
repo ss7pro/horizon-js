@@ -2,11 +2,11 @@
 <div id="create_drive_modal" class="modal hide in" style="display: block; ">
   <div class="modal-header green-style s-fixed-style">
     <a href="" class="close" data-dismiss="modal">×</a>
-    <img src="images/Drive-USB-icon.png" class="s-drive-icon">
+    <img src="images/db-128.png" class="s-drive-icon">
 
     <h3 data-i18n="Create drive" class="s-h3">Create drive</h3>
   </div>
- <div>
+ <div class="modal-body s-bgd">
 
   <div class="control-group form-field clearfix">
     <label for="drive_name" class="s-label">Drive name</label>
@@ -34,10 +34,10 @@
     <span class="help-block" style="display: none; "></span>
 <!--    <div class="input">-->
       <div id="drive-slider" class="s-slider"><input type="hidden" id="drive_size"></div>
-      <input id="drive_size" type="text" name="drive_size" maxlength="3" value="javascript:document.getElementById('drive-value').value">
+      <input id="drive_size" type="hidden" name="drive_size" maxlength="3" value="">
     </div>
   </div>
-
+</div>
 
   <div class="modal-footer">
    <button class="btn btn-primary pull-right btn-create s-button btn-create-soli" name="action" type="submit" data-i18n="Create drive">Create drive</button>

@@ -390,6 +390,7 @@ UTILS.Events = (function(U, undefined) {
     }
 
     function successRequestHandler (resp, status, xhr, reqData) {
+        console.log(arguments);
         if (!reqData.hasOwnProperty("reqId")) {
             return;
         }
@@ -401,7 +402,7 @@ UTILS.Events = (function(U, undefined) {
                 UTILS.Events.resetModelByName(modelsToReset[midx]);
             }
         }
-        issueRequestHandlerMessage(reqId, resp, xhr, true);
+        //issueRequestHandlerMessage(reqId, resp, xhr, true);
     }
 
     function errorRequestHandler (resp, status, xhr, reqData) {
@@ -409,24 +410,24 @@ UTILS.Events = (function(U, undefined) {
             return;
         }
         var reqId = reqData.reqId;
-        issueRequestHandlerMessage(reqId, resp, xhr, false);
+        //issueRequestHandlerMessage(reqId, resp, xhr, false);
     }
 
-    function issueRequestHandlerMessage (reqId, resp, xhr, success) {
-        var descMsg = U.Events.getRequestProperty(reqId, "description");
-        if (descMsg != undefined && descMsg.length) {
-            var alertMsg = descMsg;
-            if (success)
-                alertMsg += " succeed.";
-            else
-                alertMsg += " failed.";
-            if (resp != undefined) {
-                alertMsg += " \r\nResponse:\r\n";
-                alertMsg += JSON.stringify(resp);
-            }
-            alert(alertMsg);
-        }
-    }
+    // function issueRequestHandlerMessage (reqId, resp, xhr, success) {
+    //     var descMsg = U.Events.getRequestProperty(reqId, "description");
+    //     if (descMsg != undefined && descMsg.length) {
+    //         var alertMsg = descMsg;
+    //         if (success)
+    //             alertMsg += " succeed.";
+    //         else
+    //             alertMsg += " failed.";
+    //         if (resp != undefined) {
+    //             alertMsg += " \r\nResponse:\r\n";
+    //             alertMsg += JSON.stringify(resp);
+    //         }
+    //         alert(alertMsg);
+    //     }
+    // }
 
     function requestHandlerDict (reqId) {
         var ret = {

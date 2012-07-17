@@ -1,4 +1,8 @@
 <script id="topBarTemplate" type="text/html">
+<div id="logo_container" class="logo-container">
+<a href="#"><img src="./images/logo.png" alt="RootBoox" /></a>
+</div>
+
 
 <div id="stripe" class="stripe-soli">
 <!--<div  id="tenant_switcher" class="btn-group">
@@ -15,7 +19,7 @@
 <a href="#auth/region/r4cz2">r4cz2</a>
 -->
 
-<!-- region start  -->
+<!-- region start 
 
 <div id="tenant_switcher" class="dropdown switcher_bar" tabindex="1">
 
@@ -38,21 +42,44 @@
   </div>
 
 </div>
-<div id="logo_container" class="logo-container">
-<a href="#"><img src="./images/logo.png" alt="RootBoox" /></a>
-</div>
+
+
+
+
+
 <div id="user_info" class="pull-right">
   
 </div>
   <div class='page-header'>
     <h2 ><%= UTILS.i18n.pluralise(model.get("title")) %></h2>
   </div>
+<!-- region start  -->
+
+<div id="tenant_switcher" class="dropdown switcher_bar s-white" tabindex="1">
+
+<a class="dropdown-toggle" data-toggle="dropdown" href="#tenant_switcher">
+
+  <h4>Region</h4>
+  <h3><%= loginModel.get("region") %></h3>
+
+  </a>
+  <ul id="tenant_list" class="dropdown-menu">
+  <li class="divider"></li>
+  <li><a href="#auth/region/r4cz1">r4cz1</a></li>
+  <li><a href="#auth/region/r4cz2">r4cz2</a></li>
+  </ul>
+  </div>
+<!-- region end  -->
+
   <div id="servers-operation">
     <button id="server__action_create" style="display: none;" class="ajax-modal btn btn-primary btn-large  btn-create-server btn-create-soli" name="action" type="submit" data-i18n="Create Server"></button>
     
   </div>
   <div id="drives-operation">
-     <img src="images/server-icon.png">
      <button id="drive__action_create" style="display: none;" class="ajax-modal btn btn-primary btn-large  btn-create-drive btn-create-soli" name="action" type="submit" data-i18n="Create Drive"></button>
+  </div>
+
+
+  <div class="alerts">
   </div>
 </script>

@@ -4,13 +4,14 @@ var CreateDriveView = CreateModalView.extend({
        var sizes = [1, 2, 5, 10, 20, 50, 100, 200, 500];
 
       $('#drive-slider').slider({
-        min: 0,
+        min: 1,
         max: sizes.length - 1,
         animate: 'medium',
         disabled: false,
+        value: 1,
         slide: function(e, ui) {
-          $('#drive-value').text(sizes[ui.value]);
-          $('#drive_size').val(sizes[ui.value]);
+          $('#create_drive_modal #drive-value').text(sizes[ui.value]);
+          $('#create_drive_modal #drive_size').val(sizes[ui.value]);
         }
       });
     },
@@ -64,7 +65,9 @@ var CreateDriveView = CreateModalView.extend({
         UTILS.Events.setRequestProperty(reqId, "description", "Drive " +
                                         "creation request for: "  +
                                         inputs.driveName);
-        volume._action('create', UTILS.Events.requestHandlerDict(reqId));
+
+        var that = this;
+        volume._action('create', this.alert(reqId));
     }
 
 });
