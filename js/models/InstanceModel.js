@@ -72,7 +72,7 @@ var Instance = BaseNovaModel.extend({
                 JSTACK.Nova.getconsoleoutput(model.get("id"), options.length, options);
                 break;
             case "attachvolume":
-                JSTACK.Nova.attachvolume(model.get("id"), options.volume_id, options.device, options);
+                JSTACK.Nova.attachvolume(model.get("id"), model.get("volume_id"), model.get("device"), options);
                 break;
             case "detachvolume":
                 console.log("Detaching " + options.volume_id + " from " + model.get("id"));
