@@ -42,7 +42,7 @@ var DebugView = BaseView.extend({
         $(this.el).empty().html(this._template());
         $("#debugLoading").fadeIn();
         return (this);
-    },
+    }
 
 });
 
