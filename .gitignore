@@ -1,3 +1,6 @@
 .DS_Store
 .project
 .settings
+*.swp
+*.swo
+*.swn
