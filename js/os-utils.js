@@ -150,35 +150,6 @@ UTILS.Auth = (function(U, undefined) {
 
 })(UTILS);
 
-UTILS.Render = (function(U, undefined) {
-    
-    function animateRender(el, template, model, callback) {
-        var temp = template(model);
-        console.log(temp);
-        $(el).append(temp);
-        $(temp).hide();
-        $(el).animate( {
-                        marginLeft: "+1250px",
-                        marginRight: "-1250px",
-                      }, 200, function() {
-            $(temp).show();
-            $(el).html(temp).css('marginLeft', '1250px').css('marginRight', '-1250px').animate( {
-                marginLeft: "-=1250px",
-                marginRight: "+=1250px",
-                      }, 200, function() {
-                          if (callback != undefined) {
-                              callback();
-                          }
-                      });
-            });
-       return temp;
-    }
-    
-    return {
-        animateRender: animateRender
-    }
-})(UTILS);
-
 UTILS.i18n = (function(U, undefined) {
     
     var dict = {
@@ -456,4 +427,25 @@ UTILS.Events = (function(U, undefined) {
         requestHandlerDict      :   requestHandlerDict
     }
     
+})(UTILS);
+
+UTILS.Servers = (function(U, undefined) {
+
+    function issueAction (action, model) {
+        var serverName = model.get("name");
+        var reqId = UTILS.Events.genRequestId();
+        var modelsToReset = ["instanceModel", "volumeModel"];
+        if (action == "snapshot") {
+            modelsToReset.push("imageModel");
+        }
+        UTILS.Events.setRequestProperty(reqId, "modelsToReset", modelsToReset);
+        UTILS.Events.setRequestProperty(reqId, "description", "Request for: "  +
+                                        action + " on server: " + serverName);
+        model._action(action, UTILS.Events.requestHandlerDict(reqId));
+    }
+
+    return {
+        issueAction             :   issueAction
+    }
+
 })(UTILS);
