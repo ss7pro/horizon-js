@@ -56,6 +56,14 @@ var CreateModalView = Backbone.View.extend({
         $('.modal-backdrop').remove();
         this.undelegateEvents();
         this.unbind();
+    },
+    alert: function(reqId) {
+        var obj = UTILS.Events.requestHandlerDict(reqId);
+        var tmp = obj.success;
+        obj.success = function(resp, status, xhr, reqData) {
+            noty({"text":JSON.stringify(JSON.stringify(resp)),"theme":"noty_theme_twitter","layout":"topRight","type":"success","animateOpen":{"height":"toggle"},"animateClose":{"height":"toggle"},"speed":500,"timeout":25000,"closeButton":true,"closeOnSelfClick":true,"closeOnSelfOver":false,"modal":false});
+            tmp.apply(obj, arguments);
+        }
+        return obj;
     }
-
 });

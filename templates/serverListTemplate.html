@@ -1,8 +1,10 @@
 <script id="serverListTemplate" type="text/html">
-
+<!--
 <div id="servers-operation">
-<button id="server__action_create" class="ajax-modal btn btn-create btn-small btn-create-server" name="action" type="submit" data-i18n="Create Server"></button>
-</div>
+ <button id="server__action_create" class="ajax-modal btn btn-primary btn-large btn-create-server btn-create-soli" name="action" type="submit" data-i18n="Create Server"></button>
+
+
+</div>-->
 <div>
 <table id="example" class="table table-striped table-bordered table-condensed" >
 <thead>
@@ -21,7 +23,7 @@
 <th>VNC</th>
 </tr>
 </thead>
-<tbody> 
+<tbody class="s-table"> 
 <%
 for (var iidx in instanceModel.models) {
 	%>
@@ -91,15 +93,16 @@ for (var iidx in instanceModel.models) {
 
 	</td>
 	<td class="actions_column">
-	<div id="dropdown_<%= instanceModel.models[iidx].get("id") %>" class="btn-group">
+	<div id="dropdown_<%= instanceModel.models[iidx].get("id") %>" class="btn-group s-ff-fixed">
 	<button class="btn btn-small"><a href="#server/details/<%= instanceModel.models[iidx].get("id") %>">Details</a></button>
 	<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
-	<ul class="dropdown-menu row_actions clearfix">    
+	<ul class="dropdown-menu row_actions clearfix s-ff-fixed-li">    
 	<%	
 	if (powerStates[instanceModel.models[iidx].get("OS-EXT-STS:power_state")] == "RUNNING" & instanceModel.models[iidx].get("status") != "STOPPED") {				
 		%>
 		<li class="clearfix">
-		<button id="instances__action_snapshot__" class="btn btn-small btn-snapshot" name="action" value="<%= instanceModel.models[iidx].get("id") %>" type="submit" data-i18n="Snapshot">Snapshot</button>
+<i class="icon-eye-open">
+		<button id="instances__action_snapshot__" class="btn btn-small btn-snapshot s-dropdown-fixed" name="action" value="<%= instanceModel.models[iidx].get("id") %>" type="submit" data-i18n="Snapshot">Snapshot</button></i>
 		</li>
 		<%
 	}
@@ -109,12 +112,15 @@ for (var iidx in instanceModel.models) {
 	<%	
 	if (instanceModel.models[iidx].get("status") == "STOPPED") {				
 		%>
-		<button id="instances__action_start__" class="btn btn-small btn-start" name="action" value="<%= instanceModel.models[iidx].get("id") %>" type="submit" data-i18n="Start Instance">Start Instance</button>
+<i class="icon-play">
+		<button id="instances__action_start__" class="btn btn-small btn-start s-dropdown-fixed" name="action" value="<%= instanceModel.models[iidx].get("id") %>" type="submit" data-i18n="Start Instance">Start Instance</button></i>
 		
 		<%	
 	} else if (instanceModel.models[iidx].get("status") != "PAUSED") {
 		%>
-		<button id="instances__action_stop__" class="btn btn-small btn-stop" name="action" value="<%= instanceModel.models[iidx].get("id") %>" type="submit" data-i18n="Stop Instance">Stop Instance</button>
+<i class="icon-stop">
+
+		<button id="instances__action_stop__" class="btn btn-small btn-stop s-dropdown-fixed name="action" value="<%= instanceModel.models[iidx].get("id") %>" type="submit" data-i18n="Stop Instance">Stop Instance</button></i>
 		<%	  
 	}
 	%>
@@ -123,7 +129,8 @@ for (var iidx in instanceModel.models) {
 	<%	
 	if (powerStates[instanceModel.models[iidx].get("OS-EXT-STS:power_state")] == "PAUSED") {				
 		%>
-		<button id="instances__action_unpause__" class="btn btn-small btn-unpause" name="action" value="<%= instanceModel.models[iidx].get("id") %>" type="submit" data-i18n="Unpause Instance">Unpause Instance</button>
+<i class="icon-play">
+		<button id="instances__action_unpause__" class="btn btn-small btn-unpause s-dropdown-fixed" name="action" value="<%= instanceModel.models[iidx].get("id") %>" type="submit" data-i18n="Unpause Instance">Unpause Instance</button></i>
 		<%	  
 	}
 	%>
@@ -132,20 +139,23 @@ for (var iidx in instanceModel.models) {
 	<%	
 	if (instanceModel.models[iidx].get("status") == "SUSPENDED") {				
 		%>
-		<button id="instances__action_resume__" class="btn btn-small btn-resume" name="action" value="<%= instanceModel.models[iidx].get("id") %>" type="submit" data-i18n="Resume Instance">Resume Instance</button>
+<i class="icon-play">
+		<button id="instances__action_resume__" class="btn btn-small btn-resume s-dropdown-fixed" name="action" value="<%= instanceModel.models[iidx].get("id") %>" type="submit" data-i18n="Resume Instance">Resume Instance</button></i>
 		<%	  
 	}
 	%>
 	</li>
 	</li>
 	<li class="clearfix">	
-		<button id="instances__action_e__" class="btn btn-small btn-edit-server" name="action" value="<%= instanceModel.models[iidx].get("id") %>" type="submit" data-i18n="Edit Instance">Edit Instance</button>
+<i class="icon-edit">
+		<button id="instances__action_e__" class="btn btn-small btn-edit-server s-dropdown-fixed" name="action" value="<%= instanceModel.models[iidx].get("id") %>" type="submit" data-i18n="Edit Instance">Edit Instance</button></i>
 	</li>	
 	<%	
 	if (powerStates[instanceModel.models[iidx].get("OS-EXT-STS:power_state")] == "RUNNING" & instanceModel.models[iidx].get("status") != "STOPPED") {				
 		%>
 		<li class="clearfix">
-		<button id="instances__action_reboot__" class="btn btn-small btn-danger btn-reboot" name="action" value="<%= instanceModel.models[iidx].get("id") %>" type="submit" data-i18n="Reboot Instance">Reboot Instance</button>
+<i class="icon-refresh">
+		<button id="instances__action_reboot__" class="btn btn-small btn-danger btn-reboot s-dropdown-fixed" name="action" value="<%= instanceModel.models[iidx].get("id") %>" type="submit" data-i18n="Reboot Instance">Reboot Instance</button></i>
 		</li>
 		<%	  
 	}
@@ -154,7 +164,8 @@ for (var iidx in instanceModel.models) {
 	if (powerStates[instanceModel.models[iidx].get("OS-EXT-STS:power_state")] == "RUNNING" | instanceModel.models[iidx].get("status") == "STOPPED") {				
 		%>
 		<li class="clearfix">
-		<button id="instances__action_terminate__" class="btn btn-small btn-danger btn-terminate" name="action" value="<%= instanceModel.models[iidx].get("id") %>" type="submit" data-i18n="Terminate Instance">Terminate Instance</button>
+<i class="icon-remove">
+		<button id="instances__action_terminate__" class="btn btn-small btn-danger btn-terminate s-dropdown-fixed" name="action" value="<%= instanceModel.models[iidx].get("id") %>" type="submit" data-i18n="Terminate Instance">Terminate Instance</button></i>
 		</li>
 		<%	  
 	}

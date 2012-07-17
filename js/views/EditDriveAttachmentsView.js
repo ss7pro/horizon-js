@@ -15,8 +15,10 @@ var EditDriveAttachmentsView = CreateModalView.extend({
         if (driveId == undefined || !driveId.length) {
             invalid.push("driveId");
         }
+        var serverIdAttach = this.getSelectedOptionVal("server_id_attach");
         var ret = {
-                driveId: driveId
+                driveId: driveId,
+                serverIdAttach: serverIdAttach
             };
         if (invalid.length) {
             ret.invalid = invalid;
@@ -31,6 +33,16 @@ var EditDriveAttachmentsView = CreateModalView.extend({
             //no such volume
             return;
         }
+        if (inputs.serverIdAttach != null && inputs.serverIdAttach.length) {
+            this.attachDriveToServer(inputs.driveId, inputs.serverIdAttach);
+        }
+    },
+
+    attachDriveToServer: function (driveId, serverId) {
+        var serverModel = new Instance ();
+        alert(driveId);
+        serverModel.set({id:serverId, volume_id:driveId, device:"/dev/vdc"});
+        UTILS.Servers.issueAction("attachvolume",serverModel);
     }
 
 });

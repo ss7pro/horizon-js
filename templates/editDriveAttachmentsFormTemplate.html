@@ -4,9 +4,25 @@
  <div class="modal-header">
   <a href="" class="close" data-dismiss="modal">×</a>
   <h3 data-i18n="Edit drive attachments">Edit drive attachments</h3>
-  <div>
+ </div>
+ <div class="modal-body">
 <!-- inputs here -->
-  </div>
+<!-- choose server -->
+  <div class="control-group form-field clearfix">
+    <label for="id_server" class="s-label" data-i18n="Server to attach">Server to attach</label>
+    <span class="help-block" style="display: none; ">Server to attach.</span>
+    <div class="input">
+      <select name="server" id="server_id_attach" class="input-medium s-dropdown">
+     <option value="" data-i18n="None">None</option>
+        <% instanceModel.each(function(instance) { %>
+          <option value="<%= instance.get("id") %>"><%= instance.get("name") %></option>
+        <% }); %>
+       </select>
+     </div>
+   </div>
+
+<!-- end choose server -->
+<!-- inputs end -->
  </div>
  <div class="modal-footer">
   <button class="btn btn-primary pull-right btn-edit" name="action" type="submit" data-i18n="Save changes">Save changes</button>

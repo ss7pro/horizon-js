@@ -1,5 +1,22 @@
 var CreateDriveView = CreateModalView.extend({
 
+    onShow: function() {
+       var sizes = [1, 2, 5, 10, 20, 50, 100, 200, 500];
+
+      $('#drive-slider').slider({
+        min: 0,
+        max: sizes.length - 1,
+        animate: 'medium',
+        disabled: false,
+        value: 0,
+        slide: function(e, ui) {
+          $('#create_drive_modal #drive-value').text(sizes[ui.value]);
+console.log(ui);
+          $('#create_drive_modal #drive_size').val(sizes[ui.value]);
+        }
+      }).slider("value", 0);
+    },
+
     create: function () {
         var inputs = this.getInputsAndValidate();
         if(inputs.hasOwnProperty("invalid")) {
@@ -26,7 +43,7 @@ var CreateDriveView = CreateModalView.extend({
         var ret = {
                 driveName: driveName,
                 driveDescription: driveDescription,
-                driveSize: driveSize,
+                driveSize: driveSize
             };
         if (invalid.length) {
             ret.invalid = invalid;
@@ -47,7 +64,9 @@ var CreateDriveView = CreateModalView.extend({
         UTILS.Events.setRequestProperty(reqId, "description", "Drive " +
                                         "creation request for: "  +
                                         inputs.driveName);
-        volume._action('create', UTILS.Events.requestHandlerDict(reqId));
+
+        var that = this;
+        volume._action('create', this.alert(reqId));
     }
 
 });

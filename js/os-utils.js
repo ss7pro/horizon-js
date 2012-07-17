@@ -12,8 +12,8 @@ UTILS.Auth = (function(U, undefined) {
 
     var tenants = [];
     
-    function initialize(url) {
-        JSTACK.Keystone.init(url);
+    function initialize(origin, url) {
+        JSTACK.Keystone.init(origin, url);
     }
     
     function getToken() {
@@ -69,8 +69,8 @@ UTILS.Auth = (function(U, undefined) {
 
     function authenticate(username, password, tenant, token, callback, error) {
         var _authenticatedWithTenant = function (resp) {
-            console.log("Authenticated with tenant");
-            console.log(JSON.stringify(resp));
+            //console.log("Authenticated with tenant");
+            //console.log(JSON.stringify(resp));
             callback();
         }
 /*
@@ -81,8 +81,8 @@ UTILS.Auth = (function(U, undefined) {
 */
 
         var _authenticatedWithoutTenant = function() {
-            console.log("Ok");
-            console.log("Retrieving tenants...");
+            //console.log("Ok");
+            //console.log("Retrieving tenants...");
 
             var ok = function (resp) {
                 tenants = resp.tenants;
@@ -95,10 +95,10 @@ UTILS.Auth = (function(U, undefined) {
         var _tryTenant = function(tenant) {
             if (tenants.length > 0) {
                 tenant = tenant || tenants.pop();
-                console.log("Authenticating for tenant " + JSON.stringify(tenant.id));
+                //console.log("Authenticating for tenant " + JSON.stringify(tenant.id));
                 JSTACK.Keystone.authenticate(undefined, undefined, JSTACK.Keystone.params.token, tenant.id, _authenticatedWithTenant, _error);
             } else {
-                console.log("Error authenticating");
+                //console.log("Error authenticating");
                 error("No tenant")
             }
         }
@@ -124,10 +124,10 @@ UTILS.Auth = (function(U, undefined) {
         
         if (username != undefined && password != undefined) {
             success = _authenticatedWithoutTenant;
-            console.log("Authenticating with credentials");
+            //console.log("Authenticating with credentials");
         } else if (token != undefined) {
             success = _authenticatedWithoutTenant;
-            console.log("Authenticating with token");
+            //console.log("Authenticating with token");
         }
         JSTACK.Keystone.authenticate(username, password, token, tenant, success, _credError);
     };
@@ -148,35 +148,6 @@ UTILS.Auth = (function(U, undefined) {
         getRegionList: getRegionList
     }
 
-})(UTILS);
-
-UTILS.Render = (function(U, undefined) {
-    
-    function animateRender(el, template, model, callback) {
-        var temp = template(model);
-        console.log(temp);
-        $(el).append(temp);
-        $(temp).hide();
-        $(el).animate( {
-                        marginLeft: "+1250px",
-                        marginRight: "-1250px",
-                      }, 200, function() {
-            $(temp).show();
-            $(el).html(temp).css('marginLeft', '1250px').css('marginRight', '-1250px').animate( {
-                marginLeft: "-=1250px",
-                marginRight: "+=1250px",
-                      }, 200, function() {
-                          if (callback != undefined) {
-                              callback();
-                          }
-                      });
-            });
-       return temp;
-    }
-    
-    return {
-        animateRender: animateRender
-    }
 })(UTILS);
 
 UTILS.i18n = (function(U, undefined) {
@@ -204,7 +175,7 @@ UTILS.i18n = (function(U, undefined) {
 	        localStorage.i18nlang = 'en';
 	    }
 	    UTILS.i18n.setlang(localStorage.i18nlang);
-        console.log("Language: " + localStorage.i18nlang);
+        //console.log("Language: " + localStorage.i18nlang);
     };
     
     function setlang(lang, callback) {
@@ -212,15 +183,15 @@ UTILS.i18n = (function(U, undefined) {
         $.ajax({
             url: url,
             success: function(data, status, xhr) {
-                console.log('loaded: ' + url);
+                //console.log('loaded: ' + url);
                 U.i18n.params.dict = data;
                 localStorage.i18nlang = lang;
                 if (callback != undefined)
                     callback();
             },
             error : function(xhr, status, error) {
-                console.log('failed loading: ' + url);
-                console.log(status);
+                //console.log('failed loading: ' + url);
+                //console.log(status);
                 if (callback != undefined)
                     callback();
             },
@@ -390,6 +361,7 @@ UTILS.Events = (function(U, undefined) {
     }
 
     function successRequestHandler (resp, status, xhr, reqData) {
+        //console.log(arguments);
         if (!reqData.hasOwnProperty("reqId")) {
             return;
         }
@@ -401,7 +373,7 @@ UTILS.Events = (function(U, undefined) {
                 UTILS.Events.resetModelByName(modelsToReset[midx]);
             }
         }
-        issueRequestHandlerMessage(reqId, resp, xhr, true);
+        //issueRequestHandlerMessage(reqId, resp, xhr, true);
     }
 
     function errorRequestHandler (resp, status, xhr, reqData) {
@@ -409,24 +381,24 @@ UTILS.Events = (function(U, undefined) {
             return;
         }
         var reqId = reqData.reqId;
-        issueRequestHandlerMessage(reqId, resp, xhr, false);
+        //issueRequestHandlerMessage(reqId, resp, xhr, false);
     }
 
-    function issueRequestHandlerMessage (reqId, resp, xhr, success) {
-        var descMsg = U.Events.getRequestProperty(reqId, "description");
-        if (descMsg != undefined && descMsg.length) {
-            var alertMsg = descMsg;
-            if (success)
-                alertMsg += " succeed.";
-            else
-                alertMsg += " failed.";
-            if (resp != undefined) {
-                alertMsg += " \r\nResponse:\r\n";
-                alertMsg += JSON.stringify(resp);
-            }
-            alert(alertMsg);
-        }
-    }
+    // function issueRequestHandlerMessage (reqId, resp, xhr, success) {
+    //     var descMsg = U.Events.getRequestProperty(reqId, "description");
+    //     if (descMsg != undefined && descMsg.length) {
+    //         var alertMsg = descMsg;
+    //         if (success)
+    //             alertMsg += " succeed.";
+    //         else
+    //             alertMsg += " failed.";
+    //         if (resp != undefined) {
+    //             alertMsg += " \r\nResponse:\r\n";
+    //             alertMsg += JSON.stringify(resp);
+    //         }
+    //         alert(alertMsg);
+    //     }
+    // }
 
     function requestHandlerDict (reqId) {
         var ret = {
@@ -456,4 +428,25 @@ UTILS.Events = (function(U, undefined) {
         requestHandlerDict      :   requestHandlerDict
     }
     
+})(UTILS);
+
+UTILS.Servers = (function(U, undefined) {
+
+    function issueAction (action, model) {
+        var serverName = model.get("name");
+        var reqId = UTILS.Events.genRequestId();
+        var modelsToReset = ["instanceModel", "volumeModel"];
+        if (action == "snapshot") {
+            modelsToReset.push("imageModel");
+        }
+        UTILS.Events.setRequestProperty(reqId, "modelsToReset", modelsToReset);
+        UTILS.Events.setRequestProperty(reqId, "description", "Request for: "  +
+                                        action + " on server: " + serverName);
+        model._action(action, UTILS.Events.requestHandlerDict(reqId));
+    }
+
+    return {
+        issueAction             :   issueAction
+    }
+
 })(UTILS);

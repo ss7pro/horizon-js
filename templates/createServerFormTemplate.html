@@ -1,36 +1,37 @@
 <script id="createServerFormTemplate" type="text/html">
 
-<div id="create_server_modal" class="modal hide in">
-  <div class="modal-header">
+<div id="create_server_modal" class="modal hide in create_server_from_template">
+  <div class="modal-header green-style">
     <a href="" class="close" data-dismiss="modal">x</a>
-    <h3 data-i18n="Create server">Create server</h3>
+    <img src="images/add-server-icon.png" class="s-server-icon">
+    <h3 data-i18n="Create server" class="s-h3">Create server</h3>
   </div>
 
-  <div class="modal-body">
+  <div class="modal-body s-bgd">
 
    <div class="control-group form-field clearfix">
-    <label for="server_name">Server Name</label>
+    <label for="server_name" class="s-label">Server Name</label>
     <span></span>
-    <div class="input">
+<!--    <div class="input"> -->
       <input id="server_name" type="text" name="server_name" maxlength="80">
-    </div>
+<!--    </div> -->
    </div>
    
    <div class="control-group form-field clearfix">
-     <label>Memory: <span id="mem-value"></span> MB</label>
-     <div id="mem-slider"></div>
+     <label class="s-label">Memory: <span id="mem-value"></span> MB</label>
+     <div id="mem-slider" class="s-slider"></div>
    </div>
 
    <div class="control-group form-field clearfix">
-     <label>VCPUS: <span id="cpu-value"></span></label>
-     <div id="cpu-slider"></div>
+     <label class="s-label">VCPUS: <span id="cpu-value"></span></label>
+     <div id="cpu-slider" class="s-slider"></div>
    </div>
 
    <div class="control-group form-field clearfix">
-    <label for="id_flavor">Flavor</label>
+    <label for="id_flavor" class="s-label">Flavor</label>
     <span class="help-block" style="display: none; ">Server type.</span>
     <div class="input">
-     <select name="flavor" id="id_flavor" class="input-medium">
+     <select name="flavor" id="id_flavor" class="input-medium s-dropdown">
      <% 
      for (var fidx in flavorModel.models) {
         var flavor = flavorModel.models[fidx];
@@ -42,7 +43,7 @@
    </div>
 
    <div class="control-group form-field clearfix">
-    <label for="id_image">Image</label>
+    <label for="id_image" class="s-label">Image</label>
     <span class="help-block" style="display: none; ">Image to launch.</span>
     <div class="input">
       <% var images = [], snapshots = [];
@@ -50,7 +51,7 @@
           if (image.get("server") == null) images.push(image);
           else snapshots.push(image);
       }); %>
-      <select name="image" id="id_image" class="input-medium">
+      <select name="image" id="id_image" class="input-medium s-dropdown">
         <optgroup label="Images">
         <% _.each(images, function(image) { %>
           <option value="<%= image.get("id") %>"><%= image.get("name") %></option>
@@ -65,20 +66,23 @@
      </div>
    </div>
 
+   <div class="s-stroke"></div>
+
    <div class="control-group form-field clearfix">
-     <label>Drive: <span id="drive-value">-</span> GB</label>
      <div class="input">
        <label for="drive_enabled" class="checkbox">
          <input type="checkbox" id="drive_enabled"/>Enable drive
        </label>
-       <div id="drive-slider"><input type="hidden" id="drive_size"></div>
+       <label class="s-label">Drive: <span id="drive-value">-</span> GB</label>
+
+       <div id="drive-slider" class="s-slider"><input type="hidden" id="drive_size"></div>
      </div>
    </div>
 
    <div class="control-group form-field clearfix">
-    <label for="name_keypair">Keypair</label>
+    <label for="name_keypair" class="s-label">Keypair</label>
     <div class="input">
-     <select name="keypair" id="name_keypair" class="input-medium">
+     <select name="keypair" id="name_keypair" class="input-medium s-dropdown">
 	     <option></option>
      <% 
      for (var kidx in keyPairModel.models) {
@@ -92,10 +96,10 @@
     </div>
 
    <div class="control-group form-field clearfix">
-    <label for="id_secgroup">Firewall</label>
+    <label for="id_secgroup" class="s-label">Firewall</label>
     <span class="help-block" style="display: none; ">Firewall to use.</span>
     <div class="input">
-     <select name="secgroup" id="id_secgroup" class="input-medium">
+     <select name="secgroup" id="id_secgroup" class="input-medium s-dropdown">
      <% 
      for (var sidx in secGroupModel.models) {
         var secgroup = secGroupModel.models[sidx];
@@ -109,8 +113,8 @@
   </div>
 
   <div class="modal-footer">
-   <button class="btn btn-primary pull-right btn-create" name="action" type="submit" data-i18n="Create Server">Create Server</button>
-    <a id="cancelBtn" class="close btn seconday cancel close" data-dismiss="modal" data-i18n="Cancel">Cancel</a>
+   <button class="btn pull-right btn-create s-button btn-create-soli" name="action" type="submit" data-i18n="Create Server">Create Server</button>
+    <a id="cancelBtn" class="close btn seconday cancel close s-cancel-button" data-dismiss="modal" data-i18n="Cancel">Cancel</a>
   </div>
 
 </div>

@@ -17,7 +17,7 @@ var SecGroupRule = Backbone.Model.extend({
 });
 
 var SecGroupRules = Backbone.Collection.extend({
-    model: SecGroupRule,
+    model: SecGroupRule
 });
 
 var SecGroup = Backbone.Model.extend({

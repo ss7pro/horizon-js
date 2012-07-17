@@ -11,6 +11,9 @@ var DriveView = BaseView.extend({
 
     
     initialize: function () {
+      $('.btn-create-drive:first')
+        .click(this.renderCreateDrive.bind(this))
+        .show();
     },
 
     checkModels: function () {

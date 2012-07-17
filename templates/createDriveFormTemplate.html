@@ -1,41 +1,46 @@
 <script id="createDriveFormTemplate" type="text/html">
 <div id="create_drive_modal" class="modal hide in" style="display: block; ">
-  <div class="modal-header">
+  <div class="modal-header green-style s-fixed-style">
     <a href="" class="close" data-dismiss="modal">×</a>
-    <h3 data-i18n="Create drive">Create drive</h3>
+    <img src="images/db-128.png" class="s-drive-icon">
+
+    <h3 data-i18n="Create drive" class="s-h3">Create drive</h3>
   </div>
- <div>
+ <div class="modal-body s-bgd">
 
   <div class="control-group form-field clearfix">
-    <label for="drive_name">Drive name</label>
+    <label for="drive_name" class="s-label">Drive name</label>
     
     <span class="help-block" style="display: none; "></span>
     <div class="input">
-      <input id="drive_name" type="text" name="drive_name" maxlength="80">
+      <input id="drive_name" type="text" name="drive_name" maxlength="80" class="s-dropdown">
     </div>
   </div>
 
   <div class="control-group form-field clearfix">
-    <label for="drive_name">Drive description</label>
+    <label for="drive_name" class="s-label">Drive description</label>
     
     <span class="help-block" style="display: none; "></span>
     <div class="input">
-      <input id="drive_description" type="text" name="drive_description" maxlength="80">
+      <input id="drive_description" type="text" name="drive_description" maxlength="80" class="s-dropdown">
     </div>
   </div>
 
   <div class="control-group form-field clearfix">
-    <label for="drive_size">Drive size (GB)</label>
+<div class="input">
+
+    <label for="drive_size" class="s-label">Drive size <span id="drive-value">1</span> (GB)</label>
     
     <span class="help-block" style="display: none; "></span>
-    <div class="input">
-      <input id="drive_size" type="text" name="drive_size" maxlength="3">
+<!--    <div class="input">-->
+      <div id="drive-slider" class="s-slider"><input type="hidden" id="drive_size"></div>
+      <input id="drive_size" type="hidden" name="drive_size" maxlength="3" value="1">
     </div>
   </div>
-
+</div>
 
   <div class="modal-footer">
-   <button class="btn btn-primary pull-right btn-create" name="action" type="submit" data-i18n="Create drive">Create drive</button>
+   <button class="btn btn-primary pull-right btn-create s-button btn-create-soli" name="action" type="submit" data-i18n="Create drive">Create drive</button>
     <a id="cancelBtn" class="close btn seconday cancel close" data-dismiss="modal" data-i18n="Cancel">Cancel</a>
   </div>
 </div>
