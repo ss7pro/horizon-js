@@ -41,7 +41,7 @@ var VncView = BaseView.extend({
 
     buildVncParams: function () {
         var params = {
-                        instanceModel: this.options.params.instanceModel,
+                        instanceModel: this.options.params.instanceModel
             };
         return (params);
     },

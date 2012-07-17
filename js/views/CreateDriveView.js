@@ -43,7 +43,7 @@ var CreateDriveView = CreateModalView.extend({
         var ret = {
                 driveName: driveName,
                 driveDescription: driveDescription,
-                driveSize: driveSize,
+                driveSize: driveSize
             };
         if (invalid.length) {
             ret.invalid = invalid;

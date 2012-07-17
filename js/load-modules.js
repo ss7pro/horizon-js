@@ -84,8 +84,8 @@ MODULES.Loader = (function(M, undefined) {
 
     loadUtils = function() {
         M.Loader.custom_require([
-                                   "js/os-utils.js",
-                                    "js/models/BaseNovaModel.js"
+                                    "js/models/BaseNovaModel.js",
+                                   "js/os-utils.js"
             ], function(someModule) {
                     UTILS.i18n.init();
                     M.Loader.loadModels();
