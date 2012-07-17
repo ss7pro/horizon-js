@@ -73,5 +73,4 @@ var ConfirmModalView = Backbone.View.extend({
         this.undelegateEvents();
         this.unbind();
     }
-
 });
