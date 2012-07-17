@@ -99,8 +99,7 @@ MODULES.Loader = (function(M, undefined) {
                                     "lib/jstack.js",
                                     "lib/bootstrap.min.js",
 									"lib/jquery-ui-1.8.21.custom.min.js",
-									"lib/jquery.dataTables.min.js",
-                                    "js/bootstrap-dropdown.js"
+									"lib/jquery.dataTables.min.js"
             ], function(someModule) {
                     M.Loader.loadUtils();
             });
