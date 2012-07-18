@@ -42,10 +42,11 @@ MODULES.Loader = (function(M, undefined) {
     loadOS = function() {
         $(document).ready(function(){
             var origin = window.location.origin;
+            console.log([origin]);
             UTILS.Auth.initialize(origin, "/api/keystone/v2.0/");
             M.Config.add({
-              registrationEndpoint: 'http://178.239.138.10:8081/main_dev.php/registration/register',
-              promoCodeEndpoint:    'http://178.239.138.10:8081/main_dev.php/billing/promo_code'
+              registrationEndpoint: '/api/r4cfrontend/registration/register',
+              promoCodeEndpoint:    '/api/r4cfrontend/billing/promo_code'
             });
             M.Loader.fiRouter = new OSRouter();
             Backbone.history.start();
