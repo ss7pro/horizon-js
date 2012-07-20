@@ -1,23 +1,6 @@
 
 var MODULES = MODULES || {};
 
-MODULES.Config = (function(M, undefined) {
-  var _settings = {};
-  var _add = function(options) {
-    _.each(options, function(opt, key) {
-      _settings[key] = opt;
-    });
-  }
-  var _get = function(name) {
-    if(name === undefined) return _settings;
-    return _settings[name];
-  }
-  return {
-    add: _add,
-    get: _get
-  }
-})(MODULES);
-
 MODULES.Loader = (function(M, undefined) {
     "use strict";
 
@@ -43,9 +26,10 @@ MODULES.Loader = (function(M, undefined) {
         $(document).ready(function(){
             var origin = window.location.protocol + "//" + window.location.host;
             UTILS.Auth.initialize(origin, "/api/keystone/v2.0/");
-            M.Config.add({
+            M.R4C.Config.add({
               registrationEndpoint: '/api/r4cfrontend/registration/register',
-              promoCodeEndpoint:    '/api/r4cfrontend/billing/promo_code'
+              promoCodeEndpoint:    '/api/r4cfrontend/billing/promo_code',
+              paymentEndpoint:      '/api/r4cfrontend/payment'
             });
             M.Loader.fiRouter = new OSRouter();
             Backbone.history.start();
@@ -73,6 +57,9 @@ MODULES.Loader = (function(M, undefined) {
                                     "js/views/SnapshotView.js",
                                     "js/views/VncView.js",
                                     "js/views/PaymentView.js",
+                                    "js/views/PaymentPromoCodeView.js",
+                                    "js/views/PaymentFormView.js",
+                                    "js/views/PaymentPayView.js",
                                     "js/views/CreateServerView.js",
                                     "js/views/EditServerView.js",
                                     "js/views/ConfirmModalView.js",
@@ -152,6 +139,9 @@ MODULES.Loader = (function(M, undefined) {
                                 "templates/editServerFormTemplate.html",
                                 "templates/confirmTemplate.html",
                                 "templates/paymentTemplate.html",
+                                "templates/paymentPromoCodeTemplate.html",
+                                "templates/paymentFormTemplate.html",
+                                "templates/paymentPayTemplate.html",
                                 "templates/createDriveFormTemplate.html",
                                 "templates/serverDetailsTemplate.html",
                                 "templates/serverDetailsDataTemplate.html",
@@ -188,3 +178,29 @@ MODULES.Loader = (function(M, undefined) {
     };
 
 }(MODULES));
+
+MODULES.R4C = (function(M, undefined) {
+
+  var settings = {};
+  var config = {
+    add: function(options) {
+      _.each(options, function(opt, key) {
+        settings[key] = opt;
+      });
+    },
+    get: function(name) {
+      if(name === undefined) return _settings;
+      return settings[name];
+    }
+  };
+
+  var jQueryEscapeAttribute = function(str) {
+    return str.replace(/([ #;&,.+*~\':"!^$[\]()=>|\/@])/g,'\\$1');
+  }
+
+  return {
+    Config: config,
+    jqEscape: jQueryEscapeAttribute
+  }
+
+})(MODULES);

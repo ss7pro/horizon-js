@@ -1,0 +1,52 @@
+<script id="paymentFormTemplate" type=text/html">
+<form class="form-horizontal">
+  <fieldset>
+    <legend data-i18n="Purchase service">Buy</legend>
+
+    <div class="control-group">
+      <label for="payment_amount" data-i18n="Choose plan" class="control-label">Choose plan</label>
+      <div class="controls">
+        <div class="input-prepend">
+          <span class="add-on">PLN</span>
+          <select id="payment_amount" name="payment[amount]">
+            <option value=""></option>
+            <option value="10">10</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
+        </div>
+        <span class="help"></span>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label for="payment_name" data-i18n="Name" class="control-label">Name</label>
+      <div class="controls">
+        <input type="text" id="payment_name" name="payment[name]" class="span3"/>
+        <span class="help"></span>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label for="payment_email" data-i18n="Email" class="control-label">Email</label>
+      <div class="controls">
+        <input type="text" id="payment_email" name="payment[email]" class="span3"/>
+        <span class="help"></span>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label for="payment_invoice" data-i18n="Invoice" class="control-label">Invoice</label>
+      <div class="controls">
+        <input type="checkbox" id="payment_invoice" name="payment[invoice]" class="span3"/>
+        <span class="help"></span>
+      </div>
+    </div>
+
+  </fieldset>
+
+  <div class="form-actions">
+    <button class="btn btn-primary" data-i18n="Payment">Payment</button>
+  </div>
+</form>
+</script>

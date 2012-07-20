@@ -1,0 +1,12 @@
+<script id="paymentPayTemplate" type=text/html">
+<form action="https://www.platnosci.pl/paygw/ISO/NewPayment" method="POST" name="payform">
+  <input type="hidden" name="pos_id" value="38713">
+  <input type="hidden" name="session_id" value="">
+  <input type="text" name="amount" value="10">
+  <input type="hidden" name="desc" value="Payment description">
+  <input type="hidden" name="client_ip" value="">
+  <input type="hidden" name="js" value="1">
+  <% PlnDrawRadioImg(); %>
+  <input type="submit" value="Pay via Platnosci.pl">
+</form>
+</script>

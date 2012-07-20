@@ -24,7 +24,7 @@ var Register = Backbone.Model.extend({
   sync: function(method, model, options) {
     switch(method) {
       case 'create':
-        var url = MODULES.Config.get('registrationEndpoint');
+        var url = MODULES.R4C.Config.get('registrationEndpoint');
         $.post(url, $.param(model.toJSON()), function(resp) {
           resp = model.parse(resp);
           model.trigger('sync', model, resp, options);
