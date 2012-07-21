@@ -249,7 +249,7 @@ var OSRouter = Backbone.Router.extend({
                     {name: "firewall", url: "#firewall", desc: "<img src='images/firewall-128.png' class='s-leftbar-icon'>Firewalls" },
                     {name: "snapshot", url: "#snapshot", desc: "<img src='images/camera-128.png' class='s-leftbar-icon'>Snapshots" },
                     {name: "debug", url: "#debug", desc: "<img src='images/debug-128.png' class='s-leftbar-icon'>Debug" },
-                    {name: "payments", url: "#payments", desc: "Payments" },
+                    {name: "payments", url: "#payments", desc: "<img src='images/debug-128.png' class='s-leftbar-icon'/>Payments" },
                     {name: "serverDetails", url: "", desc: "Server details" },
             ];
         self.topBarModel.set({navs: navs, active: active });

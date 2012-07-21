@@ -2,51 +2,118 @@
 <form class="form-horizontal">
   <fieldset>
     <legend data-i18n="Purchase service">Buy</legend>
+    <div class="row"> 
+    <div class="span6">
 
-    <div class="control-group">
-      <label for="payment_amount" data-i18n="Choose plan" class="control-label">Choose plan</label>
-      <div class="controls">
-        <div class="input-prepend">
-          <span class="add-on">PLN</span>
-          <select id="payment_amount" name="payment[amount]">
-            <option value=""></option>
-            <option value="10">10</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-          </select>
+      <div class="control-group">
+        <label for="payment_amount" data-i18n="Choose plan" class="control-label">Choose plan</label>
+        <div class="controls">
+          <div class="input-prepend">
+            <span class="add-on">PLN</span>
+            <select id="payment_amount" name="payment[amount]">
+              <option value=""></option>
+              <option value="10">10</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+          </div>
+          <span class="help"></span>
         </div>
-        <span class="help"></span>
       </div>
-    </div>
 
-    <div class="control-group">
-      <label for="payment_name" data-i18n="Name" class="control-label">Name</label>
-      <div class="controls">
-        <input type="text" id="payment_name" name="payment[name]" class="span3"/>
-        <span class="help"></span>
+      <div class="control-group">
+        <label for="payment_first_name" data-i18n="First Name" class="control-label">First Name</label>
+        <div class="controls">
+          <input type="text" id="payment_first_name" name="payment[first_name]" class="span3"/>
+          <span class="help"></span>
+        </div>
       </div>
-    </div>
 
-    <div class="control-group">
-      <label for="payment_email" data-i18n="Email" class="control-label">Email</label>
-      <div class="controls">
-        <input type="text" id="payment_email" name="payment[email]" class="span3"/>
-        <span class="help"></span>
+      <div class="control-group">
+        <label for="payment_last_name" data-i18n="Last Name" class="control-label">Last Name</label>
+        <div class="controls">
+          <input type="text" id="payment_last_name" name="payment[last_name]" class="span3"/>
+          <span class="help"></span>
+        </div>
       </div>
-    </div>
 
-    <div class="control-group">
-      <label for="payment_invoice" data-i18n="Invoice" class="control-label">Invoice</label>
-      <div class="controls">
-        <input type="checkbox" id="payment_invoice" name="payment[invoice]" class="span3"/>
-        <span class="help"></span>
+      <div class="control-group">
+        <label for="payment_email" data-i18n="Email" class="control-label">Email</label>
+        <div class="controls">
+          <input type="text" id="payment_email" name="payment[email]" class="span3"/>
+          <span class="help"></span>
+        </div>
       </div>
-    </div>
 
+      <div class="control-group">
+        <label for="payment_phone" data-i18n="Phone" class="control-label">Phone</label>
+        <div class="controls">
+          <input type="text" id="payment_phone" name="payment[phone]" class="span3"/>
+          <span class="help"></span>
+        </div>
+      </div>
+
+    </div>
+    <div class="span6">
+
+      <div class="control-group">
+        <label for="payment_invoice" data-i18n="Invoice" class="control-label">Invoice</label>
+        <div class="controls">
+          <input type="checkbox" id="payment_invoice" name="payment[invoice]" class="span3" value="1"/>
+          <span class="help"></span>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label for="payment_company_name" data-i18n="Company name" class="control-label">Compmpany name</label>
+        <div class="controls">
+          <input type="text" id="payment_company_name" name="payment[company_name]" class="span3"/>
+          <span class="help"></span>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label for="payment_street" data-i18n="Street" class="control-label">Street</label>
+        <div class="controls">
+          <input type="text" id="payment_street" name="payment[street]" class="span3"/>
+          <span class="help"></span>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label for="payment_post_code" data-i18n="Post Code" class="control-label">Post Code</label>
+        <div class="controls">
+          <input type="text" id="payment_post_code" name="payment[post_code]" class="span3"/>
+          <span class="help"></span>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label for="payment_city" data-i18n="City" class="control-label">City</label>
+        <div class="controls">
+          <input type="text" id="payment_city" name="payment[city]" class="span3"/>
+          <span class="help"></span>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label for="payment_nip" data-i18n="Nip" class="control-label">Nip</label>
+        <div class="controls">
+          <input type="text" id="payment_nip" name="payment[nip]" class="span3"/>
+          <span class="help"></span>
+        </div>
+      </div>
+
+    </div>
+    </div>
   </fieldset>
 
   <div class="form-actions">
-    <button class="btn btn-primary" data-i18n="Payment">Payment</button>
+    <div class="row">
+      <div class="span2 offset3">
+        <button class="btn btn-primary span2" data-i18n="Payment">Payment</button><br/>
+      </div>
+    </div>
   </div>
 </form>
 </script>
