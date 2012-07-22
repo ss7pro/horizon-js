@@ -6,11 +6,11 @@
     <div class="span6">
 
       <div class="control-group">
-        <label for="payment_amount" data-i18n="Choose plan" class="control-label">Choose plan</label>
+        <label for="amount" data-i18n="Choose plan" class="control-label">Choose plan</label>
         <div class="controls">
           <div class="input-prepend">
             <span class="add-on">PLN</span>
-            <select id="payment_amount" name="payment[amount]">
+            <select id="amount" name="amount">
               <option value=""></option>
               <option value="10">10</option>
               <option value="50">50</option>
@@ -22,33 +22,33 @@
       </div>
 
       <div class="control-group">
-        <label for="payment_first_name" data-i18n="First Name" class="control-label">First Name</label>
+        <label for="first_name" data-i18n="First Name" class="control-label">First Name</label>
         <div class="controls">
-          <input type="text" id="payment_first_name" name="payment[first_name]" class="span3"/>
+          <input type="text" id="first_name" name="first_name" class="span3"/>
           <span class="help"></span>
         </div>
       </div>
 
       <div class="control-group">
-        <label for="payment_last_name" data-i18n="Last Name" class="control-label">Last Name</label>
+        <label for="last_name" data-i18n="Last Name" class="control-label">Last Name</label>
         <div class="controls">
-          <input type="text" id="payment_last_name" name="payment[last_name]" class="span3"/>
+          <input type="text" id="last_name" name="last_name" class="span3"/>
           <span class="help"></span>
         </div>
       </div>
 
       <div class="control-group">
-        <label for="payment_email" data-i18n="Email" class="control-label">Email</label>
+        <label for="email" data-i18n="Email" class="control-label">Email</label>
         <div class="controls">
-          <input type="text" id="payment_email" name="payment[email]" class="span3"/>
+          <input type="text" id="email" name="email" class="span3"/>
           <span class="help"></span>
         </div>
       </div>
 
       <div class="control-group">
-        <label for="payment_phone" data-i18n="Phone" class="control-label">Phone</label>
+        <label for="phone" data-i18n="Phone" class="control-label">Phone</label>
         <div class="controls">
-          <input type="text" id="payment_phone" name="payment[phone]" class="span3"/>
+          <input type="text" id="phone" name="phone" class="span3"/>
           <span class="help"></span>
         </div>
       </div>
@@ -57,49 +57,49 @@
     <div class="span6">
 
       <div class="control-group">
-        <label for="payment_invoice" data-i18n="Invoice" class="control-label">Invoice</label>
+        <label for="invoice" data-i18n="Invoice" class="control-label">Invoice</label>
         <div class="controls">
-          <input type="checkbox" id="payment_invoice" name="payment[invoice]" class="span3" value="1"/>
+          <input type="checkbox" id="invoice" name="invoice" class="span3" value="1"/>
           <span class="help"></span>
         </div>
       </div>
 
       <div class="control-group">
-        <label for="payment_company_name" data-i18n="Company name" class="control-label">Compmpany name</label>
+        <label for="company_name" data-i18n="Company name" class="control-label">Compmpany name</label>
         <div class="controls">
-          <input type="text" id="payment_company_name" name="payment[company_name]" class="span3"/>
+          <input type="text" id="company_name" name="company_name" class="span3 invoice"/>
           <span class="help"></span>
         </div>
       </div>
 
       <div class="control-group">
-        <label for="payment_street" data-i18n="Street" class="control-label">Street</label>
+        <label for="street" data-i18n="Street" class="control-label">Street</label>
         <div class="controls">
-          <input type="text" id="payment_street" name="payment[street]" class="span3"/>
+          <input type="text" id="street" name="street" class="span3 invoice"/>
           <span class="help"></span>
         </div>
       </div>
 
       <div class="control-group">
-        <label for="payment_post_code" data-i18n="Post Code" class="control-label">Post Code</label>
+        <label for="post_code" data-i18n="Post Code" class="control-label">Post Code</label>
         <div class="controls">
-          <input type="text" id="payment_post_code" name="payment[post_code]" class="span3"/>
+          <input type="text" id="post_code" name="post_code" class="span3 invoice"/>
           <span class="help"></span>
         </div>
       </div>
 
       <div class="control-group">
-        <label for="payment_city" data-i18n="City" class="control-label">City</label>
+        <label for="city" data-i18n="City" class="control-label">City</label>
         <div class="controls">
-          <input type="text" id="payment_city" name="payment[city]" class="span3"/>
+          <input type="text" id="city" name="city" class="span3 invoice"/>
           <span class="help"></span>
         </div>
       </div>
 
       <div class="control-group">
-        <label for="payment_nip" data-i18n="Nip" class="control-label">Nip</label>
+        <label for="nip" data-i18n="Nip" class="control-label">Nip</label>
         <div class="controls">
-          <input type="text" id="payment_nip" name="payment[nip]" class="span3"/>
+          <input type="text" id="nip" name="nip" class="span3 invoice"/>
           <span class="help"></span>
         </div>
       </div>
@@ -111,7 +111,7 @@
   <div class="form-actions">
     <div class="row">
       <div class="span2 offset3">
-        <button class="btn btn-primary span2" data-i18n="Payment">Payment</button><br/>
+        <button id="btn-payment" class="btn btn-primary span2" data-i18n="Payment">Payment</button><br/>
       </div>
     </div>
   </div>
