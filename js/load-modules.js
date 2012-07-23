@@ -166,13 +166,8 @@ MODULES.Loader = (function(M, undefined) {
     loadModules = function() {
         M.Loader.custom_require([
             "lib/jquery.js",
-<<<<<<< HEAD
            // "http://www.google.com/recaptcha/api/js/recaptcha_ajax.js",
 	    "lib/underscore.js"
-=======
-            "http://www.google.com/recaptcha/api/js/recaptcha_ajax.js",
-			"lib/underscore.js"
->>>>>>> payment2merge
             ], function(someModule) {
                 M.Loader.custom_require(["lib/jquery.noty.js"]);
                 M.Loader.getTemplates();
