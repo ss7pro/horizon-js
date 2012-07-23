@@ -240,11 +240,11 @@ var OSRouter = Backbone.Router.extend({
 
     barDataSet: function(self,active) {
         var navs = [
-                    {name: "server", url: "#server", desc: "<img src='images/server-128.png' class='s-leftbar-icon'>Servers" },
-                    {name: "drive", url: "#drive", desc: "<img src='images/db-128.png' class='s-leftbar-icon'>Drives" },
-                    {name: "firewall", url: "#firewall", desc: "<img src='images/firewall-128.png' class='s-leftbar-icon'>Firewalls" },
-                    {name: "snapshot", url: "#snapshot", desc: "<img src='images/camera-128.png' class='s-leftbar-icon'>Snapshots" },
-                    {name: "debug", url: "#debug", desc: "<img src='images/debug-128.png' class='s-leftbar-icon'>Debug" },
+                   {name: "server", url: "#server", desc: "<img src='images/server-128.png' class='s-leftbar-icon'><span class='s'>Servers</span>" },
+                    {name: "drive", url: "#drive", desc: "<img src='images/db-128.png' class='s-leftbar-icon'><span class='s'>Drives</span>" },
+                    {name: "firewall", url: "#firewall", desc: "<img src='images/firewall-128.png' class='s-leftbar-icon'><span class='s'>Firewalls</span>" },
+                    {name: "snapshot", url: "#snapshot", desc: "<img src='images/camera-128.png' class='s-leftbar-icon'><span class='s'>Snapshots</span>" },
+                    {name: "debug", url: "#debug", desc: "<img src='images/debug-128.png' class='s-leftbar-icon'><span class='s'>Debug</span>" },
                     {name: "serverDetails", url: "", desc: "Server details" },
             ];
         self.topBarModel.set({navs: navs, active: active });

@@ -223,13 +223,13 @@ UTILS.i18n = (function(U, undefined) {
     }
     
     function pluralise(s, n) {
+        return (s);
         var text = U.i18n.get(s);
         if (n != 0) {
             return (sprintf(text, n));
         } else {
             return (text);
         }
-        return out;
     }
     
     function get(data) {

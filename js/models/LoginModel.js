@@ -89,7 +89,7 @@ var LoginStatus = Backbone.Model.extend({
     },
 
     onRegionsChange: function (context) { 
-        self = context;
+        var self = context;
         self.setRegion(self.get("region"));
     },
 

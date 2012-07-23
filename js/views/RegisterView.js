@@ -26,13 +26,13 @@ var RegisterView = Backbone.View.extend({
     this.$el.hide();
     this.$el.html(self._template());
     this.updateView();
-    Recaptcha.create("6LffzNMSAAAAAGDlUb8oV2G4QceRErUZfXNwGc9A", 'registration_captcha', {
+  /*  Recaptcha.create("6LffzNMSAAAAAGDlUb8oV2G4QceRErUZfXNwGc9A", 'registration_captcha', {
       theme: 'clean',
       callback: function() {
         model.set('recaptcha_challenge_field', Recaptcha.get_challenge());
         model.set('recaptcha_response_field', Recaptcha.get_response());
       }
-    });
+    });*/
     return this;
   },
 

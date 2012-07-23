@@ -27,7 +27,7 @@ var VncView = BaseView.extend({
 
     render: function () {
         this.vncWin = this.openVncWin();
-        $(this.vncWin.document.body).empty().html(this._template());
+        $(this.vncWin.document.body).empty().html(this._template()).css({margin:0});
 /*
         this.renderVnc();
 */
@@ -44,9 +44,7 @@ var VncView = BaseView.extend({
 
 
     openVncWin: function () {
-        
-        var vncWin = this.popupCenter("VncView",735,490);
-//window.open('','VncView','location=0,titlebar=0,status=0,width=780,height=500');
+        var vncWin = this.popupCenter("VncView",724,454);
         vncWin.focus();
         return (vncWin);
     },

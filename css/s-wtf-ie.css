@@ -1,0 +1,58 @@
+.s-ie-button {
+  position: relative !important;
+  border-radius: 4px 0px 0px 4px !important;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #bbb;
+  float: left;
+  -pie-background: linear-gradient(#B7CE40, #76B11E);
+  behavior: url(css/PIE.htc);
+}
+
+.s-ie-dropdown {
+  width: 15px;
+  height: 19px;
+  background: #dadada;
+  padding-top: 7px;
+  padding-left: 7px;
+  position: relative !important;
+  border-radius: 0px 4px 4px 0px !important;
+  border-right: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #bbb;
+  box-shadow: none !important;
+  float: left;
+  -pie-background: linear-gradient(#B7CE40, #76B11E);
+  behavior: url(css/PIE.htc);
+
+}
+
+.leftbar  a {
+  position: relative !important;
+  height: 20px;
+}
+
+.leftbar a  img {
+  position: absolute;
+}
+
+.leftbar a  span {
+  padding-left: 25px;
+  position: relative;
+}
+
+.leftbar .active  a {
+  position: relative !important;
+  height: 20px;
+}
+
+.leftbar .active a  img {
+  position: absolute !important;
+}
+
+.leftbar .active a  span {
+  padding-left: 25px !important;
+  position: relative !important;
+}
+

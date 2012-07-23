@@ -16,7 +16,7 @@ var ServerView = BaseView.extend({
     },
 
     initialize: function () {
-      $('.btn-create-server:first')
+      $('.btn-create-server')
         .click(this.renderCreateServer.bind(this))
         .show();
       
