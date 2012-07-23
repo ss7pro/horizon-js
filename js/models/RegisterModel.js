@@ -24,7 +24,7 @@ var Register = Backbone.Model.extend({
   sync: function(method, model, options) {
     switch(method) {
       case 'create':
-        var url = 'http://178.239.138.10:8081/main_dev.php/registration/register';
+        var url = MODULES.Config.get('registrationEndpoint');
         $.post(url, $.param(model.toJSON()), function(resp) {
           resp = model.parse(resp);
           model.trigger('sync', model, resp, options);
