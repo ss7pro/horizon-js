@@ -1,6 +1,23 @@
 
 var MODULES = MODULES || {};
 
+MODULES.Config = (function(M, undefined) {
+  var _settings = {};
+  var _add = function(options) {
+    _.each(options, function(opt, key) {
+      _settings[key] = opt;
+    });
+  }
+  var _get = function(name) {
+    if(name === undefined) return _settings;
+    return _settings[name];
+  }
+  return {
+    add: _add,
+    get: _get
+  }
+})(MODULES);
+
 MODULES.Loader = (function(M, undefined) {
     "use strict";
 
@@ -27,6 +44,10 @@ MODULES.Loader = (function(M, undefined) {
             var origin = window.location.protocol + "//"  +
                             window.location.host;
             UTILS.Auth.initialize(origin, "/api/keystone/v2.0/");
+            M.Config.add({
+              registrationEndpoint: '/api/r4cfrontend/registration/register',
+              promoCodeEndpoint:    '/api/r4cfrontend/billing/promo_code'
+            });
             M.Loader.fiRouter = new OSRouter();
             Backbone.history.start();
         });
@@ -52,6 +73,7 @@ MODULES.Loader = (function(M, undefined) {
                                     "js/views/FirewallView.js",
                                     "js/views/SnapshotView.js",
                                     "js/views/VncView.js",
+                                    "js/views/PaymentView.js",
                                     "js/views/CreateServerView.js",
                                     "js/views/EditServerView.js",
                                     "js/views/ConfirmModalView.js",
@@ -77,6 +99,8 @@ MODULES.Loader = (function(M, undefined) {
                                    "js/models/ImageModel.js",
                                    "js/models/KeyPairModel.js",
                                    "js/models/SecGroupModel.js",
+                                   "js/models/PaymentModel.js",
+                                   "js/models/PromoCodeModel.js",
                                    "js/views/BaseView.js",
                                    "js/views/CreateModal.js"
             ], function(someModule) {
@@ -128,6 +152,7 @@ MODULES.Loader = (function(M, undefined) {
                                 "templates/createServerFormTemplate.html",
                                 "templates/editServerFormTemplate.html",
                                 "templates/confirmTemplate.html",
+                                "templates/paymentTemplate.html",
                                 "templates/createDriveFormTemplate.html",
                                 "templates/serverDetailsTemplate.html",
                                 "templates/serverDetailsDataTemplate.html",
@@ -141,8 +166,13 @@ MODULES.Loader = (function(M, undefined) {
     loadModules = function() {
         M.Loader.custom_require([
             "lib/jquery.js",
+<<<<<<< HEAD
            // "http://www.google.com/recaptcha/api/js/recaptcha_ajax.js",
 	    "lib/underscore.js"
+=======
+            "http://www.google.com/recaptcha/api/js/recaptcha_ajax.js",
+			"lib/underscore.js"
+>>>>>>> payment2merge
             ], function(someModule) {
                 M.Loader.custom_require(["lib/jquery.noty.js"]);
                 M.Loader.getTemplates();
