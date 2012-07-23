@@ -161,7 +161,7 @@ for (var iidx in instanceModel.models) {
 	}
 	%>
 	<%	
-	if (powerStates[instanceModel.models[iidx].get("OS-EXT-STS:power_state")] == "RUNNING" | instanceModel.models[iidx].get("status") == "STOPPED") {				
+	if (powerStates[instanceModel.models[iidx].get("OS-EXT-STS:power_state")] == "RUNNING" | instanceModel.models[iidx].get("status") == "STOPPED" ||  instanceModel.models[iidx].get("status") == "ERROR") {				
 		%>
 		<li class="clearfix">
 <i class="icon-remove">

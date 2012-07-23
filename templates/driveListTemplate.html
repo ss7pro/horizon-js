@@ -10,8 +10,10 @@
   <tr>
    <th>#</th>
    <th><%= UTILS.i18n.pluralise("Name") %></th>
+   <th><%= UTILS.i18n.pluralise("Description") %></th>
    <th><%= UTILS.i18n.pluralise("Size") %></th>
    <th><%= UTILS.i18n.pluralise("Attachments") %></th>
+   <th><%= UTILS.i18n.pluralise("Status") %></th>
    <th><%= UTILS.i18n.pluralise("Actions") %></th>
   </tr>
  </thead>
@@ -22,8 +24,9 @@
 %> 
 	<tr>
      <td><label class="checkbox"><input type="checkbox" id="optionsCheckbox" value="<%= volumeModel.models[vindex].get("id") %>"></label></td>
-	 <td><%= volumeModel.models[vindex].get("display_name") %></td>
-     <td><%= volumeModel.models[vindex].get("size") %> GB</td>
+	 <td><%= volumeModel.models[vindex].escape("display_name") %></td>
+	 <td><%= volumeModel.models[vindex].escape("display_description") %></td>
+     <td><%= volumeModel.models[vindex].escape("size") %> GB</td>
 	 <td>
 <%
     for (var vaindex in volumeModel.models[vindex].get("attachments")) {
@@ -35,7 +38,7 @@
         var instance = instanceModel.get(ids);
         if (instance != undefined) {
 %>
-Server Name: <%=  instance.get("name") %>
+Server Name: <%=  instance.escape("name") %>
 
 <%
         }
@@ -44,6 +47,7 @@ Server Name: <%=  instance.get("name") %>
     }
 %>	
 	 </td>
+	 <td><%= volumeModel.models[vindex].escape("status") %></td>
 	 <td class="actions_column">
 	  <div class="btn-group s-btn-group">
           <button id="volumes__row_<%= volumeModel.models[vindex].get("id") %>__action_attachments" value="<%= volumeModel.models[vindex].get("id") %>" class="btn btn-small ajax-modal btn-edit-attachments s-drive-view">Edit Attachments</button>
