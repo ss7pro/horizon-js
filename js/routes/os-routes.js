@@ -56,6 +56,8 @@ var OSRouter = Backbone.Router.extend({
                                                         this.checkAuth));
 	    this.route('debug', 'debug', this.wrap(this.navigateDebug,
                                                 this.checkAuth));
+	    this.route('payments/:page/:param', 'paymentsPage', this.wrap(this.navigatePayment, 
+                                                this.checkAuth));
 	    this.route('payments/:page', 'paymentsPage', this.wrap(this.navigatePayment, 
                                                 this.checkAuth));
 	    this.route('payments', 'payments', this.wrap(this.navigatePayment, 
@@ -408,11 +410,12 @@ var OSRouter = Backbone.Router.extend({
         self.newContentView(self, view, undefined);
     },
 
-    navigatePayment: function(self, page) {
+    navigatePayment: function(self, page, param) {
         self.barDataSet(self, "payments");
         self.showRoot(self);
         view = new PaymentView({loginModel: this.loginModel, 
                                 page: page,
+                                param: param,
                                 el: "#content"});
         self.newContentView(self, view);
     },

@@ -389,3 +389,6 @@ td.actions_column .dropdown-menu button:hover {
 
 #payments h3 { padding: 0; }
 #payments .error .help { color: red; }
+#payment_type_widget li { list-style-type: none; width: 100px; text-align: center; float: left; }
+#payment_type_widget li input { margin: 4px auto; }
+#payment_pay_modal form { margin: 0; }

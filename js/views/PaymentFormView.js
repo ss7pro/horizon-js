@@ -66,7 +66,18 @@ var PaymentFormView = Backbone.View.extend({
 
   saveSuccess: function(model, resp) {
     this.clearErrors();
-    console.log(['success', model.attributes]);
+    this.renderPaymentPay();
+  },
+
+  renderPaymentPay: function() {
+    this.paymentPayView = new PaymentPayView({
+      htmlTemplate: "#paymentPayTemplate",
+      modalName: "payment_pay_modal",
+      paymentModel: this.model,
+      params: {},
+      el: "body"
+    });
+    this.paymentPayView.render();
   },
 
   saveError: function(model, resp) {
