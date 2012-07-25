@@ -6,7 +6,7 @@ var PaymentPayView = CreateModalView.extend({
     if(window.PlnPayTypeArray === undefined) {
       var pos_id = this.paymentModel.get('pos_id');
       var pay_type_key = this.paymentModel.get('pay_type_key');
-      var pay_type_url = 'https://sandbox.payu.pl/paygw/UTF/js/' + pos_id + '/' + pay_type_key + '/paytype.js';
+      var pay_type_url = this.paymentModel.get('pay_type_url');
       require([pay_type_url], function(){
         self.renderPaymentTypes(window.PlnPayTypeArray);
       });
@@ -20,6 +20,7 @@ var PaymentPayView = CreateModalView.extend({
     _.each(fields, function(field) {
       this.$('#payment_' + field).val(this.paymentModel.get(field));
     }, this);
+    this.$('#payment_form').attr('action', this.paymentModel.get('payment_url'));
   },
 
   renderPaymentTypes: function(types) {
