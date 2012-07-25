@@ -1,5 +1,9 @@
 var PaymentPayView = CreateModalView.extend({
 
+  events: {
+    'click li': 'selectMethod'
+  },
+
   onShow: function() {
     var self = this;
     this.paymentModel = this.options.paymentModel;
@@ -41,6 +45,11 @@ var PaymentPayView = CreateModalView.extend({
   create: function (e) {
     //unused, but required by CreateModalView
     e.preventDefault();
+  },
+
+  selectMethod: function(e) {
+    this.$('.selected').removeClass('selected');
+    $(e.target).parents('li').addClass('selected');
   }
 
 });
