@@ -1,0 +1,107 @@
+.show-first {
+
+}
+
+.control-group label {
+  margin-bottom: 1px;
+}
+
+#register .modal-footer {
+  margin-top: 7px;
+}
+
+.show-next-company {
+  display: none;
+}
+
+.show-next-person {
+  display: none;
+}
+
+.btn-disabled {
+  display: none;
+}
+
+.btn-enabled {
+  display: visible;
+}
+
+.company {
+  display: block;
+  float: left;
+  margin-left: 30px;
+}
+
+.company input {
+  margin-left: 0px;
+}
+
+.www {
+  margin-top: 28px;
+  margin-bottom: 38px;
+}
+
+.modal {
+  max-height: none;
+}
+
+#page_confirm .modal-body {
+  padding: 0px;
+}
+
+#page_confirm table {
+  width: 95%;
+  margin-top: 20px;
+  margin-left: 17px;
+}
+
+.company label {
+   margin-top: 2px;
+}
+
+.person {
+  position: relative;
+  display: block;
+  float: left;
+  margin-left: 50px;
+}
+
+.person input {
+  position: relative;
+  margin-left: 0px;
+}
+
+.company .input-small {
+  margin-right: 100px;
+}
+
+.person .input-small {
+  position: relative;
+  margin-right: 100px;
+}
+
+.copy-address {
+  display: block;
+  float: left;
+  margin-left: 50px;
+}
+
+
+.first-step {
+  display: block;
+  float: left;
+  margin-left: 150px;
+  width: 400px;
+}
+
+
+
+.first-step6 .controls {
+  float: right;
+}
+
+.first-step6 label {
+  float: left;
+  display: block;
+  height: 30px;
+}
