@@ -19,7 +19,6 @@ var ServerView = BaseView.extend({
       $('.btn-create-server')
         .click(this.renderCreateServer.bind(this))
         .show();
-      
     },
 
     checkModels: function () {
@@ -61,6 +60,9 @@ var ServerView = BaseView.extend({
         }
         $("#serverList").empty().html(_ServerListTemplate(params));
         $("#serverLoading").fadeOut();
+        $(".table-servers tr:nth-child(even)").addClass("even");
+        $(".table-servers tr:nth-child(odd)").addClass("odd");
+
         return (this);
     },
 

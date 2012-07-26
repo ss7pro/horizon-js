@@ -17,7 +17,9 @@ var RegisterView = Backbone.View.extend({
     'change input'               : 'updateModel',
     'keyup  input[type=text]'    : 'updateModel',
     'keyup  input[type=password]': 'updateModel',
-    'change input.company_type'  : 'updateView'
+    //'change input.company_type'  : 'updateView'
+    
+    'click #next-btn'            : 'selectView'
   },
 
   render: function () {
@@ -25,6 +27,9 @@ var RegisterView = Backbone.View.extend({
     var model = this.model;
     this.$el.hide();
     this.$el.html(self._template());
+    $("#table-confirm tr:nth-child(even)").addClass("even");
+    $("#table-confirm tr:nth-child(odd)").addClass("odd");
+
     this.updateView();
   /*  Recaptcha.create("6LffzNMSAAAAAGDlUb8oV2G4QceRErUZfXNwGc9A", 'registration_captcha', {
       theme: 'clean',
@@ -34,6 +39,27 @@ var RegisterView = Backbone.View.extend({
       }
     });*/
     return this;
+  },
+
+  selectView: function(e) {
+    e.preventDefault();
+    var account_type = this.$el.find('input:radio:checked').val();
+    if(account_type == 0) {
+      this.$el.find("#show-first").hide();
+      this.$el.find("#next-btn").hide();
+      this.$el.find('#show-next-person').show();
+      this.$el.find("#confirm-btn").show();
+      delete account_type;
+    }
+    else if(account_type == 1) {
+      this.$el.find("#show-first").hide();
+      this.$el.find("#next-btn").hide();
+      this.$el.find('#show-next-company').show();
+      this.$el.find("#confirm-btn").show();
+      delete account_type;
+    }    
+
+
   },
 
   updateModel: function(e) {

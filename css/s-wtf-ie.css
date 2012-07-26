@@ -1,3 +1,20 @@
+#table-confirm tr.even{
+    background: #FFF;
+}
+
+#table-confirm tr.odd{
+    background: whiteSmoke;
+}
+
+#table-servers tr.even{
+    background: #FFF;
+}
+
+#table-servers tr.odd{
+    background: whiteSmoke;
+}
+
+
 .s-ie-button {
   position: relative !important;
   border-radius: 4px 0px 0px 4px !important;
