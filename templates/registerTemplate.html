@@ -8,13 +8,13 @@
 
   <form class="modal-body">
 
-    <div class="row">
-    <div class="span4">
-
+<!-- BEGIN SHOW FIRST -->
+  <div id="show-first" class="show-first">
+   <div class="first-step">
       <h3 data-i18n="Account">Account</h3>
 
       <div class="control-group">
-        <label class="control-label s-label" for="registration_profile_username" data-i18n="Email">Email</label>
+        <label class="control-label" for="registration_profile_username" data-i18n="Email">Email</label>
         <div class="controls">
           <input type="email" name="registration[profile][username]" id="registration_profile_username" class="s-dropdown"/>
           <span class="help"></span>
@@ -22,7 +22,7 @@
       </div>
 
       <div class="control-group">
-        <label for="registration_profile_password" class="s-label">Hasło</label>
+        <label for="registration_profile_password" class="">Hasło</label>
         <div class="controls">
           <input autocomplete="off" type="password" name="registration[profile][password]" id="registration_profile_password" />
           <span class="help"></span>
@@ -30,15 +30,32 @@
       </div>
 
       <div class="control-group">
-        <label for="registration_profile_password_again" class="s-label">Powtórz hasło</label>
+        <label for="registration_profile_password_again" class="">Powtórz hasło</label>
         <div class="controls">
           <input autocomplete="off" type="password" name="registration[profile][password_again]" id="registration_profile_password_again" />
           <span class="help"></span>
         </div>
       </div>
+<br />
+     <div class="control-group">
+        <label for="registration_tenant_type">Typ konta</label>
+        <div class="controls">
+          <input name="registration[tenant][type]" type="radio" value="0" id="registration_tenant_type_0" class="company_type"/><label for="registration_tenant_type_0" class="radio inline">Osoba fizyczna</label>
+          <input name="registration[tenant][type]" type="radio" value="1" id="registration_tenant_type_1" class="company_type"/><label for="registration_tenant_type_1" class="radio inline">Firma</label>
+          <span class="help"></span>
+        </div>
+     </div>
+   </div>
+  </div>
+<!-- END SHOW FIRST -->
 
-      <div class="control-group">
-        <label for="registration_profile_title" class="s-label">Tytuł</label>
+
+<!-- BEGIN SHOW NEXT PERSON -->
+  <div id="show-next-person" class="show-next-person">
+     <div class="person">
+      <h3>Dane Osobowe</h3>
+<!--      <div class="control-group">
+        <label for="registration_profile_title">Tytuł</label>
         <div class="controls">
           <select name="registration[profile][title]" id="registration_profile_title" class="input-mini">
             <option value="" selected="selected"></option>
@@ -49,7 +66,7 @@
           <span class="help"></span>
         </div>
       </div>
-
+-->
       <div class="control-group">
         <label for="registration_profile_first_name">Imię</label>
         <div class="controls">
@@ -66,11 +83,158 @@
         </div>
       </div>
 
-    </div>
-    <div class="span4">
+     <div class="control-group">
+<label for="registration_invoice_address_street"><span>Ulica</span></label>
+<!-- <a href="#" id="copy-address" data-i18n="Copy address">Copy address</a></label>-->
+        <div class="controls">
+          <input type="text" name="registration[invoice_address][street]" id="registration_invoice_address_street"/>
+          <span class="help"></span>
+        </div>
+      </div>
 
-      <h3>Adres korespondencyjny</h3>
-        
+
+      <div class="control-group">
+        <label for="registration_invoice_address_post_code">Kod pocztowy</label>
+        <div class="controls">
+          <input type="text" name="registration[invoice_address][post_code]" id="registration_invoice_address_post_code" class="input-small"/>
+          <span class="help"></span>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label for="registration_invoice_address_city">Miasto</label>
+        <div class="controls">
+          <input type="text" name="registration[invoice_address][city]" id="registration_invoice_address_city"/>
+          <span class="help"></span>
+        </div>
+      </div>
+
+
+      <div class="control-group">
+        <label for="registration_invoice_address_phone">Telefon</label>
+        <div class="controls">
+          <input type="text" name="registration[invoice_address][phone]" id="registration_invoice_address_phone"/>
+          <span class="help"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="copy-address">
+        <h3>Adres korespondencyjny</h3>
+
+      <div class="control-group">
+        <label for="registration_account_address_street">Ulica</label>
+        <div class="controls">
+          <input type="text" name="registration[account_address][street]" id="registration_account_address_street" />
+          <span class="help"></span>
+        </div>
+      </div>
+
+
+      <div class="control-group">
+        <label for="registration_account_address_post_code">Kod pocztowy</label>
+        <div class="controls">
+          <input type="text" name="registration[account_address][post_code]" id="registration_account_address_post_code"  class="input-small"/>
+          <span class="help"></span>
+        </div>
+      </div>
+
+
+      <div class="control-group">
+        <label for="registration_account_address_city">Miasto</label>
+        <div class="controls">
+          <input type="text" name="registration[account_address][city]" id="registration_account_address_city" />
+          <span class="help"></span>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label for="registration_account_address_phone">Telefon</label>
+        <div class="controls">
+          <input type="text" name="registration[account_address][phone]" id="registration_account_address_phone" />
+          <span class="help"></span>
+        </div>
+      </div>
+   </div>
+
+
+
+    
+  </div>
+<!-- END SHOW NEXT PERSON -->
+
+<!-- BEGIN SHOW NEXT COMPANY -->
+  <div id="show-next-company" class="show-next-company">
+    <div class="company">
+      <h3>Dane Firmy</h3>
+      <div class="control-group">
+        <label for="registration_tenant_company_name">Nazwa firmy</label>
+        <div class="controls">
+          <input type="text" name="registration[tenant][company_name]" id="registration_tenant_company_name" />
+          <span class="help"></span>
+        </div>
+      </div>
+
+      <div class="control-group">
+
+        <label for="registration_invoice_address_street"><span>Ulica</span>
+<!-- <a href="#" id="copy-address" data-i18n="Copy address">Copy address</a></label>-->
+        <div class="controls">
+          <input type="text" name="registration[invoice_address][street]" id="registration_invoice_address_street"/>
+          <span class="help"></span>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label for="registration_invoice_address_post_code">Kod pocztowy</label>
+        <div class="controls">
+          <input type="text" name="registration[invoice_address][post_code]" id="registration_invoice_address_post_code" class="input-small"/>
+          <span class="help"></span>
+        </div>
+      </div>
+
+
+      <div class="control-group">
+        <label for="registration_invoice_address_city">Miasto</label>
+        <div class="controls">
+          <input type="text" name="registration[invoice_address][city]" id="registration_invoice_address_city"/>
+          <span class="help"></span>
+        </div>
+      </div>
+
+
+      <div class="control-group">
+        <label for="registration_invoice_address_phone">Telefon</label>
+        <div class="controls">
+          <input type="text" name="registration[invoice_address][phone]" id="registration_invoice_address_phone"/>
+          <span class="help"></span>
+        </div>
+      </div>
+
+
+      <div class="control-group">
+        <label for="registration_tenant_nip">Nip</label>
+        <div class="controls">
+          <input type="text" name="registration[tenant][nip]" id="registration_tenant_nip"/>
+          <span class="help"></span>
+        </div>
+      </div>
+
+   </div>
+
+   <div class="copy-address">
+    
+      <div class="control-group www">
+        <label for="registration_tenant_www">Www</label>
+        <div class="controls">
+          <input type="text" name="registration[tenant][www]" id="registration_tenant_www" />
+          <span class="help"></span>
+        </div>
+      </div>
+
+
+        <h3>Adres korespondencyjny</h3>
+ 
       <div class="control-group">
         <label for="registration_account_address_street">Ulica</label>
         <div class="controls">
@@ -96,8 +260,7 @@
           <span class="help"></span>
         </div>
       </div>
-      
-      
+  
       <div class="control-group">
         <label for="registration_account_address_phone">Telefon</label>
         <div class="controls">
@@ -105,91 +268,18 @@
           <span class="help"></span>
         </div>
       </div>
-    </div>
-    </div>
-
-    <div class="row">
-    <div class="span4">
-
-      <div class="control-group">
-        <label for="registration_tenant_type">Typ konta</label>
-        <div class="controls">
-          <input name="registration[tenant][type]" type="radio" value="0" id="registration_tenant_type_0" class="company_type"/><label for="registration_tenant_type_0" class="radio inline">Osoba fizyczna</label>
-          <input name="registration[tenant][type]" type="radio" value="1" id="registration_tenant_type_1" class="company_type"/><label for="registration_tenant_type_1" class="radio inline">Firma</label>
-          <span class="help"></span>
-        </div>
-      </div>
-
-      <div class="control-group">
-        <label for="registration_tenant_company_name">Nazwa firmy</label>
-        <div class="controls">
-          <input type="text" name="registration[tenant][company_name]" id="registration_tenant_company_name" class="company" />
-          <span class="help"></span>
-        </div>
-      </div>
-
-      <div class="control-group">
-        <label for="registration_tenant_nip">Nip</label>
-        <div class="controls">
-          <input type="text" name="registration[tenant][nip]" id="registration_tenant_nip" class="company" />
-          <span class="help"></span>
-        </div>
-      </div>
-
-      <div class="control-group">
-        <label for="registration_tenant_www">Www</label>
-        <div class="controls">
-          <input type="text" name="registration[tenant][www]" id="registration_tenant_www" class="company" />
-          <span class="help"></span>
-        </div>
-      </div>
-
-    </div>
-    <div class="span4">
+   </div>
+  </div>
+<!--END SHOW NEXT COMPANY-->
       
-      <div class="control-group">
-        <label for="registration_invoice_address_street"><span>Ulica</span> <a href="#" id="copy-address" data-i18n="Copy address">Copy address</a></label>
-        <div class="controls">
-          <input type="text" name="registration[invoice_address][street]" id="registration_invoice_address_street" class="company"/>
-          <span class="help"></span>
-        </div>
-      </div>
-      
-      <div class="control-group">
-        <label for="registration_invoice_address_post_code">Kod pocztowy</label>
-        <div class="controls">
-          <input type="text" name="registration[invoice_address][post_code]" id="registration_invoice_address_post_code" class="input-small company"/>
-          <span class="help"></span>
-        </div>
-      </div>
-      
-      
-      <div class="control-group">
-        <label for="registration_invoice_address_city">Miasto</label>
-        <div class="controls">
-          <input type="text" name="registration[invoice_address][city]" id="registration_invoice_address_city" class="company"/>
-          <span class="help"></span>
-        </div>
-      </div>
-      
-      
-      <div class="control-group">
-        <label for="registration_invoice_address_phone">Telefon</label>
-        <div class="controls">
-          <input type="text" name="registration[invoice_address][phone]" id="registration_invoice_address_phone" class="company"/>
-          <span class="help"></span>
-        </div>
-      </div>
-        
-    </div>
-    </div>
 
   </form>
 
   <div class="clearfix"></div>
  
   <div class="modal-footer">
-    <a id="confirm-btn" class="btn btn-primary" data-i18n="Confirm" href="#">Confirm</a>
+    <a id="next-btn" class="btn btn-primary" data-i18n="Next" href="#">Next</a>
+    <a id="confirm-btn" class="btn btn-primary btn-disabled" data-i18n="Confirm" href="#">Confirm</a>
     <a id="back-btn" class="btn" data-i18n="Back to login" href="#auth/login">Back to login</a>
   </div>
 
@@ -201,7 +291,7 @@
   </div>
 
   <div class="modal-body">
-    <table class="table table-striped">
+    <table class="table table-striped" id="table-confirm">
       <body>
         <tr><th data-i18n="Email"></th><td><span id="confirm_email"></td></tr>
         <tr><th data-i18n="Name"></th><td><span id="confirm_name"></span></td></tr>
@@ -218,13 +308,16 @@
       <span class="help"></span>
     </div>
 
-  </div>
+ <div class="clearfix"></div>
 
-  <div class="modal-footer">
-    <a id="register-btn" class="btn btn-primary" data-i18n="Register" href="#">Register</a>
-    <a id="register-back-btn" class="btn" data-i18n="Back to form" href="#">Back to form</a>
-  </div>
+    <div class="modal-footer">
+      <a id="confirm-btn" class="btn btn-primary" data-i18n="Confirm" href="#">Confirm</a>
+      <a id="back-btn" class="btn" data-i18n="Back to login" href="#auth/login">Back to login</a>
+    </div>
+
+
 
 </div>
 </div>
+
 </script>
