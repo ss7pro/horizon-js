@@ -55,7 +55,7 @@ var PaymentFormView = Backbone.View.extend({
   },
 
   changeInvoice: function() {
-    this.$('.invoice').attr('disabled', this.model.get('payment[invoice]') != '1');
+    this.$('.invoice').attr('disabled', this.model.get('invoice') != '1');
   },
 
   doPayment: function(e) {
