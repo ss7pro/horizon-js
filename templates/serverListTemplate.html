@@ -94,8 +94,8 @@ for (var iidx in instanceModel.models) {
 	</td>
 	<td class="actions_column">
 	<div id="dropdown_<%= instanceModel.models[iidx].get("id") %>" class="btn-group s-ff-fixed">
-	<button class="<!--[if !IE 8]>btn<![endif]--> btn-small s-ie-button"><a href="#server/details/<%= instanceModel.models[iidx].get("id") %>">Details</a></button>
-	<a class="<!--[if !IE 8]>btn dropdown-toggle<![endif]--> s-ie-dropdown" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+	<button class="btn-small s-ie-button"><a href="#server/details/<%= instanceModel.models[iidx].get("id") %>">Details</a></button>
+	<a class="s-ie-dropdown" data-toggle="dropdown" href="#"><span class="caret"></span></a>
 	<ul class="dropdown-menu row_actions clearfix s-ff-fixed-li">    
 	<%	
 	if (powerStates[instanceModel.models[iidx].get("OS-EXT-STS:power_state")] == "RUNNING" & instanceModel.models[iidx].get("status") != "STOPPED") {				

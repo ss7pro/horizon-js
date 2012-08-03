@@ -58,12 +58,20 @@ var CreateModalView = Backbone.View.extend({
         this.unbind();
     },
     alert: function(reqId) {
+        console.log(reqId);
         var obj = UTILS.Events.requestHandlerDict(reqId);
         var tmp = obj.success;
+        var cycki = jQuery.parseJSON(obj.success);
         obj.success = function(resp, status, xhr, reqData) {
-            noty({"text":JSON.stringify(JSON.stringify(resp)),"theme":"noty_theme_twitter","layout":"topRight","type":"success","animateOpen":{"height":"toggle"},"animateClose":{"height":"toggle"},"speed":500,"timeout":25000,"closeButton":true,"closeOnSelfClick":true,"closeOnSelfOver":false,"modal":false});
+          if(resp.server) {
+            noty({"text":"<div><span class='s-black'>ID: </span>"+resp.server.id+"</div><div><span class='s-black'>OS-DCF: </span>"+resp.server['OS-DCF:diskConfig']+"</div><div><span class='s-black'>adminPass: </span>"+resp.server.adminPass+"</div><div><span class='s-black'>href: </span>"+resp.server.links[0].href+"</div>","theme":"noty_theme_twitter","layout":"topRight","type":"success","animateOpen":{"height":"toggle"},"animateClose":{"height":"toggle"},"speed":500,"timeout":25000,"closeButton":true,"closeOnSelfClick":true,"closeOnSelfOver":false,"modal":false});
             tmp.apply(obj, arguments);
+          } else if (resp.volume) {
+            noty({"text":"<div><span class='s-black'>Name: </span>"+resp.volume['display_name']+"</div><div><span class='s-black'>Description: </span>"+resp.volume['display_description']+"</div><div><span class='s-black'>ID: </span>"+resp.volume.id+"</div><div><span class='s-black'>Availability zone: </span>"+resp.volume['availability_zone']+"</div><div><span class='s-black'>Created at: </span>"+resp.volume['created_at']+"</div>","theme":"noty_theme_twitter","layout":"topRight","type":"success","animateOpen":{"height":"toggle"},"animateClose":{"height":"toggle"},"speed":500,"timeout":25000,"closeButton":true,"closeOnSelfClick":true,"closeOnSelfOver":false,"modal":false});
+            tmp.apply(obj, arguments);
+          }
         }
         return obj;
-    }
+        
+  },
 });

@@ -50,8 +50,8 @@ Server Name: <%=  instance.escape("name") %>
 	 <td><%= volumeModel.models[vindex].escape("status") %></td>
 	 <td class="actions_column">
 	  <div class="btn-group s-btn-group">
-          <button id="volumes__row_<%= volumeModel.models[vindex].get("id") %>__action_attachments" value="<%= volumeModel.models[vindex].get("id") %>" class="btn btn-small ajax-modal btn-edit-attachments s-drive-view">Edit Attachments</button>
-          <a class="btn dropdown-toggle ajax-modal btn-edit" data-toggle="dropdown" href="#">
+          <button id="volumes__row_<%= volumeModel.models[vindex].get("id") %>__action_attachments" value="<%= volumeModel.models[vindex].get("id") %>" class="btn-small s-ie-button">Edit Attachments</button>
+          <a class="s-ie-dropdown" data-toggle="dropdown" href="#">
           <span class="caret"></span>
           </a>
           <ul class="dropdown-menu row_actions clearfix">

@@ -17,9 +17,10 @@ var RegisterView = Backbone.View.extend({
     'change input'               : 'updateModel',
     'keyup  input[type=text]'    : 'updateModel',
     'keyup  input[type=password]': 'updateModel',
-    //'change input.company_type'  : 'updateView'
+   // 'change input.company_type'  : 'updateView',
     
-    'click #next-btn'            : 'selectView'
+    'click #next-btn'            : 'gotoSecondStep',
+    'click #s-cycki-btn'          : 'gotoFirstStep',
   },
 
   render: function () {
@@ -31,35 +32,56 @@ var RegisterView = Backbone.View.extend({
     $("#table-confirm tr:nth-child(odd)").addClass("odd");
 
     this.updateView();
-  /*  Recaptcha.create("6LffzNMSAAAAAGDlUb8oV2G4QceRErUZfXNwGc9A", 'registration_captcha', {
+/*   Recaptcha.create("6LffzNMSAAAAAGDlUb8oV2G4QceRErUZfXNwGc9A", 'registration_captcha', {
       theme: 'clean',
       callback: function() {
         model.set('recaptcha_challenge_field', Recaptcha.get_challenge());
         model.set('recaptcha_response_field', Recaptcha.get_response());
       }
-    });*/
+
+    });
+*/
     return this;
   },
 
-  selectView: function(e) {
+  gotoFirstStep: function(e) {
     e.preventDefault();
+    console.log(this);
+//    $('#s-register-form').get(0).reset();
+    $("#show-first").show();
+    $('#show-next-person').hide();
+    $('#show-next-company').hide();
+    $("#next-btn").show();
+    $('#s-cycki-btn').hide();
+    $("#confirm-btn").hide();
+    $("#register-form").css("width", "400px");
+    $("#register-form").css("margin-left", "-200px");
+  },
+
+  gotoSecondStep: function(e) {
+    e.preventDefault();
+//this.popupCenter();
+
     var account_type = this.$el.find('input:radio:checked').val();
+    this.$el.find("#show-first").hide();
+    this.$el.find("#next-btn").hide();
+    
     if(account_type == 0) {
-      this.$el.find("#show-first").hide();
-      this.$el.find("#next-btn").hide();
       this.$el.find('#show-next-person').show();
-      this.$el.find("#confirm-btn").show();
-      delete account_type;
     }
     else if(account_type == 1) {
-      this.$el.find("#show-first").hide();
-      this.$el.find("#next-btn").hide();
+      $('#registration_profile_first_name').val('company');
+      $('#registration_profile_last_name').val('company');
+
       this.$el.find('#show-next-company').show();
-      this.$el.find("#confirm-btn").show();
-      delete account_type;
-    }    
+    }
 
+    $("#register-form").css("width", "630px");
+    $("#register-form").css("margin-left", "-315px");
 
+    this.$el.find("#confirm-btn").show();
+    this.$el.find('#s-cycki-btn').show();
+    delete account_type;
   },
 
   updateModel: function(e) {
@@ -125,8 +147,11 @@ var RegisterView = Backbone.View.extend({
   },
 
   confirmBack: function(e) {
-    e.preventDefault();
-    this.showPage('#page_form');
+//    e.preventDefault();
+    $('#s-register-form').get(0).reset();
+//    this.showPage('#page_form');
+    this.showPage('#auth/login');
+
   },
 
   register: function(e) {
@@ -140,15 +165,37 @@ var RegisterView = Backbone.View.extend({
   },
 
   saveError: function(model, resp) {
+    var self = this;
+    var lastOne;
     if(resp.errors && resp.errors.fields) {
       this.clearErrors();
       _.each(resp.errors.fields, function(msg, name){
         this.setError(name, msg);
       }, this);
-      this.showPage('#page_form');
-      return;
+      
+      _.each(resp.errors.fields, function(msg, name){
+        name = this._jqEscape(name);
+        $('[name='+name+']').closest("#s-register-form > div").each(function() {
+	  switch($(this).attr('id')) {
+            case "show-first": lastOne = 1; break;
+	    case "show-next-company": if(!lastOne) lastOne = 2;  break;
+	    case "show-next-person":  if(!lastOne) lastOne = 2; break;
+	  }
+        })
+        if(name != "registration[captcha]" && !lastOne) {
+          lastOne = 3
+        }
+      }, this);
+
+      if(lastOne == 1) {
+        this.gotoFirstStep(new Event(null)); 
+      } else if(lastOne == 2){
+        this.gotoSecondStep(new Event(null));
+      } else {
+        return;
+      }
+      this.showPage("#page_form");
     }
-    console.log(resp);
   },
 
   authSuccess: function() {
@@ -184,6 +231,15 @@ var RegisterView = Backbone.View.extend({
   _jqEscape: function(str) {
     return str.replace(/([ #;&,.+*~\':"!^$[\]()=>|\/@])/g,'\\$1');
   },
+
+   popupCenter: function() {
+     alert(1);
+     var xxx = $("#register-form").attr('offsetWidth');
+     console.log('cycki' + xxx);
+     var left = (screen.width/2)-(xxx/2);
+     $("#register-form").css("margin-left", left);
+   },
+///////
 
   showPage: function(id) {
     var self = this;

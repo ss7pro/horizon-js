@@ -29,7 +29,7 @@
 
 .s-ie-dropdown {
   width: 15px;
-  height: 19px;
+  height: 19px !important;
   background: #dadada;
   padding-top: 7px;
   padding-left: 7px;

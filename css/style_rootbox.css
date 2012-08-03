@@ -75,11 +75,12 @@ html, #splash{
 }
 
 #splashdiv {
-  background: #fff url(../images/logo.png) no-repeat center 35px;
+  background: #fff url('../images/logo.png') center no-repeat 35px;
   width: 390px;
   padding-top: 170px;
   border: 1px solid #d6f9a2;
   margin-left: -195px;  
+  behavior: url(css/PIE.htc);
 }
 
 #splash .help-block {
