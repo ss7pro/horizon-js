@@ -1,6 +1,6 @@
 var PaymentModel = Backbone.Model.extend({
   urlRoot: function() {
-    return MODULES.R4C.Config.get('paymentEndpoint')
+    return MODULES.R4C.Config.get('r4cfrontendEndpoint') + '/payment'
   },
   idAttribute: 'payment_id',
   defaults: {

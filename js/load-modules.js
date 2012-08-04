@@ -27,9 +27,7 @@ MODULES.Loader = (function(M, undefined) {
             var origin = window.location.protocol + "//" + window.location.host;
             UTILS.Auth.initialize(origin, "/api/keystone/v2.0/");
             M.R4C.Config.add({
-              registrationEndpoint: '/api/r4cfrontend/registration/register',
-              promoCodeEndpoint:    '/api/r4cfrontend/billing/promo_code',
-              paymentEndpoint:      '/api/r4cfrontend/payment'
+              r4cfrontendEndpoint:  '/api/r4cfrontend'
             });
             M.Loader.fiRouter = new OSRouter();
             Backbone.history.start();

@@ -110,7 +110,7 @@ var PaymentFormView = Backbone.View.extend({
       .addClass('error')
       .find('span.help')
       .text(msg);
-  },
+  }
 
 
 });

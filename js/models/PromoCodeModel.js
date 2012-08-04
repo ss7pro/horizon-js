@@ -1,6 +1,6 @@
 var PromoCodeModel = Backbone.Model.extend({
   urlRoot: function() {
-    return MODULES.R4C.Config.get('promoCodeEndpoint')
+    return MODULES.R4C.Config.get('r4cfrontendEndpoint') + '/billing/promo_code';
   },
   defaults: {
     code: '',
