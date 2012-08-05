@@ -4,12 +4,15 @@ var PaymentFormView = Backbone.View.extend({
 
   initialize: function() {
     this.loginModel = this.options.loginModel;
+    this.profileModel = this.options.profileModel;
     this.model = new PaymentModel();
+
     this.model.set('tenant_api_id', this.loginModel.get('tenant').id);
     //this.model.on('all', this.debug, this);
     this.model.on('change:invoice', this.changeInvoice, this);
     this.model.on('sync' , this.saveSuccess, this);
     this.model.on('error', this.saveError,   this);
+    this.profileModel.on('change', this.updateView, this);
   },
 
   events: {
@@ -31,6 +34,26 @@ var PaymentFormView = Backbone.View.extend({
     console.log(arguments);
   },
 
+  updateModelFromProfile: function() {
+    var fields = {
+      'first_name':   'account[profile][first_name]',
+      'last_name':    'account[profile][last_name]',
+      'email':        'account[profile][email]',
+      'company_name': 'account[tenant][company_name]',
+      'nip':          'account[tenant][nip]',
+      'street':       'account[invoice_address][street]',
+      'city':         'account[invoice_address][city]',
+      'post_code':    'account[invoice_address][post_code]',
+      'phone':        'account[invoice_address][phone]',
+    };
+
+    _.each(fields, function(v, k) {
+      if(!this.model.get(k)) {
+        this.model.set(k, this.profileModel.get(v));
+      }
+    }, this);
+  },
+
   updateModel: function(e) {
     if(e.target.type == 'checkbox') {
       this.model.set(e.target.name, e.target.checked ? e.target.value : '');
@@ -40,6 +63,7 @@ var PaymentFormView = Backbone.View.extend({
   },
 
   updateView: function() {
+    this.updateModelFromProfile();
     _.each(this.model.attributes, function(value, name) {
       name = MODULES.R4C.jqEscape(name);
       var $el = this.$('[name="' + name + '"]');

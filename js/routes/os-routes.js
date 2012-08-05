@@ -29,9 +29,12 @@ var OSRouter = Backbone.Router.extend({
         this.leftBarModel = new LeftBarModel();
         this.keyPairModel = new KeyPairs();
         this.secGroupModel = new SecGroups();
+        this.profileModel = new RcProfile();
 
         this.setupModelsFetch(this);
         this.loginModel.bind('switch-region', this.onSwitchRegion, this);
+
+        this.loginModel.bind('change:loggedIn', this.loadProfile, this);
 
 	    Backbone.View.prototype.close = function(){
           //this.remove();
@@ -100,6 +103,11 @@ var OSRouter = Backbone.Router.extend({
 	    next.apply(this, args);
 	},
 	
+  loadProfile: function(loginModel) {
+    this.profileModel.setUserId(loginModel.get('userId'));
+    this.profileModel.fetch();
+  },
+
 	newContentView: function (self, view, binds) {
 
         if (self.currentViewBinds != undefined) {
@@ -414,6 +422,7 @@ var OSRouter = Backbone.Router.extend({
         self.barDataSet(self, "payments");
         self.showRoot(self);
         view = new PaymentView({loginModel: this.loginModel, 
+                                profileModel: this.profileModel,
                                 page: page,
                                 param: param,
                                 el: "#content"});

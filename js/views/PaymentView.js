@@ -7,6 +7,7 @@ var PaymentView = BaseView.extend({
 
   initialize: function() {
     this.loginModel = this.options.loginModel;
+    this.profileModel = this.options.profileModel;
   },
 
   renderFirst: function() {
@@ -24,6 +25,7 @@ var PaymentView = BaseView.extend({
 
     this.formView = new PaymentFormView({
       loginModel: this.loginModel,
+      profileModel: this.profileModel,
       el: self.$('#payment_form')
     }).render();
 

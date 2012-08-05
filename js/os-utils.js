@@ -61,6 +61,10 @@ UTILS.Auth = (function(U, undefined) {
         return false;
     }
     
+    var getUserId = function() {
+        return JSTACK.Keystone.params.access.user.id;
+    }
+
 /* to be implemented in the future
     var switchTenant = function(tenant, callback, error) {
         JSTACK.Keystone.authenticate(undefined, undefined, JSTACK.Keystone.params.token, tenant, callback, error);
@@ -143,6 +147,7 @@ UTILS.Auth = (function(U, undefined) {
 // to be implemented in the future
 //        switchTenant: switchTenant,
         isAdmin: isAdmin,
+        getUserId: getUserId,
         setCurrentRegion: setCurrentRegion,
         getCurrentRegion: getCurrentRegion,
         getRegionList: getRegionList

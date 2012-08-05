@@ -72,7 +72,6 @@ MODULES.Loader = (function(M, undefined) {
     loadModels = function() {
 
         M.Loader.custom_require([
-                                   "js/models/RegisterModel.js",
                                    "js/models/LoginModel.js",
                                    "js/models/RegionModel.js",
                                    "js/models/TopBarModel.js",
@@ -84,7 +83,9 @@ MODULES.Loader = (function(M, undefined) {
                                    "js/models/KeyPairModel.js",
                                    "js/models/SecGroupModel.js",
                                    "js/models/PaymentModel.js",
+                                   "js/models/RegisterModel.js",
                                    "js/models/PromoCodeModel.js",
+                                   "js/models/RcProfileModel.js",
                                    "js/views/BaseView.js",
                                    "js/views/CreateModal.js"
             ], function(someModule) {

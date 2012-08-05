@@ -11,6 +11,7 @@ var PaymentModel = Backbone.Model.extend({
     'first_name': '',
     'last_name': '',
     'email': '',
+    'phone': '',
     'invoice': '',
     'company_name': '',
     'street': '',

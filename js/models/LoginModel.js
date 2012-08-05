@@ -50,6 +50,7 @@ var LoginStatus = Backbone.Model.extend({
                     self.set({username: UTILS.Auth.getName(), tenant: UTILS.Auth.getCurrentTenant()});
                     self.set({regions: UTILS.Auth.getRegionList()});
                     self.set({tenants: tenants});
+                    self.set({userId: UTILS.Auth.getUserId()});
                     localStorage.setItem('token', UTILS.Auth.getToken());
                     self.set({'token': UTILS.Auth.getToken()});
                     self.set({'loggedIn': true});
@@ -104,6 +105,7 @@ var LoginStatus = Backbone.Model.extend({
                 UTILS.Auth.getTenants(function(tenants) {
                     self.set({regions: UTILS.Auth.getRegionList()});
                     self.set({tenants: tenants});
+                    self.set({userId: UTILS.Auth.getUserId()});
                     localStorage.setItem('token', UTILS.Auth.getToken());
                     self.set({'token': UTILS.Auth.getToken()});
                     self.set({'loggedIn': true});

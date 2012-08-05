@@ -105,6 +105,8 @@ var RegisterView = Backbone.View.extend({
 
   register: function(e) {
     e.preventDefault();
+    this.model.set('recaptcha_challenge_field', Recaptcha.get_challenge());
+    this.model.set('recaptcha_response_field', Recaptcha.get_response());
     this.model.save();
   },
 
