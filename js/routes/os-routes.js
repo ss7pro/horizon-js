@@ -29,9 +29,12 @@ var OSRouter = Backbone.Router.extend({
         this.leftBarModel = new LeftBarModel();
         this.keyPairModel = new KeyPairs();
         this.secGroupModel = new SecGroups();
+        this.profileModel = new RcProfile();
 
         this.setupModelsFetch(this);
         this.loginModel.bind('switch-region', this.onSwitchRegion, this);
+
+        this.loginModel.bind('change:loggedIn', this.loadProfile, this);
 
 	    Backbone.View.prototype.close = function(){
           //this.remove();
@@ -55,6 +58,10 @@ var OSRouter = Backbone.Router.extend({
 	    this.route('firewall', 'firewall', this.wrap(this.navigateFirewall,
                                                         this.checkAuth));
 	    this.route('debug', 'debug', this.wrap(this.navigateDebug,
+                                                this.checkAuth));
+	    this.route('payments/:page/:param', 'paymentsPage', this.wrap(this.navigatePayment, 
+                                                this.checkAuth));
+	    this.route('payments/:page', 'paymentsPage', this.wrap(this.navigatePayment, 
                                                 this.checkAuth));
 	    this.route('payments', 'payments', this.wrap(this.navigatePayment, 
                                                 this.checkAuth));
@@ -96,6 +103,11 @@ var OSRouter = Backbone.Router.extend({
 	    next.apply(this, args);
 	},
 	
+  loadProfile: function(loginModel) {
+    this.profileModel.setUserId(loginModel.get('userId'));
+    this.profileModel.fetch();
+  },
+
 	newContentView: function (self, view, binds) {
 
         if (self.currentViewBinds != undefined) {
@@ -406,12 +418,15 @@ var OSRouter = Backbone.Router.extend({
         self.newContentView(self, view, undefined);
     },
 
-    navigatePayment: function(self) {
+    navigatePayment: function(self, page, param) {
         self.barDataSet(self, "payments");
         self.showRoot(self);
-        view = new PaymentView({loginModel: this.loginModel,
+        view = new PaymentView({loginModel: this.loginModel, 
+                                profileModel: this.profileModel,
+                                page: page,
+                                param: param,
                                 el: "#content"});
-        self.newContentView(self, view, undefined);
+        self.newContentView(self, view);
     },
 
     navigateServerDetails: function(self, id) {

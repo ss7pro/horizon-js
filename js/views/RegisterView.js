@@ -98,10 +98,10 @@ var RegisterView = Backbone.View.extend({
 
   updateView: function() {
     _.each(this.model.attributes, function(value, name) {
-      name = this._jqEscape(name);
+      name = MODULES.R4C.jqEscape(name);
       var $el = this.$('[name="' + name + '"]');
       if($el.attr('type') == 'radio') {
-        value = this._jqEscape(value);
+        value = MODULES.R4C.jqEscape(value);
         $el.filter('[value="' + value + '"]').attr('checked', true);
       } else {
         $el.val(value);
@@ -156,6 +156,8 @@ var RegisterView = Backbone.View.extend({
 
   register: function(e) {
     e.preventDefault();
+    this.model.set('recaptcha_challenge_field', Recaptcha.get_challenge());
+    this.model.set('recaptcha_response_field', Recaptcha.get_response());
     this.model.save();
   },
 
@@ -220,7 +222,7 @@ var RegisterView = Backbone.View.extend({
   },
 
   setError: function(name, msg) {
-    name = this._jqEscape(name);
+    name = MODULES.R4C.jqEscape(name);
     this.$('[name="' + name + '"]')
       .parents('.control-group')
       .addClass('error')

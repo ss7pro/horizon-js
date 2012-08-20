@@ -1,0 +1,119 @@
+<script id="paymentFormTemplate" type=text/html">
+<form class="form-horizontal">
+  <fieldset>
+    <legend data-i18n="Purchase service">Buy</legend>
+    <div class="row"> 
+    <div class="span6">
+
+      <div class="control-group">
+        <label for="amount" data-i18n="Choose plan" class="control-label">Choose plan</label>
+        <div class="controls">
+          <div class="input-prepend">
+            <span class="add-on">PLN</span>
+            <select id="amount" name="amount">
+              <option value=""></option>
+              <option value="100">1</option>
+              <option value="500">5</option>
+              <option value="1000">10</option>
+            </select>
+          </div>
+          <span class="help"></span>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label for="first_name" data-i18n="First Name" class="control-label">First Name</label>
+        <div class="controls">
+          <input type="text" id="first_name" name="first_name" class="span3"/>
+          <span class="help"></span>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label for="last_name" data-i18n="Last Name" class="control-label">Last Name</label>
+        <div class="controls">
+          <input type="text" id="last_name" name="last_name" class="span3"/>
+          <span class="help"></span>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label for="email" data-i18n="Email" class="control-label">Email</label>
+        <div class="controls">
+          <input type="text" id="email" name="email" class="span3"/>
+          <span class="help"></span>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label for="phone" data-i18n="Phone" class="control-label">Phone</label>
+        <div class="controls">
+          <input type="text" id="phone" name="phone" class="span3"/>
+          <span class="help"></span>
+        </div>
+      </div>
+
+    </div>
+    <div class="span6">
+
+      <div class="control-group">
+        <label for="invoice" data-i18n="Invoice" class="control-label">Invoice</label>
+        <div class="controls">
+          <input type="checkbox" id="invoice" name="invoice" class="span3" value="1"/>
+          <span class="help"></span>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label for="company_name" data-i18n="Company name" class="control-label">Compmpany name</label>
+        <div class="controls">
+          <input type="text" id="company_name" name="company_name" class="span3 invoice"/>
+          <span class="help"></span>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label for="street" data-i18n="Street" class="control-label">Street</label>
+        <div class="controls">
+          <input type="text" id="street" name="street" class="span3 invoice"/>
+          <span class="help"></span>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label for="post_code" data-i18n="Post Code" class="control-label">Post Code</label>
+        <div class="controls">
+          <input type="text" id="post_code" name="post_code" class="span3 invoice"/>
+          <span class="help"></span>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label for="city" data-i18n="City" class="control-label">City</label>
+        <div class="controls">
+          <input type="text" id="city" name="city" class="span3 invoice"/>
+          <span class="help"></span>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label for="nip" data-i18n="Nip" class="control-label">Nip</label>
+        <div class="controls">
+          <input type="text" id="nip" name="nip" class="span3 invoice"/>
+          <span class="help"></span>
+        </div>
+      </div>
+
+    </div>
+    </div>
+  </fieldset>
+
+  <div class="form-actions">
+    <div class="row">
+      <div class="span2 offset3">
+        <button id="btn-payment" class="btn btn-primary span2" data-i18n="Payment">Payment</button><br/>
+      </div>
+    </div>
+  </div>
+</form>
+</script>

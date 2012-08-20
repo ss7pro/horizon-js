@@ -397,3 +397,13 @@ td.actions_column .dropdown-menu button:hover {
 
 #payments h3 { padding: 0; }
 #payments .error .help { color: red; }
+#payment_pay_modal { width: 980px; margin-left: -490px; }
+#payment_pay_modal form { margin: 0; }
+#payment_pay_modal .modal-body { padding: 8px; }
+#payment_type_widget li { list-style-type: none; width: 145px; vertical-align: top; float: left; border: 1px solid #DDD; margin: 4px; border-radius: 4px; }
+#payment_type_widget li:hover { background-color: #EEE; }
+#payment_type_widget li.selected { background-color: #F0F0F0; }
+#payment_type_widget li label { margin: 0; }
+#payment_type_widget li input { margin: 20px 0 0 8px; float: left; }
+#payment_type_widget li img { margin: 0 0 0 16px; float: left; }
+#payment_type_widget li span { display: block; margin: 4px 10px 0; font-weight: bold; min-height: 37px; text-align: center; clear: both; }
