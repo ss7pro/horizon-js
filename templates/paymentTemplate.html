@@ -1,7 +1,29 @@
 <script id="paymentTemplate" type=text/html">
 <div id="payments">
-  <h3 data-i18n="Payments">Payments</h3>
-  <div id="payment_promo_code"></div>
-  <div id="payment_form"></div>
+  <a class="btn pull-right" href="#payments/history" data-i18n="View payment history"></a>
+  <div class="clearfix"></div>
+  <div id="payment_promo_code" class="page"></div>
+  <div id="payment_form" class="page"></div>
+  <div id="payment_success" class="page">
+    <h1 data-i18n="Payment Success" class="center"></h1>
+    <div class="center">
+      <a class="btn" data-i18n="Back to home" href="#"></a>
+      <a class="btn btn-primary" data-i18n="View payment history" href="#payments/history"></a>
+    </div>
+  </div>
+  <div id="payment_error" class="page">
+    <h1 data-i18n="Payment Error"></h1>
+    <div class="center">
+      <a class="btn" data-i18n="Back to home" href="#"></a>
+      <a class="btn btn-primary" data-i18n="View payment history" href="#payments/history"></a>
+    </div>
+  </div>
+  <div id="payment_history" class="page">
+    <h1 data-i18n="Payment history"></h1>
+    <div class="center">
+      <a class="btn" data-i18n="Back to home" href="#"></a>
+      <a class="btn btn-primary" data-i18n="Back payment form" href="#payments"></a>
+    </div>
+  </div>
 </div>
 </script>

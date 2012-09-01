@@ -29,7 +29,31 @@ var PaymentView = BaseView.extend({
       el: self.$('#payment_form')
     }).render();
 
+    this.showPage(this.options.page);
+
     return this;
+  },
+
+  showPage: function(name) {
+
+    this.$el.find('.page').hide();
+    switch(name)
+    {
+      case 'history':
+        this.$el.find('#payment_history').show();
+        break;
+      case 'success':
+        this.$el.find('#payment_success').show();
+        break;
+      case 'error':
+        this.$el.find('#payment_error').show();
+        break;
+      default:
+        this.$el.find('#payment_promo_code').show();
+        this.$el.find('#payment_form').show();
+    }
+
+
   }
 
 });

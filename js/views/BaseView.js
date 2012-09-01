@@ -7,7 +7,14 @@ var BaseView = Backbone.View.extend({
     close: function() {
         this.undelegateEvents()
         $(this.el).empty();
-    }
+    },
+    
+    show: function() {
+        this.$el.show();
+    },
 
+    hide: function() {
+        this.$el.hide();
+    }
 });
 

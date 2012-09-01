@@ -59,6 +59,10 @@ td, th {
   display: none;
 }
 
+.center { 
+  text-align: center;
+}
+
 #user_info {
     /*color: #888;*/
 	
@@ -396,6 +400,7 @@ td.actions_column .dropdown-menu button:hover {
 #register-form h3 { padding: 0 4px; }
 
 #payments h3 { padding: 0; }
+#payments legend { padding-bottom: 1px; margin-bottom: 10px; }
 #payments .error .help { color: red; }
 #payment_pay_modal { width: 980px; margin-left: -490px; }
 #payment_pay_modal form { margin: 0; }
