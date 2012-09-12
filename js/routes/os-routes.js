@@ -30,6 +30,7 @@ var OSRouter = Backbone.Router.extend({
         this.keyPairModel = new KeyPairs();
         this.secGroupModel = new SecGroups();
         this.profileModel = new RcProfile();
+        this.invoicesModel = new Invoices();
 
         this.setupModelsFetch(this);
         this.loginModel.bind('switch-region', this.onSwitchRegion, this);
@@ -423,6 +424,7 @@ var OSRouter = Backbone.Router.extend({
         self.showRoot(self);
         view = new PaymentView({loginModel: this.loginModel, 
                                 profileModel: this.profileModel,
+                                invoicesModel: this.invoicesModel,
                                 page: page,
                                 param: param,
                                 el: "#content"});

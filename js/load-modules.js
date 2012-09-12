@@ -59,6 +59,7 @@ MODULES.Loader = (function(M, undefined) {
                                     "js/views/PaymentPromoCodeView.js",
                                     "js/views/PaymentFormView.js",
                                     "js/views/PaymentPayView.js",
+                                    "js/views/PaymentHistoryView.js",
                                     "js/views/CreateServerView.js",
                                     "js/views/EditServerView.js",
                                     "js/views/ConfirmModalView.js",
@@ -87,6 +88,7 @@ MODULES.Loader = (function(M, undefined) {
                                    "js/models/RegisterModel.js",
                                    "js/models/PromoCodeModel.js",
                                    "js/models/RcProfileModel.js",
+                                   "js/models/InvoiceModel.js",
                                    "js/views/BaseView.js",
                                    "js/views/CreateModal.js"
             ], function(someModule) {
@@ -142,6 +144,7 @@ MODULES.Loader = (function(M, undefined) {
                                 "templates/paymentPromoCodeTemplate.html",
                                 "templates/paymentFormTemplate.html",
                                 "templates/paymentPayTemplate.html",
+                                "templates/paymentHistoryTemplate.html",
                                 "templates/createDriveFormTemplate.html",
                                 "templates/serverDetailsTemplate.html",
                                 "templates/serverDetailsDataTemplate.html",
@@ -198,9 +201,26 @@ MODULES.R4C = (function(M, undefined) {
     return str.replace(/([ #;&,.+*~\':"!^$[\]()=>|\/@])/g,'\\$1');
   }
 
+  var sync = function(method, model, options) {
+    var token = JSTACK.Keystone.params.token;
+    options = _.extend(options, {
+      headers: {
+        'X-Auth-Token': token
+      }
+    });
+    return Backbone.sync(method, model, options);
+  };
+
+  var parse = function(resp){
+    if(resp.response) return resp.response;
+    return resp;
+  };
+
   return {
     Config: config,
-    jqEscape: jQueryEscapeAttribute
+    jqEscape: jQueryEscapeAttribute,
+    sync: sync,
+    parse: parse
   }
 
 })(MODULES);

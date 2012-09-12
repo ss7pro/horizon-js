@@ -4,10 +4,12 @@ var PaymentView = BaseView.extend({
 
   promoCodeView: undefined,
   formView: undefined,
+  historyView: undefined,
 
   initialize: function() {
     this.loginModel = this.options.loginModel;
     this.profileModel = this.options.profileModel;
+    this.invoicesModel = this.options.invoicesModel;
   },
 
   renderFirst: function() {
@@ -29,6 +31,11 @@ var PaymentView = BaseView.extend({
       el: self.$('#payment_form')
     }).render();
 
+    this.historyView = new PaymentHistoryView({
+      invoicesModel: this.invoicesModel,
+      el: self.$('#payment_history')
+    }).render();
+
     this.showPage(this.options.page);
 
     return this;
@@ -41,6 +48,7 @@ var PaymentView = BaseView.extend({
     {
       case 'history':
         this.$el.find('#payment_history').show();
+        this.invoicesModel.fetch();
         break;
       case 'success':
         this.$el.find('#payment_success').show();

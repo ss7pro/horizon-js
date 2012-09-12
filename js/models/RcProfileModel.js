@@ -22,19 +22,8 @@ var RcProfile = Backbone.Model.extend({
   urlRoot: function() {
     return MODULES.R4C.Config.get('r4cfrontendEndpoint') + '/profile';
   },
-  sync: function(method, model, options) {
-    var token = JSTACK.Keystone.params.token;
-    options = _.extend(options, {
-      headers: {
-        'X-Auth-Token': token
-      }
-    });
-    return Backbone.sync(method, model, options);
-  },
-  parse: function(resp) {
-    if(resp.response) return resp.response;
-    return resp;
-  },
+  parse: MODULES.R4C.parse,
+  sync: MODULES.R4C.sync,
   isCompany: function() {
     return this.get('account[tenant][type]') == '1';
   },
