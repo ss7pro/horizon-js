@@ -6,7 +6,7 @@ var InvoiceModel = Backbone.Model.extend({
   defaults: {
     payment_id: null,
     invoice_url: '',
-    'status': ''
+    status: ''
   },
   parse: MODULES.R4C.parse,
   sync: MODULES.R4C.sync,

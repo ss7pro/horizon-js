@@ -3,15 +3,24 @@
     <td><%- payment_id %></td>
     <td><%- desc %></td>
     <td><%- amount %></td>
+    <td><%- started_at %></td>
+    <td><%- recv_at %></td>
     <td><%- status %></td>
-    <td><%- invoice_url %></td>
+    <td>
+      <% if(invoice_url) { %>
+        <a href="<%- endpoint %><%- invoice_url %>.pdf" i18n="pdf" title="download PDF version">pdf</a> | 
+        <a href="<%- endpoint %><%- invoice_url %>.html" i18n="html" title="download HTML version" target="_blank">html</a>
+      <% } %>
+    </td>
   </tr>
 </script>
 <script id="paymentHistoryTemplateHeader" type=text/html">
   <tr>
-    <th data-i18n="Transaction Id"></th>
+    <th data-i18n="Id"></th>
     <th data-i18n="Description"></th>
     <th data-i18n="Amount"></th>
+    <th data-i18n="Started"></th>
+    <th data-i18n="Received"></th>
     <th data-i18n="Status"></th>
     <th data-i18n="Invoice"></th>
   </tr>

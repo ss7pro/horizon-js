@@ -15,8 +15,11 @@ var PaymentHistoryView = Backbone.View.extend({
     var $table = $('<table class="table table-hover table-condensed"/>');
     $table.append(self._headerTemplate());
 
+    var endpoint = MODULES.R4C.Config.get('r4cfrontendEndpoint');
     this.invoicesModel.each(function(model){
-      $table.append(self._rowTemplate(model.toJSON()));
+      var data = model.toJSON();
+      data.endpoint = endpoint;
+      $table.append(self._rowTemplate(data));
     });
     
     self.$el.empty().append($table);

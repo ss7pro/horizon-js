@@ -20,6 +20,7 @@ var PaymentPayView = CreateModalView.extend({
     var fields = [
       'amount', 'first_name', 'last_name', 'email', 'phone', 'desc',
       'pos_id', 'pos_auth_key', 'session_id', 'client_ip', 'payment_id',
+      'city', 'post_code', 'street'
     ];
     _.each(fields, function(field) {
       this.$('#payment_' + field).val(this.paymentModel.get(field));
